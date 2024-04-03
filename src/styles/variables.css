@@ -1,0 +1,14 @@
+:root {
+    --app-bg-dark: #1A1A1A;
+    --app-bg-helper-dark: #000000;
+
+    --app-primary-dark: #EAEAEA;
+    --app-secondary-dark: #DD7070;
+    --app-third-dark: #2D2D2D;
+
+    --app-bg-gradient: radial-gradient(circle, var(--app-bg-helper-dark) 0%, var(--app-bg-dark) 70%, var(--app-third-dark) 100%);
+
+    --text-primary-dark: #1A1A1A;
+    --text-secondary-dark: #EAEAEA;
+    --text-special-dark: #DD7070;
+}
