@@ -5,7 +5,7 @@
 .dark-theme {
     --text-primary: var(--text-primary-dark);
     --text-secondary: var(--text-secondary-dark);
-    --bg: var(--app-bg-gradient);
+    --bg: var(--app-bg-gradient-dark);
     --bg-primary: var(--app-primary-dark);
     --bg-secondary: var(--app-secondary-dark);
 }

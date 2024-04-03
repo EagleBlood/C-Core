@@ -1,0 +1,15 @@
+.header-container {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.header-toggle-buttons button {
+    background-color: var(--app-bg-dark);
+    color: var(--app-bg-dark);
+    padding: 5px 15px;
+    margin: 5px 10px;
+    border: 2px solid var(--app-bg-dark);
+    cursor: pointer;
+}

@@ -5,8 +5,8 @@
     --app-primary-dark: #EAEAEA;
     --app-secondary-dark: #DD7070;
     --app-third-dark: #2D2D2D;
-
-    --app-bg-gradient: radial-gradient(circle, var(--app-bg-helper-dark) 0%, var(--app-bg-dark) 70%, var(--app-third-dark) 100%);
+    
+    --app-bg-gradient-dark: linear-gradient(to top right, var(--app-bg-helper-dark) 0%, var(--app-bg-dark) 60%, var(--app-third-dark) 100%);
 
     --text-primary-dark: #1A1A1A;
     --text-secondary-dark: #EAEAEA;
