@@ -12,7 +12,6 @@ const Home: FunctionComponent<HomeProps> = () => {
   const toggleTheme = () => {
     setTheme(prevTheme => {
       const newTheme = prevTheme === themes.dark ? themes.light : themes.dark;
-      console.log("ThemeIcon clicked. New theme:", newTheme);
       return newTheme;
     });
   };
