@@ -24,7 +24,7 @@ const typography = css`
     font-size: ${size.body.medium}px;
     background-color: transparent;
     border: none;
-    color: ${({ theme }) => theme.colors.text.textprimary};
+    color: ${({ theme }) => theme.colors.text.textPrimary};
     padding: 0;
     display: flex;
   }

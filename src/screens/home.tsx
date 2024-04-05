@@ -1,10 +1,10 @@
-// Home.tsx
 import React, { useState, FunctionComponent } from "react";
 import { ThemeProvider } from 'styled-components';
 import { HomeProps } from "./home.props";
 import themes from '../../src/styles/themes';
 import { Wrapper } from './home.style';
 import Header from "../components/header/header";
+import Menu from "../components/menu/menu";
 
 const Home: FunctionComponent<HomeProps> = () => {
   const [theme, setTheme] = useState(themes.dark);
@@ -20,7 +20,8 @@ const Home: FunctionComponent<HomeProps> = () => {
     <ThemeProvider theme={theme}>
       <Wrapper>
         <Header toggleTheme={toggleTheme}/>
-        <div>
+        <div className="homeContainer">
+          <Menu/>
           <p>Home</p>
         </div>
        </Wrapper>

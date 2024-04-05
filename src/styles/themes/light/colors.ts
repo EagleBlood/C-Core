@@ -8,7 +8,7 @@ const colors = {
         bgGradient: 'radial-gradient(circle at top right, #FFFFFF -20%, #EAEAEA 60%, #EAEAEA 120%)',
     },
     text: {
-        textprimary: '#1A1A1A',
+        textPrimary: '#1A1A1A',
         textSecondary: '#EAEAEA',
         textSpecial: '#DD7070',
     },

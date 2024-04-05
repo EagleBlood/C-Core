@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
-    /* existing styles */
+
 
     .bar {
         /* Add your styles here. For example: */
         display: flex;
         align-items: center;
-        gap: 30px;
+        gap: ${({theme}) => theme.text.size.items.appPadding}px;
     }
 
     .username {

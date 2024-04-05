@@ -1,4 +1,3 @@
-// Header.tsx
 import React, { FunctionComponent } from "react";
 import { HeaderProps } from "./header.props";
 import { Wrapper } from './header.style';
