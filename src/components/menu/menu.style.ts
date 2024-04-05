@@ -20,7 +20,7 @@ export const Wrapper = styled.main`
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        gap: ${({theme}) => theme.text.size.items.itemPaddingNormal}px;
+        gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
         align-items: center;
         cursor: pointer;
         padding: ${({theme}) => `${theme.text.size.items.buttonPadding[0]}px ${theme.text.size.items.buttonPadding[1]}px`};
@@ -35,7 +35,7 @@ export const Wrapper = styled.main`
         border-radius: ${({theme}) => theme.text.size.items.radiusSmall}px;
         display: flex;
         flex-direction: row;
-        gap: ${({theme}) => theme.text.size.items.itemPaddingNormal}px;
+        gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
         align-items: center;
         cursor: pointer;
         width: 100%;

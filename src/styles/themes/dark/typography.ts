@@ -27,6 +27,7 @@ const typography = css`
     color: ${({ theme }) => theme.colors.text.textPrimary};
     padding: 0;
     display: flex;
+    cursor: pointer;
   }
 `;
 export default typography;

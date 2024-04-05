@@ -10,7 +10,7 @@ const text = {
       },
       items:
       {
-        radiusSmall: 5,
+        radiusSmall: 10,
         radiusNormal: 20,
         radiusLarge: 40,
 
@@ -19,7 +19,7 @@ const text = {
         itemPaddingSmall: 10,
         itemPaddingNormal: 20,
 
-        buttonPadding: [10, 20],
+        buttonPadding: [10, 10],
       }
     },
   }
