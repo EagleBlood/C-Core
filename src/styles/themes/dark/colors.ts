@@ -5,7 +5,7 @@ const colors = {
         bgThird: '#2D2D2D',
         bgSpecial: '#DD7070',
         bgHelper: '#000000',
-        bgGradient: 'radial-gradient(circle at top right, #000000 0%, #1A1A1A 80%, #2D2D2D 100%)',
+        bgGradient: 'radial-gradient(circle at top right, #000000 -20%, #1A1A1A 60%, #2D2D2D 120%)',
     },
     text: {
         textprimary: '#EAEAEA',

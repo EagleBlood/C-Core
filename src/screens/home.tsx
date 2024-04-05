@@ -1,17 +1,32 @@
-import React from 'react';
-import './home';
-import Header from '../components/header/header';
+// Home.tsx
+import React, { useState, FunctionComponent } from "react";
+import { ThemeProvider } from 'styled-components';
+import { HomeProps } from "./home.props";
+import themes from '../../src/styles/themes';
+import { Wrapper } from './home.style';
+import Header from "../components/header/header";
 
-interface Props {
-  // define your props here
-}
+const Home: FunctionComponent<HomeProps> = () => {
+  const [theme, setTheme] = useState(themes.dark);
 
-const Home: React.FC<Props> = (props) => {
+  const toggleTheme = () => {
+    setTheme(prevTheme => {
+      const newTheme = prevTheme === themes.dark ? themes.light : themes.dark;
+      console.log("ThemeIcon clicked. New theme:", newTheme);
+      return newTheme;
+    });
+  };
+  
   return (
-    <div>
-        <Header/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Wrapper>
+        <Header toggleTheme={toggleTheme}/>
+        <div>
+          <p>Home</p>
+        </div>
+       </Wrapper>
+    </ThemeProvider>
   );
-}
+};
 
 export default Home;

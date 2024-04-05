@@ -1,17 +1,20 @@
-import React, { useContext, FunctionComponent } from "react";
-import { ThemeProvider } from 'styled-components';
+// Header.tsx
+import React, { FunctionComponent } from "react";
 import { HeaderProps } from "./header.props";
-import theme from '../../styles/themes';
 import { Wrapper } from './header.style';
+import { Logo } from '../../assets/Logo.tsx';
+import { ThemeIcon } from "../../assets/ThemeIcon.tsx";
 
-
-const Header: FunctionComponent<HeaderProps> = () => {
+const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
   return (
-    <ThemeProvider theme={theme.dark}>
-      <Wrapper>
-          Demo Container content here!
-       </Wrapper>
-    </ThemeProvider>
+    <Wrapper>
+      <div className="bar">
+        <Logo/>
+        <h1 className="username">User1</h1>
+        <button onClick={toggleTheme}><ThemeIcon /></button>
+        <button>Logout</button>
+      </div>
+    </Wrapper>
   );
 };
 

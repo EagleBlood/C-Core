@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
-${({theme}) => theme.typography};
-height: 100vh;
-width: 100%;
-padding: 60px;
-background-image: ${({theme}) => theme.colors.bg.bgGradient};
-color: ${({theme}) => theme.colors.text.textprimary};
+    /* existing styles */
+
+    .bar {
+        /* Add your styles here. For example: */
+        display: flex;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .username {
+        /*fill text to entire space*/
+        flex-grow: 1;
+        display: flex;
+    }
 `;

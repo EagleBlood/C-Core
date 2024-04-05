@@ -1,11 +1,10 @@
-import "./App.css";
 import Home from "./screens/home";
-import Header from "./components/header/header";
+import './App.css';
 
 export default function App() {
 
   return (
-    <div className="container">
+    <div>
         <Home/>
     </div>
   );
