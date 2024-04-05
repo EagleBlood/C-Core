@@ -10,21 +10,21 @@ const Menu: FunctionComponent<MenuProps> = ({}) => {
   return (
     <Wrapper>
       <div className="menuContainer">
-        <div 
-          className={selectedItem === 'Dashboard' ? "itemSelected" : "item"}
+        <div className={selectedItem === 'Dashboard' ? "itemSelected" : "item"}
           onClick={() => setSelectedItem('Dashboard')}
         >
           <PhHome/>
           <p>Dashboard</p>
         </div>
 
-        <div 
-          className={selectedItem === 'Users' ? "itemSelected" : "item"}
+        <div className={selectedItem === 'Users' ? "itemSelected" : "item"}
           onClick={() => setSelectedItem('Users')}
         >
           <PhUserBold/>
           <p>Users</p>
         </div>
+        <p className="appName"><span>C - Core</span></p> {/*Span for styling first letter*/}
+        <p className="verName">v 0.43.5</p>
       </div>
     </Wrapper>
   );

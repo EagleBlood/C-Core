@@ -13,18 +13,23 @@ export const Wrapper = styled.main`
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
         color: ${({theme}) => theme.colors.text.textSecondary};
         gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
+        align-items: center;
     }
 
     .item {
         display: flex;
         flex-direction: row;
+        justify-content: flex-start;
         gap: ${({theme}) => theme.text.size.items.itemPaddingNormal}px;
         align-items: center;
         cursor: pointer;
         padding: ${({theme}) => `${theme.text.size.items.buttonPadding[0]}px ${theme.text.size.items.buttonPadding[1]}px`};
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .itemSelected {
+        justify-content: flex-start;
         padding: ${({theme}) => `${theme.text.size.items.buttonPadding[0]}px ${theme.text.size.items.buttonPadding[1]}px`};
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
         border-radius: ${({theme}) => theme.text.size.items.radiusSmall}px;
@@ -33,6 +38,8 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.text.size.items.itemPaddingNormal}px;
         align-items: center;
         cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .itemSelected p{
@@ -41,5 +48,20 @@ export const Wrapper = styled.main`
 
     .itemSelected svg path {
         fill: ${({theme}) => theme.colors.text.textPrimary};
+    }
+
+    .appName {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .verName {
+        font-size: ${({theme}) => theme.text.size.body.small}px;
+    }
+
+    .appName span::first-letter, .verName::first-letter {
+        color: ${({theme}) => theme.colors.text.textSpecial};
     }
 `;

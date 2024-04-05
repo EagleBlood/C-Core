@@ -16,7 +16,7 @@ const typography = css`
     margin-bottom: 0;
   }
   p {
-    font-size: ${size.body.small}px;
+    font-size: ${size.body.medium}px;
     margin-top: 0;
     margin-bottom: 0;
   }

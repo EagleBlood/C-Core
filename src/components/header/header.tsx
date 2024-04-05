@@ -11,7 +11,7 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
         <Logo/>
         <h1 className="username">User1</h1>
         <button onClick={toggleTheme}><ThemeIcon /></button>
-        <button>Logout</button>
+        <button><h2>Logout</h2></button>
       </div>
     </Wrapper>
   );
