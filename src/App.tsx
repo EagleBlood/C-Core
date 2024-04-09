@@ -1,11 +1,14 @@
-import Home from "./screens/home";
+import Home from "./routes/home/Home";
 import './App.css';
+import { AppProps } from "./App.props";
 
-export default function App() {
+const App: React.FC<AppProps> = ({ toggleTheme }) => {
 
   return (
     <div>
-        <Home/>
+        <Home toggleTheme={toggleTheme} />
     </div>
   );
 }
+
+export default App;

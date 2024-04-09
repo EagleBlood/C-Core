@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
-import { HeaderProps } from "./header.props";
-import { Wrapper } from './header.style';
+import { HeaderProps } from "./header.props.ts";
+import { Wrapper } from './header.style.ts';
 import { Logo } from '../../assets/Logo.tsx';
 import { ThemeIcon } from "../../assets/ThemeIcon.tsx";
 
