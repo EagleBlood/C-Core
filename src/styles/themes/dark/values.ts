@@ -1,6 +1,6 @@
 const values = {
     font: {
-      body: '"consolas", sans-serif',
+      body: '"consolas", monaco, monospace; ',
     },
     size: {   
       text: {
@@ -15,11 +15,17 @@ const values = {
         radiusLarge: 40,
 
         appPadding: 30,
+        loginPadding: 30,
+
+        miniGap: 10,
+        smallGap: 15,
+        mediumGap: 20,
+        largeGap: 30,
 
         itemPaddingSmall: 10,
         itemPaddingNormal: 20,
 
-        buttonPadding: [10, 10],
+        buttonPadding: [10, 20],
       }
     },
   }

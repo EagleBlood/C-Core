@@ -24,7 +24,7 @@ const Menu: FunctionComponent<MenuProps> = ({}) => {
           <p>Users</p>
         </div>
         <p className="appName"><span>C - Core</span></p> {/*Span for styling first letter*/}
-        <p className="verName">v 0.43.5</p>
+        <p className="verName"><span>v 0.43.5</span></p>
       </div>
     </Wrapper>
   );

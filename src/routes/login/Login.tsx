@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from "react";
-
+import { LogoBig } from "../../assets/LogoBig";
 import { LoginProps } from "./login.props";
 import { Wrapper } from './login.style';
 
@@ -7,27 +7,31 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
   return (
     <Wrapper>
       <div className="loginBar">
-        <p>Logo</p>
-        <div>
+        <div className="logoContainer">
+          <LogoBig/>
+          <h1><span>C - Core</span></h1>
+        </div>
+        
+        <div className="loginMenu">
             <h1>Sign In . . .</h1>
-            <div className="inputEmailContainer">
+            <div className="inputItemContainer">
                 <p>Email Address *</p>
                 <input type="text" placeholder="Email Address"/>
             </div>
             
-            <div className="inputPasswordContainer">
+            <div className="inputItemContainer">
                 <p>Password *</p>
                 <input type="password" placeholder="Password"/>
-                <p>Forgot Password?</p>
+                <p className="smallTextForgotPass">Forgot Password?</p>
             </div>
 
             <div className="loginContainer">
-                <button>Login</button>
-                <p>Don’t have an account yet? Sign Up now!</p>
+                <button><h2>Login</h2></button>
+                <p className="smallText">Don’t have an account yet? <span className="specialText">Sign Up</span> now!</p>
             </div>
 
         </div>
-        <p>Powered by Vite</p>
+        <p className="smallText">Powered by <span className="specialText">Vite</span></p>
       </div>
     </Wrapper>
   );

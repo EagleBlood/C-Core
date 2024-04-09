@@ -10,16 +10,19 @@ const typography = css`
     margin-top: 0;
     margin-bottom: 0;
   }
+  
   h2 {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
   }
+
   p {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
   }
+
   button {
     font-size: ${size.text.medium}px;
     background-color: transparent;
@@ -28,6 +31,25 @@ const typography = css`
     padding: 0;
     display: flex;
     cursor: pointer;
+  }
+
+  input {
+    background-color: transparent;
+    border: 2px solid ${({theme}) => theme.colors.bg.bgPrimary};
+    border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
+    padding: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
+    color: ${({theme}) => theme.colors.text.textSecondary};
+    font-weight: bold;
+    font-size: ${({theme}) => theme.values.size.text.medium}px;
+    font-family: 'consolas';
+  }
+
+  span {
+    display: inline-block;
+  }
+
+  span::first-letter {
+      color: ${({theme}) => theme.colors.text.textSpecial};
   }
 `;
 export default typography;

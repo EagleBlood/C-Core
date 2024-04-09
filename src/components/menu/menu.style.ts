@@ -60,8 +60,4 @@ export const Wrapper = styled.main`
     .verName {
         font-size: ${({theme}) => theme.values.size.text.small}px;
     }
-
-    .appName span::first-letter, .verName::first-letter {
-        color: ${({theme}) => theme.colors.text.textSpecial};
-    }
 `;
