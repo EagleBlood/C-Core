@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import ErrorPage from './components/error/ErrorPage.tsx'
+import Login from './routes/login/Login.tsx'
 import { ThemeProvider } from 'styled-components';
 import themes from './styles/themes';
 import {
@@ -39,6 +40,10 @@ function Main() {
       element: <App toggleTheme={toggleTheme} />,
       errorElement: <ErrorPage />,
     },
+    {
+      path: "/login",
+      element: <Login />,
+    }
   ]);
 
   return (
