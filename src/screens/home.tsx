@@ -1,5 +1,5 @@
 import React, { useState, FunctionComponent } from "react";
-import { ThemeProvider } from 'styled-components';
+
 import { HomeProps } from "./home.props";
 import themes from '../../src/styles/themes';
 import { Wrapper } from './home.style';
@@ -17,15 +17,13 @@ const Home: FunctionComponent<HomeProps> = () => {
   };
   
   return (
-    <ThemeProvider theme={theme}>
-      <Wrapper>
-        <Header toggleTheme={toggleTheme}/>
-        <div className="homeContainer">
-          <Menu/>
-          <p>Home</p>
-        </div>
-       </Wrapper>
-    </ThemeProvider>
+    <Wrapper>
+      <Header toggleTheme={toggleTheme}/>
+      <div className="homeContainer">
+        <Menu/>
+        <p>Home</p>
+      </div>
+    </Wrapper>
   );
 };
 
