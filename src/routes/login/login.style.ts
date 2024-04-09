@@ -5,7 +5,7 @@ export const Wrapper = styled.main`
     box-sizing: border-box;
     height: 100vh;
     width: 100%;
-    gap: ${({theme}) => theme.text.size.items.appPadding}px;
+    gap: ${({theme}) => theme.values.size.items.appPadding}px;
     display: flex;
     flex-direction: column;
     background-image: ${({theme}) => theme.colors.bg.bgGradient};
@@ -15,9 +15,9 @@ export const Wrapper = styled.main`
         display: flex;
         flex-direction: column;
         height: 100%;
-        gap: ${({theme}) => theme.text.size.items.appPadding}px;
+        gap: ${({theme}) => theme.values.size.items.appPadding}px;
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
-        border-radius: ${({theme}) => theme.text.size.items.borderRadius}px;
+        border-radius: ${({theme}) => theme.values.size.items.borderRadius}px;
         width: 50%;
     }
 `;

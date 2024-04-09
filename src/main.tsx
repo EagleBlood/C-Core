@@ -43,6 +43,7 @@ function Main() {
     {
       path: "/login",
       element: <Login />,
+      errorElement: <ErrorPage />,
     }
   ]);
 

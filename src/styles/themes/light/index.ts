@@ -1,10 +1,10 @@
 import colors from './colors';
-import text from './text';
+import values from './values';
 import typography from './typography';
 
 export default {
   name: 'light',
   colors,
-  text,
+  values,
   typography,
 };

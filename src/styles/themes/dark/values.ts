@@ -1,9 +1,9 @@
-const text = {
+const values = {
     font: {
       body: '"consolas", sans-serif',
     },
     size: {   
-      body: {
+      text: {
         small: 15,
         medium: 20,
         large: 40,
@@ -15,7 +15,7 @@ const text = {
         radiusLarge: 40,
 
         appPadding: 30,
-        
+
         itemPaddingSmall: 10,
         itemPaddingNormal: 20,
 
@@ -23,4 +23,4 @@ const text = {
       }
     },
   }
-  export default text;
+  export default values;

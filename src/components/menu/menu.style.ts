@@ -8,11 +8,11 @@ export const Wrapper = styled.main`
         flex: 1;
         height: 100%;
         width: 250px;
-        border-radius: ${({theme}) => theme.text.size.items.radiusNormal}px;
-        padding: ${({theme}) => theme.text.size.items.itemPaddingNormal}px;
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
         color: ${({theme}) => theme.colors.text.textSecondary};
-        gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
+        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
         align-items: center;
     }
 
@@ -20,22 +20,22 @@ export const Wrapper = styled.main`
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
+        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
         align-items: center;
         cursor: pointer;
-        padding: ${({theme}) => `${theme.text.size.items.buttonPadding[0]}px ${theme.text.size.items.buttonPadding[1]}px`};
+        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
         width: 100%;
         box-sizing: border-box;
     }
 
     .itemSelected {
         justify-content: flex-start;
-        padding: ${({theme}) => `${theme.text.size.items.buttonPadding[0]}px ${theme.text.size.items.buttonPadding[1]}px`};
+        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
-        border-radius: ${({theme}) => theme.text.size.items.radiusSmall}px;
+        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         display: flex;
         flex-direction: row;
-        gap: ${({theme}) => theme.text.size.items.itemPaddingSmall}px;
+        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
         align-items: center;
         cursor: pointer;
         width: 100%;
@@ -58,7 +58,7 @@ export const Wrapper = styled.main`
     }
 
     .verName {
-        font-size: ${({theme}) => theme.text.size.body.small}px;
+        font-size: ${({theme}) => theme.values.size.text.small}px;
     }
 
     .appName span::first-letter, .verName::first-letter {
