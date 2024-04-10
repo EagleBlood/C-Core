@@ -3,7 +3,6 @@ import { LogoBig } from "../../assets/LogoBig";
 import { AccountProps } from "./account.props";
 import { Wrapper } from './account.style';
 import { Outlet } from "react-router-dom";
-import Login from "../../components/login/Login";
 
 const Account: FunctionComponent<AccountProps> = ({ }) => { 
   return (

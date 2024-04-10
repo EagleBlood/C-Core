@@ -6,6 +6,7 @@ import { PhEye } from "../../assets/PhEye";
 import { PhEyeSlash } from "../../assets/PhEyeSlash";
 import { PhEmail } from "../../assets/PhEmail";
 import { PhUserBold } from "../../assets/PhUserBold";
+import { Link } from "react-router-dom";
 
 const Register: FunctionComponent<RegisterProps> = ({ }) => { 
   return (
@@ -47,8 +48,8 @@ const Register: FunctionComponent<RegisterProps> = ({ }) => {
         </div>
 
         <div className="loginContainer">
-            <button><h2>Register</h2></button>
-            <p className="smallText">Already got an account? <span className="specialText">Sign In</span> now!</p>
+            <Link to='/'><button><h2>Register</h2></button></Link>
+            <p className="smallText">Already got an account? <Link to='/acc/login'><span className="specialText">Sign In</span></Link> now!</p>
         </div>
       </div>
     </Wrapper>

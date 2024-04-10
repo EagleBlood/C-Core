@@ -60,5 +60,9 @@ const typography = css`
   span::first-letter {
       color: ${({theme}) => theme.colors.text.textSpecial};
   }
+
+  a {
+    text-decoration: none;
+  }
 `;
 export default typography;

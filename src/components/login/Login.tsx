@@ -5,6 +5,7 @@ import { PhLock } from "../../assets/PhLock";
 import { PhEye } from "../../assets/PhEye";
 import { PhEyeSlash } from "../../assets/PhEyeSlash";
 import { PhEmail } from "../../assets/PhEmail";
+import { Link } from "react-router-dom";
 
 const Login: FunctionComponent<LoginProps> = ({ }) => { 
   return (
@@ -30,8 +31,8 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
         </div>
 
         <div className="loginContainer">
-            <button><h2>Login</h2></button>
-            <p className="smallText">Don’t have an account yet? <span className="specialText">Sign Up</span> now!</p>
+            <Link to='/'><button><h2>Login</h2></button></Link>
+            <p className="smallText">Don’t have an account yet? <Link to='/acc/register'><span className="specialText">Sign Up</span></Link> now!</p>
         </div>
       </div>
     </Wrapper>
