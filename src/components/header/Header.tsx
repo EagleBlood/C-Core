@@ -3,6 +3,7 @@ import { HeaderProps } from "./header.props.ts";
 import { Wrapper } from './header.style.ts';
 import { Logo } from '../../assets/Logo.tsx';
 import { ThemeIcon } from "../../assets/ThemeIcon.tsx";
+import { Link } from "react-router-dom";
 
 const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
   return (
@@ -11,7 +12,7 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
         <Logo/>
         <h1 className="username">User1</h1>
         <button onClick={toggleTheme}><ThemeIcon /></button>
-        <button><h2>Logout</h2></button>
+        <Link to='/acc/login'><button><h2>Logout</h2></button></Link>
       </div>
     </Wrapper>
   );

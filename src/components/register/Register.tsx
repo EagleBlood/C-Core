@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { RegisterProps } from "./register.props";
 import { Wrapper } from './register.style';
 import { PhLock } from "../../assets/PhLock";
@@ -9,6 +9,12 @@ import { PhUserBold } from "../../assets/PhUserBold";
 import { Link } from "react-router-dom";
 
 const Register: FunctionComponent<RegisterProps> = ({ }) => { 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  
   return (
     <Wrapper>
       <div className="loginMenu">
@@ -33,18 +39,22 @@ const Register: FunctionComponent<RegisterProps> = ({ }) => {
           <p>Password <span>*</span></p>
             <div className="inputField">
               <PhLock/>
-              <input type="password" placeholder="Password"/> 
-              <PhEye/>
+              <input type={showPassword ? "text" : "password"} placeholder="Password"/> 
+              <button onClick={togglePasswordVisibility} className={'iconButton'}>
+                {showPassword ? <PhEyeSlash /> : <PhEye />}
+              </button>
             </div>
         </div>
 
         <div className="inputItemContainer">
-            <p>Confirm Password <span>*</span></p>
-            <div className="inputField">
-              <PhLock/>
-                <input type="password" placeholder="Confirm Password"/>
-              <PhEye/>
-            </div>
+          <p>Confirm Password <span>*</span></p>
+          <div className="inputField">
+            <PhLock/>
+              <input type={showPassword ? "text" : "password"} placeholder="Confirm Password"/>
+              <button onClick={togglePasswordVisibility} className={'iconButton'}>
+                {showPassword ? <PhEyeSlash /> : <PhEye />}
+              </button>
+          </div>
         </div>
 
         <div className="loginContainer">

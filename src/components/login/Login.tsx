@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { LoginProps } from "./login.props";
 import { Wrapper } from './login.style';
 import { PhLock } from "../../assets/PhLock";
@@ -8,6 +8,13 @@ import { PhEmail } from "../../assets/PhEmail";
 import { Link } from "react-router-dom";
 
 const Login: FunctionComponent<LoginProps> = ({ }) => { 
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  
   return (
     <Wrapper>
       <div className="loginMenu">
@@ -21,13 +28,15 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
         </div>
         
         <div className="inputItemContainer">
-            <p>Password *</p>
-            <div className="inputField">
-              <PhLock/>
-              <input type="password" placeholder="Password"/> 
-              <PhEye/>
-            </div>
-            <p className="smallTextForgotPass">Forgot Password?</p>
+          <p>Password *</p>
+          <div className="inputField">
+            <PhLock/>
+            <input type={showPassword ? "text" : "password"} placeholder="Password"/> 
+            <button onClick={togglePasswordVisibility} className={'iconButton'}>
+              {showPassword ? <PhEyeSlash /> : <PhEye />}
+            </button>
+          </div>
+          <p className="smallTextForgotPass">Forgot Password?</p>
         </div>
 
         <div className="loginContainer">

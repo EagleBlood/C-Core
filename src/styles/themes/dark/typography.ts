@@ -33,6 +33,16 @@ const typography = css`
     cursor: pointer;
   }
 
+  .iconButton {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+  }
+
   input {
     background-color: transparent;
     border: transparent;
