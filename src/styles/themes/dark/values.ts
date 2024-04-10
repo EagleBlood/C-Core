@@ -1,6 +1,6 @@
 const values = {
     font: {
-      body: '"consolas", monaco, monospace; ',
+      body: 'Inconsolata, consolas, monaco, monospace',
     },
     size: {   
       text: {

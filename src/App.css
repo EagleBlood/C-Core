@@ -4,3 +4,10 @@ body{
     box-sizing: border-box;
     outline: none;
 }
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('./fonts/Inconsolata/Inconsolata-VariableFont_wdth,wght.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+  }
