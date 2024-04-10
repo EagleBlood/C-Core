@@ -6,7 +6,7 @@ const values = {
       text: {
         small: 15,
         medium: 20,
-        large: 40,
+        large: 35,
       },
       items:
       {
@@ -25,7 +25,7 @@ const values = {
         itemPaddingSmall: 10,
         itemPaddingNormal: 20,
 
-        buttonPadding: [10, 20],
+        buttonPadding: [10, 15],
       }
     },
   }

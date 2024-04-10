@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import ErrorPage from './components/error/ErrorPage.tsx'
-import Login from './routes/login/Login.tsx'
+import Account from './routes/account/Account.tsx'
+import Login from './components/login/Login.tsx'
+import Register from './components/register/Register.tsx'
 import { ThemeProvider } from 'styled-components';
 import themes from './styles/themes';
 import {
@@ -41,9 +43,19 @@ function Main() {
       errorElement: <ErrorPage />,
     },
     {
-      path: "/login",
-      element: <Login />,
+      path: "/acc",
+      element: <Account />,
       errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/acc/login",
+          element: <Login />,
+        },
+        {
+          path: "/acc/register",
+          element: <Register />,
+        },
+      ],
     }
   ]);
 
