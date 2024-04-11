@@ -7,13 +7,12 @@ export const Wrapper = styled.main`
     width: 100%;
     gap: ${({theme}) => theme.values.size.items.largeGap}px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-image: ${({theme}) => theme.colors.bg.bgGradient};
     color: ${({theme}) => theme.colors.text.textSecondary};
+    overflow: hidden;
     
     .loginBar {
-        flex-grow: 1;
-        flex-shrink: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -23,6 +22,8 @@ export const Wrapper = styled.main`
         border-radius: 0px ${({theme}) => theme.values.size.items.radiusLarge}px ${({theme}) => theme.values.size.items.radiusLarge}px 0px;
         width: 30%;
         padding: ${({theme}) => theme.values.size.items.appPadding}px;
+        box-sizing: border-box;
+        min-width: 300px;
     }
 
     .render {
@@ -41,6 +42,7 @@ export const Wrapper = styled.main`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
     }
 
     .logoContainer span {
@@ -97,4 +99,16 @@ export const Wrapper = styled.main`
           color: ${({theme}) => theme.colors.text.textSpecial};
         }
       }
+
+    .fade-in {
+        animation: fadeIn 3s;
+        display: flex;
+        flex-grow: 1;
+        
+    }
+      
+    @keyframes fadeIn {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
 `;
