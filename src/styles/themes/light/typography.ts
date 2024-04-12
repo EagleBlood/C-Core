@@ -10,16 +10,19 @@ const typography = css`
     margin-top: 0;
     margin-bottom: 0;
   }
+  
   h2 {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
   }
+
   p {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
   }
+
   button {
     font-size: ${size.text.medium}px;
     background-color: transparent;
@@ -28,6 +31,48 @@ const typography = css`
     padding: 0;
     display: flex;
     cursor: pointer;
+  }
+
+  .iconButton {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+  }
+
+  input {
+    background-color: transparent;
+    border: transparent;
+    color: ${({theme}) => theme.colors.text.textSecondary};
+    font-weight: bold;
+    font-size: ${({theme}) => theme.values.size.text.medium}px;
+    font-family: 'consolas';
+    outline: none;
+    width: 100%;
+  }
+
+  .inputField {
+    border: 1px solid ${({theme}) => theme.colors.bg.bgPrimary};
+    border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
+    padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
+    display: flex;
+    align-items: center;
+    gap: ${({theme}) => theme.values.size.items.smallGap}px;
+  }
+
+  span {
+    display: inline-block;
+  }
+
+  span::first-letter {
+      color: ${({theme}) => theme.colors.text.textSpecial};
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 export default typography;
