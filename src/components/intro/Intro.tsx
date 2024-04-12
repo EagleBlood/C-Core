@@ -151,7 +151,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               marginTop: '10%',
             }}
             onClick={() => parallax.current.scrollTo(0)}>
-            <h1 className="goodbyeText">See You Un Space Cowboy</h1>
+            <h1 className="goodbyeText">See You In Space Cowboy</h1>
           </ParallaxLayer>
 
           <ParallaxLayer
