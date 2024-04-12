@@ -7,6 +7,9 @@ const colors = {
         bgHelper: '#000000',
         bgGradient: 'radial-gradient(circle at top right, #000000 -20%, #1A1A1A 60%, #2D2D2D 120%)',
     },
+    item: {
+        itemGradientSpecial: 'radial-gradient(circle at top right, #EAEAEA -20%, #DD7070 60%, #EAEAEA 120%)',
+    },
     text: {
         textPrimary: '#EAEAEA',
         textSecondary: '#1A1A1A',

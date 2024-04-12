@@ -22,7 +22,7 @@ function Main() {
   const toggleTheme = () => {
     setTheme(prevTheme => {
       const newTheme = prevTheme === themes.dark ? 'light' : 'dark';
-      // Store the new theme in local storage
+      // Store the new theme in local storage`
       localStorage.setItem('theme', newTheme);
       return themes[newTheme as keyof typeof themes];
     });

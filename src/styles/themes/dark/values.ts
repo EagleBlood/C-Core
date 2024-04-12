@@ -16,6 +16,7 @@ const values = {
 
         appPadding: 30,
         loginPadding: 30,
+        boxPadding: 30,
 
         miniGap: 10,
         smallGap: 15,

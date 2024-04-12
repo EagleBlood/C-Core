@@ -101,7 +101,7 @@ export const Wrapper = styled.main`
       }
 
     .fade-in {
-        animation: fadeIn 3s;
+        animation: fadeIn 5s;
         display: flex;
         flex-grow: 1;
         
