@@ -27,7 +27,9 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
   return (
     <Wrapper>
       <div className="introContainer">
-        <Parallax ref={parallax} pages={3}>
+        <Parallax ref={parallax} pages={3} style={{
+              overflow: 'hidden',
+            }}  >
           <ParallaxLayer offset={1} speed={1}/>
           <ParallaxLayer offset={2} speed={1}/>
 
@@ -117,7 +119,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
 
             <div className="obj" style={{
               marginLeft: '75%',
-              marginTop: '65%',
+              marginTop: '55%',
               rotate: '132deg',
               animation: 'spin 300s linear infinite',
             }}>
