@@ -18,7 +18,7 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
   return (
     <Wrapper>
       <div className="loginMenu">
-        <h1>Sign In . . .</h1>
+        <h1>Sign In <span className="dots"></span></h1>
         <div className="inputItemContainer">
             <p>Email Address *</p>
             <div className="inputField">

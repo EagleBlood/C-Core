@@ -60,10 +60,28 @@ export const Wrapper = styled.main`
         width: 100%;
     }
 
+    button:hover {
+        background-color: ${({theme}) => theme.colors.bg.bgPrimary};
+    }
+
     input {
-        color: ${({theme}) => theme.colors.text.textSpecial};
+        color: ${({theme}) => theme.colors.text.textSecondary};
         &::placeholder {
           color: ${({theme}) => theme.colors.text.textSpecial};
         }
-      }
+    }
+
+    @keyframes dots {
+        0%, 20% { content: ''; }
+        25%, 45% { content: '.'; }
+        50%, 70% { content: '. .'; }
+        75%, 95% { content: '. . .'; }
+        100% { content: ''; }
+    }
+    
+    .dots::after {
+        content: '';
+        display: inline-block;
+        animation: dots 4s steps(1, end) infinite;
+    }
 `;

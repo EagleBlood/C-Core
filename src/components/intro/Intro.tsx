@@ -52,14 +52,46 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              zIndex: '1',
             }}>
             <h1 className="logoText"><span>C - Core</span></h1>
-            <div className="obj3">
-              <PhAsteroid />
-            </div>
-            <div className="obj4">
-              <PhAsteroid />
-            </div>
+          </ParallaxLayer>
+
+          <ParallaxLayer
+            offset={0.2}
+            speed={-0.3}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              <div className="obj" style={{
+                marginRight: '65%',
+                marginTop: '15%',
+                animation: 'spin 23s linear infinite',
+              }}> 
+                <PhAsteroid />
+              </div>
+            
+          </ParallaxLayer>
+
+          <ParallaxLayer
+            offset={0.4}
+            speed={0.6}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+
+            }}>
+              <div className="obj" style={{
+                marginLeft: '65%',
+                marginTop: '15%',
+                animation: 'spin 41s linear infinite',
+              }}> 
+                <PhAsteroid />
+              </div>
+            
           </ParallaxLayer>
 
           <ParallaxLayer
@@ -83,13 +115,21 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               <p>Discover a wide range of innovative and reliable home solutions tailored to enhance your living experience. Our products are designed with a focus on efficiency, comfort, and sustainability, making your home smarter and your life easier.</p>
             </div>
 
-            <div className="obj1">
+            <div className="obj" style={{
+              marginLeft: '75%',
+              marginTop: '65%',
+              rotate: '132deg',
+              animation: 'spin 300s linear infinite',
+            }}>
               <PhGalaxy />
             </div>
 
-            <div className="obj2">
+            {/*<div className="obj2" style={{
+              marginRight: 30%;
+              marginBottom: 30%;
+            }}>
               <PhRocket />
-            </div>
+            </div>*/}
             
             
             <div className="infoBox" style={{
@@ -120,17 +160,17 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
           </ParallaxLayer>
 
           <ParallaxLayer
-          offset={2.5}
-          speed={-0.2}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            pointerEvents: 'none',
-            marginTop: '10%',
-          }}>
-          <PhPlanet />
-        </ParallaxLayer>
+            offset={2.5}
+            speed={-0.2}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              pointerEvents: 'none',
+              marginTop: '10%',
+            }}>
+            <PhPlanet />
+          </ParallaxLayer>
         </Parallax>
       </div>
     </Wrapper>

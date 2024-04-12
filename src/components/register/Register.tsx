@@ -18,7 +18,7 @@ const Register: FunctionComponent<RegisterProps> = ({ }) => {
   return (
     <Wrapper>
       <div className="loginMenu">
-        <h1>Sign Up . . .</h1>
+        <h1>Sign Up <span className="dots"></span></h1>
         <div className="inputItemContainer">
             <p>Username <span>*</span></p>
             <div className="inputField">
@@ -58,7 +58,7 @@ const Register: FunctionComponent<RegisterProps> = ({ }) => {
         </div>
 
         <div className="loginContainer">
-            <Link to='/'><button><h2>Register</h2></button></Link>
+            <Link to='/acc/login'><button><h2>Register</h2></button></Link>
             <p className="smallText">Already got an account? <Link to='/acc/login'><span className="specialText">Sign In</span></Link> now!</p>
         </div>
       </div>

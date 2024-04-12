@@ -17,6 +17,7 @@ export const Wrapper = styled.main`
 
   .introContainer h1 {
     color: ${({theme}) => theme.colors.text.textPrimary};
+    user-select: none;
   }
 
   .logoText {
@@ -60,33 +61,8 @@ export const Wrapper = styled.main`
     z-index: 1;
   }
 
-  .obj1 {
+  .obj: {
     position: absolute;
-    margin-left: 75%;
-    margin-top: 65%;
-    rotate: 132deg;
-    animation: spin 300s linear infinite;
-  }
-
-  .obj2 {
-    position: absolute;
-    margin-right: 30%;
-    margin-bottom: 30%;
-  }
-
-  .obj3 {
-    position: absolute;
-    margin-right: 60%;
-    margin-top: 90%;
-    rotate: 60deg;
-    animation: spin 21s linear infinite;
-  }
-  
-  .obj4 {
-    position: absolute;
-    margin-left: 50%;
-    margin-top: 70%;
-    animation: spin 12s linear infinite;
   }
   
   @keyframes spin {
