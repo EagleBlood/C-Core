@@ -45,6 +45,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
             {stars} 
           </ParallaxLayer>
 
+          {/*first factor render*/}
           <ParallaxLayer
             offset={0}
             speed={0.1}
@@ -55,9 +56,10 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               justifyContent: 'center',
               zIndex: '1',
             }}>
-            <h1 className="logoText"><span>C - Core</span></h1>
+            <h1 className="logoText"><span>Central - Core</span></h1>
           </ParallaxLayer>
 
+          {/*asteroid render*/}
           <ParallaxLayer
             offset={0.2}
             speed={-0.3}
@@ -95,6 +97,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
             
           </ParallaxLayer>
 
+          {/*second factor render*/}
           <ParallaxLayer
             offset={1}
             speed={0.1}
@@ -134,11 +137,10 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
             }}>
               <h2>Best solution for home solutions</h2>
               <p>Discover a wide range of innovative and reliable home solutions tailored to enhance your living experience. Our products are designed with a focus on efficiency, comfort, and sustainability, making your home smarter and your life easier.</p>
-
             </div>
-            
           </ParallaxLayer>
 
+          {/*third factor render*/}
           <ParallaxLayer
             offset={2}
             speed={0.2}
