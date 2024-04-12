@@ -33,7 +33,6 @@ export const Wrapper = styled.main`
         font-size: ${({theme}) => theme.values.size.text.small}px;
         width: 100%;
         text-align: right;
-        cursor: pointer;
     }
 
     .smallText {

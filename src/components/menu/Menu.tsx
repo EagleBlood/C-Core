@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { MenuProps } from "./menu.props";
 import { Wrapper } from './menu.style';
 import { PhUserBold } from '../../assets/PhUserBold';

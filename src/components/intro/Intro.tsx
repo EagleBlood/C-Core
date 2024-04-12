@@ -4,7 +4,6 @@ import { Wrapper } from './intro.style.ts';
 import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax'
 import { PhPlanet } from '../../assets/PhPlanet.tsx'
 import { PhGalaxy } from "../../assets/PhGalaxy.tsx";
-import { PhRocket } from "../../assets/PhRocket.tsx";
 import { PhAsteroid } from "../../assets/PhAsteroid.tsx";
 
 const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
@@ -124,15 +123,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               animation: 'spin 300s linear infinite',
             }}>
               <PhGalaxy />
-            </div>
-
-            {/*<div className="obj2" style={{
-              marginRight: 30%;
-              marginBottom: 30%;
-            }}>
-              <PhRocket />
-            </div>*/}
-            
+            </div>           
             
             <div className="infoBox" style={{
               marginBottom: '30%',

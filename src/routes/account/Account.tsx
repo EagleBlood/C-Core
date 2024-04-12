@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FunctionComponent, lazy, Suspense } from "react";
+import { useState, useEffect, FunctionComponent, lazy, Suspense } from "react";
 import { LogoBig } from "../../assets/LogoBig";
 import { AccountProps } from "./account.props";
 import { Wrapper } from './account.style';

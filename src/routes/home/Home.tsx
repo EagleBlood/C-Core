@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import { HomeProps } from "./home.props";
 import { Wrapper } from './home.style';

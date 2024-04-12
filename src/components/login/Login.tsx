@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { LoginProps } from "./login.props";
 import { Wrapper } from './login.style';
 import { PhLock } from "../../assets/PhLock";
