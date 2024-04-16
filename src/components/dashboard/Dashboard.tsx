@@ -1,4 +1,9 @@
 
+import { IcSensor } from "../../assets/IcSensor";
+import { PhPlugs } from "../../assets/PhPlugs";
+import { PhPlugsConnected } from "../../assets/PhPlugsConnected";
+import { PhPlus } from "../../assets/PhPlus";
+import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
 import { FunctionComponent } from "react";
@@ -9,99 +14,73 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
   return (
     <Wrapper>
       <div className="scrollContainer">
-      <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+        <div className="deviceInfoContainer">
+            <div className="deviceInfo">
+                <div className="row" style={{gap: '10px'}}>
+                    <IcSensor/>
+                    <p>Number of devices</p>
+                </div>
+                
+                <h1>5</h1>
+            </div>
 
+            <div className="verticleLine"></div>
 
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+            <div className="deviceInfo">
+                <div className="row" style={{gap: '10px'}}>
+                    <PhUserBoldSec/>
+                    <p>Total Users</p>
+                </div>
+                <h1>5</h1>
+            </div>
 
+            <div className="verticleLine"></div>
 
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+            <div className="deviceInfo">
+                <div className="row" style={{gap: '10px'}}>
+                    <PhPlugsConnected/>
+                    <p>Devices Active</p>
+                </div>
+                <h1>5</h1>
+            </div>
 
+            <div className="verticleLine"></div>
 
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+            <div className="deviceInfo">
+                <div className="row" style={{gap: '10px'}}>
+                    <PhPlugs/>
+                    <p>Devices Inactive</p>
+                </div>
+                <h1>5</h1>
+            </div>
+        </div>
 
-            <h1>Oops!</h1> <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
+        <div className="chartContainer">
+            <h1>Chart</h1>
+        </div>
 
+        <div className="deviceListContainer">
+            <div className="addDevice">
+                <PhPlus/>
+            </div>
 
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-            <h1>Oops!</h1>
-            <p>Sorry, an unexpected error has occurred.</p>
-
-
-
-
-
+            <div className="device">
+                <h1>test</h1>
+            </div>
+            <div className="device">
+                <h1>test</h1>
+            </div>
+            <div className="device">
+                <h1>test</h1>
+            </div>
+            <div className="device">
+                <h1>test</h1>
+            </div>
+            <div className="device">
+                <h1>test</h1>
+            </div>
+        </div>
       </div>
-
     </Wrapper>
   );
 }

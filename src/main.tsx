@@ -49,7 +49,7 @@ function Main() {
           element: <Dashboard />,
         },
         {
-          path: "/acc/profile",
+          path: "/profile",
           element: <Users />,
         },
       ],
