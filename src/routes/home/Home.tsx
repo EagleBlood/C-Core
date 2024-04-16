@@ -4,6 +4,7 @@ import { HomeProps } from "./home.props";
 import { Wrapper } from './home.style';
 import Header from "../../components/header/Header";
 import Menu from "../../components/menu/Menu";
+import { Outlet } from "react-router-dom";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
   return (
@@ -11,7 +12,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
       <Header toggleTheme={toggleTheme}/>
       <div className="homeContainer">
         <Menu/>
-        <p>Home</p>
+        <Outlet />
       </div>
     </Wrapper>
   );

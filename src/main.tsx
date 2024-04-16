@@ -11,6 +11,8 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import Dashboard from './components/dashboard/Dashboard.tsx'
+import Users from './components/users/Users.tsx'
 
 function Main() {
   const [theme, setTheme] = useState(() => {
@@ -41,6 +43,16 @@ function Main() {
       path: "/",
       element: <App toggleTheme={toggleTheme} />,
       errorElement: <ErrorPage />,
+      children: [
+        {
+          path: "/home",
+          element: <Dashboard />,
+        },
+        {
+          path: "/acc/profile",
+          element: <Users />,
+        },
+      ],
     },
     {
       path: "/acc",

@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
+    display: flex;
+    box-sizing: border-box;
+
+
     .menuContainer {
         display: flex;
         flex-direction: column;
         box-sizing: border-box;
-        flex: 1;
-        height: 100%;
-        width: 250px;
+        min-width: 250px;
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};

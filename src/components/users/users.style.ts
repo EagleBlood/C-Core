@@ -12,12 +12,12 @@ export const Wrapper = styled.main`
     background-image: ${({theme}) => theme.colors.bg.bgGradient};
     color: ${({theme}) => theme.colors.text.textPrimary};
 
-    .homeContainer {
+    .errorContainer {
         display: flex;
-        box-sizing: border-box;
-        flex-direction: row;
-        height: 100vh;
+        flex-direction: column;
         gap: ${({theme}) => theme.values.size.items.appPadding}px;
-        overflow: auto;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
     }
 `;
