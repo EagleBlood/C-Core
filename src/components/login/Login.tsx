@@ -40,7 +40,7 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
         </div>
 
         <div className="loginContainer">
-            <Link to='/'><button><h2>Login</h2></button></Link>
+            <Link to='/home'><button><h2>Login</h2></button></Link>
             <p className="smallText">Don’t have an account yet? <Link to='/acc/register'><span className="specialText">Sign Up</span></Link> now!</p>
         </div>
       </div>
