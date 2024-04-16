@@ -28,7 +28,7 @@ export const Wrapper = styled.main`
   }
   
   .logoText:hover {
-    font-size: 8em;
+    font-size: 6em;
     overflow: hidden;
   }
 

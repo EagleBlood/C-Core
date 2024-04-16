@@ -62,7 +62,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
           {/*asteroid render*/}
           <ParallaxLayer
             offset={0.2}
-            speed={-0.3}
+            speed={-0.45}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -79,8 +79,8 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
           </ParallaxLayer>
 
           <ParallaxLayer
-            offset={0.4}
-            speed={0.6}
+            offset={0.1}
+            speed={0.4}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -89,7 +89,7 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
             }}>
               <div className="obj" style={{
                 marginLeft: '65%',
-                marginTop: '15%',
+                marginBottom: '50%',
                 animation: 'spin 41s linear infinite',
               }}> 
                 <PhAsteroid />
