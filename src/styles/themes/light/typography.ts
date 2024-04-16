@@ -74,5 +74,17 @@ const typography = css`
   a {
     text-decoration: none;
   }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  
 `;
 export default typography;
