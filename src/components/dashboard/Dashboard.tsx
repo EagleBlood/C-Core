@@ -4,9 +4,11 @@ import { PhPlugs } from "../../assets/PhPlugs";
 import { PhPlugsConnected } from "../../assets/PhPlugsConnected";
 import { PhPlus } from "../../assets/PhPlus";
 import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
+import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
 import { FunctionComponent } from "react";
+import 'chart.js/auto';
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
 
@@ -56,7 +58,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         </div>
 
         <div className="chartContainer">
-            <h1>Chart</h1>
+            <DashboardChart key={"123"}/>
         </div>
 
         <div className="deviceListContainer">
