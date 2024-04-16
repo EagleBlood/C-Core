@@ -80,6 +80,11 @@ const typography = css`
     flex-direction: row;
   }
 
+  .col {
+    display: flex;
+    flex-direction: column;
+  }
+
   
 `;
 export default typography;
