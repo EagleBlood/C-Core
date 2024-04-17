@@ -99,6 +99,14 @@ export const Wrapper = styled.main`
         transition: background-color ${({theme}) => theme.values.time.fast}s;
     }
 
+    .device.selected {
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+        aspect-ratio: auto;
+        grid-column: 1 / -1;
+        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
+        transition: none;
+    }
+
     .chartContainer {
         display: flex;
         flex: 1;
