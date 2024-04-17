@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import React from 'react';
 import { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import { DefaultTheme, ThemeContext } from 'styled-components';
@@ -26,7 +27,7 @@ ChartJS.register(
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
 
-const DashboardChart = () => {
+const DashboardChart = React.memo(() => {
   const themeContext = useContext<DefaultTheme | undefined>(ThemeContext);
 
   const data = {
@@ -43,13 +44,19 @@ const DashboardChart = () => {
         data: [28, 48, 40, 19, 86, 27, 90],
         borderColor: themeContext?.colors.bg.bgSpecial,
         backgroundColor: themeContext?.colors.bg.bgSpecial,
+        transition: themeContext?.values.time.slow,
         yAxisID: 'y1',
       },
     ],
   };
   const options = {
+
     responsive: true,
     maintainAspectRatio: false,
+    animation: {
+      onComplete: () => {},
+      onProgress: () => {},
+    } ,
     interaction: {
       mode: 'index' as const,
       intersect: false,
@@ -73,6 +80,7 @@ const DashboardChart = () => {
         type: 'linear' as const,
         display: true,
         position: 'left' as const,
+        min: 0,
         grid: {
 
         },
@@ -85,18 +93,21 @@ const DashboardChart = () => {
 
       },
       y1: {
+        min: 0,
         type: 'linear' as const,
         display: false,
         position: 'right' as const,
+
         grid: {
-          drawOnChartArea: false,
+          
         },
       },
     },
   };
 
-  return <Line data={data} options={options} />;
-};
+  console.log('Rendering Line chart with data:', data, 'and options:', options);
+return <Line data={data} options={options} />;
+});
 
 export default DashboardChart;
 

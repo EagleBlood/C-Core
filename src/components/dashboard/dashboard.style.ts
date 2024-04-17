@@ -61,7 +61,8 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
     }
     
-    .addDevice, .device {
+    .addDevice, 
+    .device {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -84,6 +85,12 @@ export const Wrapper = styled.main`
     .device {
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
         color: ${({theme}) => theme.colors.text.textSecondary};
+    }
+
+    .device:hover {
+        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
+        color: ${({theme}) => theme.colors.text.textPrimary};
+        transition: background-color ${({theme}) => theme.values.time.fast}s;
     }
 
     .chartContainer {

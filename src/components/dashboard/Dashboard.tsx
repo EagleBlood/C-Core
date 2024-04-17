@@ -7,11 +7,15 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import 'chart.js/auto';
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
+    const [devices, setDevices] = useState(['test']);
 
+    const addDevice = () => {
+      setDevices([...devices, 'new device']);
+    };
 
   return (
     <Wrapper>
@@ -62,25 +66,14 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         </div>
 
         <div className="deviceListContainer">
-            <div className="addDevice">
-                <PhPlus/>
+            <div className="addDevice" onClick={addDevice}>
+            <PhPlus/>
             </div>
-
-            <div className="device">
-                <h1>test</h1>
+            {devices.map((device, index) => (
+            <div key={index} className="device">
+                <h1>{device}</h1>
             </div>
-            <div className="device">
-                <h1>test</h1>
-            </div>
-            <div className="device">
-                <h1>test</h1>
-            </div>
-            <div className="device">
-                <h1>test</h1>
-            </div>
-            <div className="device">
-                <h1>test</h1>
-            </div>
+            ))}
         </div>
       </div>
     </Wrapper>
