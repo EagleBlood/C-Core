@@ -10,7 +10,7 @@ import { Wrapper } from './dashboard.style';
 import { FunctionComponent, useContext, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
-import { DeviceContext } from "../popups/addDevice/DeviceContext";
+import { DeviceContext } from "../../interfaces/DeviceContext";
 import { Device } from "../../interfaces/device";
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {

@@ -7,7 +7,7 @@ import Menu from "../../components/menu/Menu";
 import { Outlet, useMatch } from "react-router-dom";
 import AddDevice from "../../components/popups/addDevice/addDevice";
 import { Device } from "../../interfaces/device";
-import { DeviceContext } from "../../components/popups/addDevice/DeviceContext";
+import { DeviceContext } from "../../interfaces/DeviceContext";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
   const match = useMatch("/home/addDevice");

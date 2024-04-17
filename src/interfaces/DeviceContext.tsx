@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { Device } from "../../../interfaces/device";
+import { Device } from "./device";
 
 export interface DeviceContextProps {
     devices: Device[];
