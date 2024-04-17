@@ -87,6 +87,12 @@ export const Wrapper = styled.main`
         color: ${({theme}) => theme.colors.text.textSecondary};
     }
 
+    .device h1,
+    .device h2,
+    .device p {
+    transition: color ${({theme}) => theme.values.time.fast}s;
+    }
+
     .device:hover {
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
         color: ${({theme}) => theme.colors.text.textPrimary};
