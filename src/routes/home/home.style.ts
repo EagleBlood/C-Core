@@ -5,12 +5,13 @@ export const Wrapper = styled.main`
     box-sizing: border-box;
     height: 100vh;
     width: 100%;
-    padding: ${({theme}) => theme.values.size.items.appPadding}px;
+    padding: ${({theme}) => theme.values.size.items.appPadding}px ${({theme}) => theme.values.size.items.appPadding}px 0px ${({theme}) => theme.values.size.items.appPadding}px;
     gap: ${({theme}) => theme.values.size.items.appPadding}px;
     display: flex;
     flex-direction: column;
-    background-image: ${({theme}) => theme.colors.bg.bgGradient};
+    background-color: ${({theme}) => theme.colors.bg.bgHelper};
     color: ${({theme}) => theme.colors.text.textPrimary};
+    transition: background-color ${({theme}) => theme.values.time.slow}s;
 
     .homeContainer {
         display: flex;

@@ -9,18 +9,25 @@ const typography = css`
     font-size: ${size.text.large}px;
     margin-top: 0;
     margin-bottom: 0;
+    transition: color ${({theme}) => theme.values.time.slow}s;
   }
   
   h2 {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
+    transition: color ${({theme}) => theme.values.time.slow}s;
   }
 
   p {
     font-size: ${size.text.medium}px;
     margin-top: 0;
     margin-bottom: 0;
+    transition: color ${({theme}) => theme.values.time.slow}s;
+  }
+
+  svg path {
+    transition: fill ${({theme}) => theme.values.time.slow}s;
   }
 
   button {
@@ -73,6 +80,12 @@ const typography = css`
 
   a {
     text-decoration: none;
+    color: ${({theme}) => theme.colors.text.textSecondary};
+  }
+
+  a:visited{
+    text-decoration: none;
+    color: ${({theme}) => theme.colors.text.textSecondary};
   }
 
   .row {

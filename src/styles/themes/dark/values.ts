@@ -29,5 +29,9 @@ const values = {
         buttonPadding: [10, 15],
       }
     },
+    time: {
+      slow: 0.7,
+      fast: 0.4,
+    },
   }
   export default values;

@@ -24,7 +24,7 @@ export const Wrapper = styled.main`
     color: ${({theme}) => theme.colors.text.textPrimary};
     position: relative;
     font-size: 5em;
-    transition: font-size 0.4s ease-in-out;
+    transition: font-size ${({theme}) => theme.values.time.fast}s ease-in-out;
   }
   
   .logoText:hover {
@@ -49,7 +49,7 @@ export const Wrapper = styled.main`
     border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     overflow: hidden;
-    transition: background 0.4s ease-in-out, color 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    transition: background ${({theme}) => theme.values.time.slow}s ease-in-out, color ${({theme}) => theme.values.time.slow}s ease-in-out, opacity ${({theme}) => theme.values.time.slow}s ease-in-out;
     color: ${({theme}) => theme.colors.text.textPrimary};
     min-height: 300px;
   }
@@ -74,7 +74,7 @@ export const Wrapper = styled.main`
     color: ${({theme}) => theme.colors.text.textPrimary};
     position: relative;
     font-size: 5em;
-    transition: font-size 0.4s ease-in-out;
+    transition: font-size ${({theme}) => theme.values.time.slow}s ease-in-out;
     text-align: center;
     text-wrap: wrap;
     bottom: 15%;

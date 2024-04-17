@@ -38,7 +38,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
 
             <div className="verticleLine"></div>
 
-            <div className="deviceInfo">
+            <div className="deviceInfoSpecial">
                 <div className="row" style={{gap: '10px'}}>
                     <PhPlugsConnected/>
                     <p>Devices Active</p>
@@ -58,7 +58,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         </div>
 
         <div className="chartContainer">
-            <DashboardChart key={"123"}/>
+            <DashboardChart/>
         </div>
 
         <div className="deviceListContainer">

@@ -55,7 +55,6 @@ export const Wrapper = styled.main`
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
         cursor: pointer;
-        transition: background-color 0.3s;
         width: 100%;
     }
 

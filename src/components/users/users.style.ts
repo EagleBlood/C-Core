@@ -13,6 +13,7 @@ export const Wrapper = styled.main`
         width: 100%;
         max-height: 100vh;
         overflow-y: auto;
+        padding-bottom: ${({theme}) => theme.values.size.items.appPadding}px;
 
         /* Hide scrollbar for Chrome, Safari and Opera */
         ::-webkit-scrollbar {
@@ -25,7 +26,7 @@ export const Wrapper = styled.main`
 
     .userContainer {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
     }
     
@@ -38,7 +39,14 @@ export const Wrapper = styled.main`
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
+
+    .userBox:hover svg path {
+        fill: ${({theme}) => theme.colors.bg.bgSpecial};
+        transition: fill ${({theme}) => theme.values.time.fast}s;
+    }
+
 
     .itemSelected svg path {
         fill: ${({theme}) => theme.colors.bg.bgSpecial};
