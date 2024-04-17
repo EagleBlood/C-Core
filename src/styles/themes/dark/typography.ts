@@ -98,6 +98,24 @@ const typography = css`
     flex-direction: column;
   }
 
+  .popupContainer {
+    background-color: ${({theme}) => theme.colors.bg.bgPopup};
+    border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
+    display: flex;
+    flex-direction: column;
+    gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    padding: ${({theme}) => theme.values.size.items.boxPadding}px;
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    z-index: 100;
+    
+    /* Centering styles */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
   
 `;
 export default typography;

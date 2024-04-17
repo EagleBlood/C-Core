@@ -13,8 +13,16 @@ import {
 } from "react-router-dom";
 import Dashboard from './components/dashboard/Dashboard.tsx'
 import Users from './components/users/Users.tsx'
+import AddDevice from './components/popups/addDevice/addDevice.tsx'
+import { Device } from './interfaces/device.ts'
 
 function Main() {
+  const [devices, setDevices] = useState<Device[]>([]);
+
+  const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
+    setDevices(prevDevices => [...prevDevices, { deviceName, deviceType, deviceId }]);
+  };
+  
   const [theme, setTheme] = useState(() => {
     // Get the current theme from local storage or default to 'dark'
     const storedTheme = localStorage.getItem('theme');
@@ -47,6 +55,12 @@ function Main() {
         {
           path: "/home",
           element: <Dashboard />,
+          children: [
+            {
+              path: "/home/addDevice",
+              element: <AddDevice addDeviceToDashboard={addDeviceToDashboard}/>,
+            },
+          ],
         },
         {
           path: "/profile",
@@ -81,7 +95,7 @@ function Main() {
 }
 
 let root: ReactDOM.Root | null = null;
-document.addEventListener('DOMContentLoaded', function(event) {
+document.addEventListener('DOMContentLoaded', function() {
   if (!root ) {
     root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
     root.render(<Main />);

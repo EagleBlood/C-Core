@@ -7,86 +7,100 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useContext, useState } from "react";
 import 'chart.js/auto';
+import { useNavigate } from "react-router-dom";
+import { DeviceContext } from "../popups/addDevice/DeviceContext";
+import { Device } from "../../interfaces/device";
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
-    const [devices, setDevices] = useState(['test']);
+    const navigate = useNavigate();
     const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
+    const context = useContext(DeviceContext);
+
+    if (!context) {
+        throw new Error('DeviceContext is undefined');
+    }
+
+  
 
 
     const addDevice = () => {
-      setDevices([...devices, 'new device']);
+        navigate('/home/addDevice');
     };
 
-  return (
-    <Wrapper>
-        <div className="scrollContainer">
-            <div className="deviceInfoContainer">
-                <div className="deviceInfo">
-                    <div className="row" style={{gap: '10px'}}>
-                        <IcSensor/>
-                        <p>Number of devices</p>
+    const { devices } = context;
+
+    return (
+        <Wrapper>
+            <div className="scrollContainer">
+                <div className="deviceInfoContainer">
+                    <div className="deviceInfo">
+                        <div className="row" style={{gap: '10px'}}>
+                            <IcSensor/>
+                            <p>Number of devices</p>
+                        </div>
+                        
+                        <h1>5</h1>
                     </div>
-                    
-                    <h1>5</h1>
+
+                    <div className="verticleLine"></div>
+
+                    <div className="deviceInfo">
+                        <div className="row" style={{gap: '10px'}}>
+                            <PhUserBoldSec/>
+                            <p>Total Users</p>
+                        </div>
+                        <h1>5</h1>
+                    </div>
+
+                    <div className="verticleLine"></div>
+
+                    <div className="deviceInfoSpecial">
+                        <div className="row" style={{gap: '10px'}}>
+                            <PhPlugsConnected/>
+                            <p>Devices Active</p>
+                        </div>
+                        <h1>5</h1>
+                    </div>
+
+                    <div className="verticleLine"></div>
+
+                    <div className="deviceInfo">
+                        <div className="row" style={{gap: '10px'}}>
+                            <PhPlugs/>
+                            <p>Devices Inactive</p>
+                        </div>
+                        <h1>5</h1>
+                    </div>
                 </div>
 
-                <div className="verticleLine"></div>
-
-                <div className="deviceInfo">
-                    <div className="row" style={{gap: '10px'}}>
-                        <PhUserBoldSec/>
-                        <p>Total Users</p>
-                    </div>
-                    <h1>5</h1>
+                <div className="chartContainer">
+                    <DashboardChart/>
                 </div>
 
-                <div className="verticleLine"></div>
-
-                <div className="deviceInfoSpecial">
-                    <div className="row" style={{gap: '10px'}}>
-                        <PhPlugsConnected/>
-                        <p>Devices Active</p>
+                <div className="deviceListContainer">
+                    {devices
+                        .map((device: Device, index: number) => ({ device, index }))
+                        .sort((a, b) => (a.index === selectedDevice ? -1 : b.index === selectedDevice ? 1 : 0))
+                        .map(({ device, index }) => (
+                            <div 
+                            key={index} 
+                            className={`device ${selectedDevice === index ? 'selected' : ''}`}
+                            onClick={() => setSelectedDevice(index)}
+                            >
+                            <h1>{device.deviceName}</h1>
+                            <p>{device.deviceType}</p>
+                            <p>{device.deviceId}</p>
+                            </div>
+                        ))}
+                    <div className="addDevice" onClick={addDevice}>
+                        <PhPlus/>
                     </div>
-                    <h1>5</h1>
-                </div>
-
-                <div className="verticleLine"></div>
-
-                <div className="deviceInfo">
-                    <div className="row" style={{gap: '10px'}}>
-                        <PhPlugs/>
-                        <p>Devices Inactive</p>
-                    </div>
-                    <h1>5</h1>
                 </div>
             </div>
-
-            <div className="chartContainer">
-                <DashboardChart/>
-            </div>
-
-            <div className="deviceListContainer">
-                {devices
-                    .map((device, index) => ({ device, index }))
-                    .sort((a, b) => (a.index === selectedDevice ? -1 : b.index === selectedDevice ? 1 : 0))
-                    .map(({ device, index }) => (
-                    <div 
-                        key={index} 
-                        className={`device ${selectedDevice === index ? 'selected' : ''}`}
-                        onClick={() => setSelectedDevice(index)}
-                    >
-                        <h1>{device}</h1>
-                    </div>
-                    ))}
-                <div className="addDevice" onClick={addDevice}>
-                    <PhPlus/>
-                </div>
-            </div>
-        </div>
-    </Wrapper>
-  );
+        </Wrapper>
+    );
 }
 
 export default Dashboard;

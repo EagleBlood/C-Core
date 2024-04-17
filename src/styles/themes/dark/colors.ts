@@ -5,6 +5,7 @@ const colors = {
         bgThird: '#2D2D2D',
         bgSpecial: '#DD7070',
         bgHelper: '#000000',
+        bgPopup: '#1A1A1Af0',
         bgGradient: 'radial-gradient(circle at top right, #000000 -20%, #1A1A1A 60%, #2D2D2D 120%)',
     },
     item: {
