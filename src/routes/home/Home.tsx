@@ -28,11 +28,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
         transition={{duration: 1.5}}
       >
         <Header toggleTheme={toggleTheme}/>
-        <motion.div
-        className="homeContainer"
-        initial={{ opacity: 1 }}
-        animate={{ opacity: showPopup ? 0 : 1 }}
-      >
+        <div className="homeContainer">
           <Menu/>
           <DeviceContext.Provider value={{ devices, setDevices }}>
             <motion.div
@@ -45,7 +41,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
               <Outlet />
             </motion.div>
           </DeviceContext.Provider>
-        </motion.div>
+        </div>
         {showPopup && <AddDevice addDeviceToDashboard = {addDeviceToDashboard}/>}
       </motion.div>
     </Wrapper>
