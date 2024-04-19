@@ -1,17 +1,21 @@
 import { FunctionComponent, useState } from "react";
-import { AddDeviceProps } from "./addDevice.props";
-import { Wrapper } from './addDevice.style';
 import { useNavigate } from "react-router-dom";
+import { Wrapper } from './addDevice.style';
+import React from "react";
+import { useDevices } from "../../../interfaces/DeviceContext";
+import { AddDeviceProps } from "./addDevice.props";
 
-const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) => {
+const AddDevice: FunctionComponent<AddDeviceProps> = React.memo(() => { 
   const [deviceName, setDeviceName] = useState('');
   const [deviceType, setDeviceType] = useState('');
   const [deviceId, setDeviceId] = useState('');
   const navigate = useNavigate();
+  const { addDeviceToDashboard } = useDevices();
 
   const handleAddDevice = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     addDeviceToDashboard(deviceName, deviceType, deviceId);
+    console.log('Submitting form with values:', deviceName, deviceType, deviceId);
     navigate('/home');
   };
 
@@ -37,6 +41,6 @@ const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) 
       </div>
     </Wrapper>
   );
-};
+});
 
 export default AddDevice;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import ErrorPage from './components/error/ErrorPage.tsx'
@@ -13,16 +13,18 @@ import {
 } from "react-router-dom";
 import Dashboard from './components/dashboard/Dashboard.tsx'
 import Users from './components/users/Users.tsx'
-import AddDevice from './components/popups/addDevice/addDevice.tsx'
-import { Device } from './interfaces/device.ts'
+import { AnimatePresence } from 'framer-motion'
+
+import AddDevice from './components/popups/addDevice/AddDevice.tsx'
+import { Device, DeviceProvider } from './interfaces/DeviceContext.tsx'
 
 function Main() {
-  const [devices, setDevices] = useState<Device[]>([]);
+  const [, setDevices] = useState<Device[]>([]);
 
-  const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
+  const addDeviceToDashboard = useCallback((deviceName: string, deviceType: string, deviceId: string) => {
     setDevices(prevDevices => [...prevDevices, { deviceName, deviceType, deviceId }]);
-  };
-  
+  }, []);
+
   const [theme, setTheme] = useState(() => {
     // Get the current theme from local storage or default to 'dark'
     const storedTheme = localStorage.getItem('theme');
@@ -53,32 +55,32 @@ function Main() {
       errorElement: <ErrorPage />,
       children: [
         {
-          path: "/home",
+          path: "home",
           element: <Dashboard />,
           children: [
             {
-              path: "/home/addDevice",
-              element: <AddDevice addDeviceToDashboard={addDeviceToDashboard}/>,
+              path: "addDevice",
+              element: <AddDevice />,
             },
           ],
         },
         {
-          path: "/profile",
+          path: "profile",
           element: <Users />,
         },
       ],
     },
     {
-      path: "/acc",
+      path: "acc",
       element: <Account />,
       errorElement: <ErrorPage />,
       children: [
         {
-          path: "/acc/login",
+          path: "login",
           element: <Login />,
         },
         {
-          path: "/acc/register",
+          path: "register",
           element: <Register />,
         },
       ],
@@ -88,7 +90,11 @@ function Main() {
   return (
     <React.StrictMode>
       <ThemeProvider theme={theme}>
-        <RouterProvider router={router}/>
+        <AnimatePresence mode='wait'>
+          <DeviceProvider >
+            <RouterProvider router={router} key={location.pathname} />
+          </DeviceProvider>
+        </AnimatePresence>
       </ThemeProvider>
     </React.StrictMode>
   );

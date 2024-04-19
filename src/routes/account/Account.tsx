@@ -3,6 +3,7 @@ import { LogoBig } from "../../assets/LogoBig";
 import { AccountProps } from "./account.props";
 import { Wrapper } from './account.style';
 import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const LazyLoadComponent = lazy(() => import('../../components/intro/Intro'));
 
@@ -20,7 +21,12 @@ const Account: FunctionComponent<AccountProps> = ({ }) => {
 
   return (
     <Wrapper>
-        <div className="loginBar">
+        <motion.div 
+          className="loginBar"
+          initial={{ x: '-100%', opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{duration: 1, ease: [0.6, -0.05, 0.01, 0.90]}}
+        >
           <div className="logoContainer">
             <LogoBig/>
             <h1><span>C - Core</span></h1>
@@ -32,7 +38,7 @@ const Account: FunctionComponent<AccountProps> = ({ }) => {
 
           {/*  */}
           <p className="smallText">Powered by <span className="specialText">Vite</span></p>
-        </div>
+        </motion.div>
 
         {showIntro && (
           <div className="fade-in">

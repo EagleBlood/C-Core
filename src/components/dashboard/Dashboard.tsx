@@ -7,11 +7,10 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useCallback, useContext, useEffect, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
-import { DeviceContext } from "../../interfaces/DeviceContext";
-import { Device } from "../../interfaces/device";
+import { Device, DeviceContext } from "../../interfaces/DeviceContext";
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const navigate = useNavigate();
@@ -22,14 +21,15 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         throw new Error('DeviceContext is undefined');
     }
 
-  
-
-
-    const addDevice = () => {
+    const addDevice = useCallback(() => {
         navigate('/home/addDevice');
-    };
+    }, [navigate]);
 
     const { devices } = context;
+
+    useEffect(() => {
+        console.log(devices);
+    }, [devices]);
 
     return (
         <Wrapper>

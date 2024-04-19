@@ -4,9 +4,10 @@ import { AppProps } from "./App.props";
 
 const App: React.FC<AppProps> = ({ toggleTheme }) => {
 
+
   return (
     <div>
-        <Home toggleTheme={toggleTheme} />
+      <Home toggleTheme={toggleTheme} />
     </div>
   );
 }

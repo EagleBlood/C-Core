@@ -5,6 +5,18 @@ const { font, size } = values;
 
 const typography = css`
   font-family: ${font.body};
+
+  .bg {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100%;
+    gap: ${({theme}) => theme.values.size.items.appPadding}px;
+    display: flex;
+    flex-direction: column;
+    background-color: ${({theme}) => theme.colors.bg.bgHelper};
+    transition: background-color ${({theme}) => theme.values.time.slow}s;
+  }
+
   h1 {
     font-size: ${size.text.large}px;
     margin-top: 0;
