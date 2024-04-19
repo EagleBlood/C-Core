@@ -1,23 +1,22 @@
-import { FunctionComponent, memo, useCallback, useState } from "react";
+import { FunctionComponent, memo, useState } from "react";
 
 import { HomeProps } from "./home.props";
 import { Wrapper } from './home.style';
 import Header from "../../components/header/Header";
 import Menu from "../../components/menu/Menu";
 import { Outlet, useMatch } from "react-router-dom";
+import AddDevice from "../../components/popups/addDevice/AddDevice";
 import { Device, DeviceContext } from "../../interfaces/DeviceContext";
 import { motion } from "framer-motion";
-import AddDevice from "../../components/popups/addDevice/AddDevice";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
   const match = useMatch("/home/addDevice");
   const showPopup = !!match;
 
   const [devices, setDevices] = useState<Device[]>([]);
-  const addDeviceToDashboard = useCallback((deviceName: string, deviceType: string, deviceId: string) => {
+  const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
     setDevices(prevDevices => [...prevDevices, { deviceName, deviceType, deviceId }]);
-  }, []);
-  //Constant Rerenders when tyying to add a device
+  };
   
   return (
     <Wrapper>
@@ -35,10 +34,9 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
         animate={{ opacity: showPopup ? 0 : 1 }}
       >
           <Menu/>
-          <DeviceContext.Provider value={{ devices, addDeviceToDashboard }}>
+          <DeviceContext.Provider value={{ devices, setDevices }}>
             <motion.div
               className="outletContainer"
-              key={window.location.pathname}
               initial={{ opacity: 0}}
               animate={{ opacity: 1}}
               exit={{ opacity: 0}}
@@ -48,7 +46,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
             </motion.div>
           </DeviceContext.Provider>
         </motion.div>
-        {showPopup && <AddDevice />}
+        {showPopup && <AddDevice addDeviceToDashboard = {addDeviceToDashboard}/>}
       </motion.div>
     </Wrapper>
   );
