@@ -5,6 +5,18 @@ const { font, size } = values;
 
 const typography = css`
   font-family: ${font.body};
+
+  .bg {
+    box-sizing: border-box;
+    height: 100vh;
+    width: 100%;
+    gap: ${({theme}) => theme.values.size.items.appPadding}px;
+    display: flex;
+    flex-direction: column;
+    background-color: ${({theme}) => theme.colors.bg.bgHelper};
+    transition: background-color ${({theme}) => theme.values.time.slow}s;
+  }
+
   h1 {
     font-size: ${size.text.large}px;
     margin-top: 0;
@@ -50,6 +62,11 @@ const typography = css`
     height: 20px;
   }
 
+  .iconButton:hover {
+    background: none;
+    border: none;
+  }
+
   input {
     background-color: transparent;
     border: transparent;
@@ -69,6 +86,12 @@ const typography = css`
     align-items: center;
     gap: ${({theme}) => theme.values.size.items.smallGap}px;
   }
+
+  .inputItemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: ${({theme}) => theme.values.size.items.miniGap}px;
+}
 
   span {
     display: inline-block;
@@ -96,6 +119,24 @@ const typography = css`
   .col {
     display: flex;
     flex-direction: column;
+  }
+
+  .popupContainer {
+    background-color: ${({theme}) => theme.colors.bg.bgPopup};
+    border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: ${({theme}) => theme.values.size.items.boxPadding}px;
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    z-index: 100;
+    
+    /* Centering styles */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 
   

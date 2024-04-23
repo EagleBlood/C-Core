@@ -11,6 +11,10 @@ const colors = {
     item: {
         itemGradientSpecial: 'radial-gradient(circle at top right, #EAEAEA -20%, #DD7070 60%, #EAEAEA 120%)',
     },
+    chart: {
+        chartY0: '#DD707070',
+        chartY1: '#EAEAEA70',
+    },
     text: {
         textPrimary: '#EAEAEA',
         textSecondary: '#1A1A1A',
