@@ -13,4 +13,13 @@ export const Wrapper = styled.main`
         flex-grow: 1;
         display: flex;
     }
+
+    button h2 {
+        transition: 0.5s;
+    }
+
+    button h2:hover {
+        font-size: 1.3em;
+        transition: ${({theme}) => theme.values.time.fast}s,
+    }
 `;

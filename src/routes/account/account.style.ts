@@ -89,8 +89,12 @@ export const Wrapper = styled.main`
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color  ${({theme}) => theme.values.time.slow}s;
         width: 100%;
+    }
+
+    button:hover {
+        background-color: ${({theme}) => theme.colors.bg.bgPrimary};
     }
 
     input {
@@ -98,7 +102,7 @@ export const Wrapper = styled.main`
         &::placeholder {
           color: ${({theme}) => theme.colors.text.textSpecial};
         }
-      }
+    }
 
     .fade-in {
         animation: fadeIn 5s;

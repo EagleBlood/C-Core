@@ -62,6 +62,11 @@ const typography = css`
     height: 20px;
   }
 
+  .iconButton:hover {
+    background: none;
+    border: none;
+  }
+
   input {
     background-color: transparent;
     border: transparent;
@@ -81,6 +86,12 @@ const typography = css`
     align-items: center;
     gap: ${({theme}) => theme.values.size.items.smallGap}px;
   }
+
+  .inputItemContainer {
+    display: flex;
+    flex-direction: column;
+    gap: ${({theme}) => theme.values.size.items.miniGap}px;
+}
 
   span {
     display: inline-block;
@@ -115,7 +126,7 @@ const typography = css`
     border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
     display: flex;
     flex-direction: column;
-    gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    justify-content: space-around;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     position: absolute;
     width: 60%;

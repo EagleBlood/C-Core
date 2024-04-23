@@ -21,8 +21,6 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         throw new Error('DeviceContext is undefined');
     }
 
-  
-
 
     const addDevice = () => {
         navigate('/home/addDevice');
@@ -84,13 +82,13 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                         .sort((a, b) => (a.index === selectedDevice ? -1 : b.index === selectedDevice ? 1 : 0))
                         .map(({ device, index }) => (
                             <div 
-                            key={index} 
-                            className={`device ${selectedDevice === index ? 'selected' : ''}`}
-                            onClick={() => setSelectedDevice(index)}
+                                key={index} 
+                                className={`device ${selectedDevice === index ? 'selected' : ''}`}
+                                onClick={() => setSelectedDevice(index)}
                             >
-                            <h1>{device.deviceName}</h1>
-                            <p>{device.deviceType}</p>
-                            <p>{device.deviceId}</p>
+                                <h1>{device.deviceName}</h1>
+                                <p>Type: {device.deviceType}</p>
+                                <p>Id: <span>{device.deviceId}</span></p>
                             </div>
                         ))}
                     <div className="addDevice" onClick={addDevice}>

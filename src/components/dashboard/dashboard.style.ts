@@ -61,6 +61,7 @@ export const Wrapper = styled.main`
     
     .addDevice, 
     .device {
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -81,6 +82,10 @@ export const Wrapper = styled.main`
     }
     
     .device {
+        display: flex;
+        flex-direction: column;
+        // flex-wrap: wrap;  // To blocks be all the same, gona wrap the text inside
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
         background-color: ${({theme}) => theme.colors.bg.bgSecondary};
         color: ${({theme}) => theme.colors.text.textSecondary};
     }
@@ -98,11 +103,13 @@ export const Wrapper = styled.main`
     }
 
     .device.selected {
+        text-align: center;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         aspect-ratio: auto;
         grid-column: 1 / -1;
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
         transition: none;
+        color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
     .chartContainer {
@@ -110,7 +117,8 @@ export const Wrapper = styled.main`
         flex: 1;
         flex-direction: column;
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
-        height: 260px;
+        min-height: 300px;
+        max-height: 400px;
         width: 100%;
     }
 `;

@@ -49,7 +49,7 @@ export const Wrapper = styled.main`
     border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     overflow: hidden;
-    transition: background ${({theme}) => theme.values.time.slow}s ease-in-out, color ${({theme}) => theme.values.time.slow}s ease-in-out, opacity ${({theme}) => theme.values.time.slow}s ease-in-out;
+    transition: background ${({theme}) => theme.values.time.slow}s ease-in-out, opacity ${({theme}) => theme.values.time.slow}s ease-in-out;
     color: ${({theme}) => theme.colors.text.textPrimary};
     min-height: 300px;
   }

@@ -31,14 +31,14 @@ export const Wrapper = styled.main`
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         width: 100%;
         box-sizing: border-box;
-        transition: background-color ${({theme}) => theme.values.time.fast}s;
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
 
     .item:hover {
         background-color: ${({theme}) => theme.colors.bg.bgThird};
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         color: ${({theme}) => theme.colors.text.textPrimary};
-        transition: background-color ${({theme}) => theme.values.time.fast}s;
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
 
     .item:hover svg path {
