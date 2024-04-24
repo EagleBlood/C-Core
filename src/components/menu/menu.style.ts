@@ -6,6 +6,22 @@ export const Wrapper = styled.main`
     padding-bottom: ${({theme}) => theme.values.size.items.appPadding}px;
 
 
+    // Tree.tsx styles
+
+    .row {
+
+        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
+        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
+        text-align: right;
+    }
+
+    .listContainer {
+        width: 100%;
+    }
+
+    //
+
+
     .menuContainer {
         display: flex;
         flex-direction: column;
@@ -77,4 +93,5 @@ export const Wrapper = styled.main`
     .verName {
         font-size: ${({theme}) => theme.values.size.text.small}px;
     }
+
 `;
