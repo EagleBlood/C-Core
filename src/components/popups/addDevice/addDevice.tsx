@@ -10,6 +10,10 @@ const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) 
   const [deviceId, setDeviceId] = useState('');
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    navigate('/home');
+  };
+
   const handleAddDevice = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     if (addDeviceToDashboard) {
@@ -63,7 +67,12 @@ const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) 
           </div>
         </form>
 
-        <button type="submit" form="addDeviceForm">Add Device</button>
+        <div className="row">
+          <button type="submit" form="addDeviceForm">Add Device</button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
+        </div>
+
+        
       </motion.div>
     </Wrapper>
   );

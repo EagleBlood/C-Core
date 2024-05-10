@@ -45,4 +45,8 @@ export const Wrapper = styled.main`
         color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
+    .row {
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+    }
+
 `;

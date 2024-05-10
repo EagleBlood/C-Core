@@ -11,6 +11,10 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData }) => {
   const [role, setRole] = useState('');
   const navigate = useNavigate();
 
+  const handleCancel = () => {
+    navigate('/profile');
+  };
+
   const handleEditUserData = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     if (editUserData) {
@@ -77,7 +81,11 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData }) => {
           </div>
         </form>
 
-        <button type="submit" form="editUserForm">Confirm</button>
+        
+        <div className="row">
+          <button type="submit" form="editUserForm">Confirm</button>
+          <button type="button" onClick={handleCancel}>Cancel</button>
+        </div>
       </motion.div>
     </Wrapper>
   );

@@ -37,4 +37,8 @@ export const Wrapper = styled.main`
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
     }
 
+    .row {
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+    }
+
 `;
