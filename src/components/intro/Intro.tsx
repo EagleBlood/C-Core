@@ -133,7 +133,6 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
               marginLeft: '45%',
               marginRight: '10%',
               gap: '20px',
-              opacity: '0.5',
             }}>
               <h2>Best solution for home solutions</h2>
               <p>Discover a wide range of innovative and reliable home solutions tailored to enhance your living experience. Our products are designed with a focus on efficiency, comfort, and sustainability, making your home smarter and your life easier.</p>

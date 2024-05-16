@@ -13,11 +13,11 @@ export const Wrapper = styled.main`
         min-width: 250px;
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
-        color: ${({theme}) => theme.colors.text.textSecondary};
+        color: ${({theme}) => theme.colors.text.textPrimary};
         gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
         align-items: center;
         transition: background-color ${({theme}) => theme.values.time.slow}s;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
     }
 
     .item {

@@ -45,7 +45,7 @@ export const Wrapper = styled.main`
     justify-content: center;
     align-items: center;
     position: absolute;
-    background: ${({theme}) => theme.colors.bg.bgThird};
+  
     border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     overflow: hidden;
@@ -54,12 +54,7 @@ export const Wrapper = styled.main`
     min-height: 300px;
   }
 
-  .infoBox:hover {
-    background: ${({theme}) => theme.colors.bg.bgSecondary};
-    color: ${({theme}) => theme.colors.text.textSecondary};
-    opacity: 1 !important;
-    z-index: 1;
-  }
+
 
   .obj: {
     position: absolute;

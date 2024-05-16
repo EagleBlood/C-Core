@@ -7,7 +7,7 @@ export const PhGalaxy = () => {
   
   return (
 
-<svg fill={themeContext?.colors.bg.bgSecondary} height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg fill={themeContext?.colors.text.textPrimary} height="800px" width="800px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 
 <g>
 	<path d="M501.679,371.791c-15.06,8.968-33.148,13.868-51.452,16.521c-18.393,2.624-37.306,3.028-56.093,1.935

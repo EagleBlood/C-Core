@@ -70,7 +70,7 @@ const typography = css`
   input {
     background-color: transparent;
     border: transparent;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
     font-weight: bold;
     font-size: ${({theme}) => theme.values.size.text.medium}px;
     font-family: 'consolas';
@@ -103,12 +103,12 @@ const typography = css`
 
   a {
     text-decoration: none;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
   }
 
   a:visited{
     text-decoration: none;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
   }
 
   .row {

@@ -26,8 +26,10 @@ export const Wrapper = styled.main`
         display: flex;
         flex-direction: row;
         gap: ${({theme}) => theme.values.size.items.miniGap}px;
-        width: 100%;
-        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px 0px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        
     }
 
     .deviceInfo,
@@ -57,6 +59,9 @@ export const Wrapper = styled.main`
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
     }
     
     .addDevice, 
@@ -86,8 +91,8 @@ export const Wrapper = styled.main`
         flex-direction: column;
         // flex-wrap: wrap;  // To blocks be all the same, gona wrap the text inside
         gap: ${({theme}) => theme.values.size.items.miniGap}px;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
-        color: ${({theme}) => theme.colors.text.textSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
+        color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
     .device h1,
@@ -119,6 +124,8 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
         min-height: 300px;
         max-height: 400px;
-        width: 100%;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
     }
 `;

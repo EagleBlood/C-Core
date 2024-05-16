@@ -9,7 +9,7 @@ export const Wrapper = styled.main`
     display: flex;
     flex-direction: row;
     background-image: ${({theme}) => theme.colors.bg.bgGradient};
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
     overflow: hidden;
     
     .loginBar {
@@ -18,7 +18,7 @@ export const Wrapper = styled.main`
         justify-content: space-between;
         align-items: center;
         height: 100%;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
         border-radius: 0px ${({theme}) => theme.values.size.items.radiusLarge}px ${({theme}) => theme.values.size.items.radiusLarge}px 0px;
         width: 30%;
         padding: ${({theme}) => theme.values.size.items.appPadding}px;

@@ -17,7 +17,6 @@ const colors = {
     },
     text: {
         textPrimary: '#1A1A1A',
-        textSecondary: '#EAEAEA',
         textSpecial: '#DD7070',
     },
   }
