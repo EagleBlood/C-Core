@@ -45,6 +45,7 @@ const typography = css`
   button {
     font-size: ${size.text.medium}px;
     background-color: transparent;
+    border: 1px solid ${({theme}) => theme.colors.bg.bgSecondary};
     border: none;
     color: ${({ theme }) => theme.colors.text.textPrimary};
     padding: 0;
@@ -132,6 +133,7 @@ const typography = css`
     width: 60%;
     height: 60%;
     z-index: 100;
+    border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
     
     /* Centering styles */
     top: 50%;

@@ -5,6 +5,9 @@ import { Parallax, ParallaxLayer, IParallax } from '@react-spring/parallax'
 import { PhPlanet } from '../../assets/PhPlanet.tsx'
 import { PhGalaxy } from "../../assets/PhGalaxy.tsx";
 import { PhAsteroid } from "../../assets/PhAsteroid.tsx";
+import { PhRocket } from "../../assets/PhRocket.tsx";
+import { PhHome } from "../../assets/PhHome.tsx";
+import { PhHomeFill } from "../../assets/PhHomeFill.tsx";
 
 const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
 
@@ -110,32 +113,37 @@ const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {
             }}>
             <div className="infoBox" style={{
               marginTop: '30%',
-              marginRight: '45%',
-              marginLeft: '10%',
+              marginRight: '50%',
+              marginLeft: '5%',
               gap: '20px',
               zIndex: '1',
             }}>
-              <h2>Best solution for home solutions</h2>
-              <p>Discover a wide range of innovative and reliable home solutions tailored to enhance your living experience. Our products are designed with a focus on efficiency, comfort, and sustainability, making your home smarter and your life easier.</p>
+              <h2>Take Control of Your Smart Home</h2>
+              <PhHomeFill />
+              <p>Our dashboard puts the power in your hands. Add and manage devices with ease, and make informed decisions with real-time data visualized on user-friendly charts. Experience the convenience and control of our smart technology.</p>
             </div>
 
             <div className="obj" style={{
-              marginLeft: '75%',
+              marginLeft: '85%',
               marginTop: '55%',
               rotate: '132deg',
               animation: 'spin 300s linear infinite',
+              opacity: '0.5',
             }}>
               <PhGalaxy />
             </div>           
             
             <div className="infoBox" style={{
               marginBottom: '30%',
-              marginLeft: '45%',
-              marginRight: '10%',
+              marginLeft: '50%',
+              marginRight: '5%',
               gap: '20px',
+              
             }}>
-              <h2>Best solution for home solutions</h2>
-              <p>Discover a wide range of innovative and reliable home solutions tailored to enhance your living experience. Our products are designed with a focus on efficiency, comfort, and sustainability, making your home smarter and your life easier.</p>
+              
+              <h2>Revolutionizing Home Automation</h2>
+              <PhRocket />
+              <p>Experience seamless device management and data visualization like never before. Our dashboard offers swift access and interaction with your devices, while providing real-time data insights through intuitive charts. Designed for speed and efficiency, it's the smart way to make your home smarter.</p>
             </div>
           </ParallaxLayer>
 

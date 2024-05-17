@@ -51,7 +51,7 @@ export const Wrapper = styled.main`
     .verticleLine {
         height: 100%;
         width: 4px;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgStroke};
         transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
 

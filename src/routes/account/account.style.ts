@@ -18,7 +18,7 @@ export const Wrapper = styled.main`
         justify-content: space-between;
         align-items: center;
         height: 100%;
-        background-color: ${({theme}) => theme.colors.bg.bgThird};
+        background-color: nonel
         border-radius: 0px ${({theme}) => theme.values.size.items.radiusLarge}px ${({theme}) => theme.values.size.items.radiusLarge}px 0px;
         width: 30%;
         padding: ${({theme}) => theme.values.size.items.appPadding}px;
@@ -81,27 +81,28 @@ export const Wrapper = styled.main`
         cursor: pointer;
     }
 
-    button {
-        display: flex;
-        justify-content: center;
-        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
-        color: ${({theme}) => theme.colors.text.textPrimary};
-        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
-        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
-        cursor: pointer;
-        transition: background-color  ${({theme}) => theme.values.time.slow}s;
-        width: 100%;
-    }
-
-    button:hover {
-        background-color: ${({theme}) => theme.colors.bg.bgPrimary};
-    }
-
     input {
         color: ${({theme}) => theme.colors.text.textSpecial};
         &::placeholder {
           color: ${({theme}) => theme.colors.text.textSpecial};
         }
+    }
+
+    button {
+        display: flex;
+        justify-content: center;
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
+        color: ${({theme}) => theme.colors.text.textPrimary};
+        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
+        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
+        cursor: pointer;
+        transition: background-color ${({theme}) => theme.values.time.fast}s, color ${({theme}) => theme.values.time.fast}s;
+        width: 100%;
+    }
+
+    button:hover {
+        color: ${({theme}) => theme.colors.text.textPrimary};
+        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
     }
 
     .fade-in {

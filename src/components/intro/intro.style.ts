@@ -52,9 +52,13 @@ export const Wrapper = styled.main`
     transition: background ${({theme}) => theme.values.time.slow}s ease-in-out, opacity ${({theme}) => theme.values.time.slow}s ease-in-out;
     color: ${({theme}) => theme.colors.text.textPrimary};
     min-height: 300px;
+
+    transition: transform ${({theme}) => theme.values.time.fast}s ease-in-out;
   }
 
-
+  .infoBox:hover {
+    transform: scale(1.05);
+  }
 
   .obj: {
     position: absolute;

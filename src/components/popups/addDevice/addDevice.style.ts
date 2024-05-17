@@ -23,7 +23,7 @@ export const Wrapper = styled.main`
     button {
         display: flex;
         justify-content: center;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
         color: ${({theme}) => theme.colors.text.textPrimary};
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
