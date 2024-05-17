@@ -7,7 +7,7 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useContext, useEffect, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { Device, DeviceContext } from "../../interfaces/DeviceContext";
@@ -16,15 +16,22 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const navigate = useNavigate();
     const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
     const context = useContext(DeviceContext);
+    const [isToggled, setIsToggled] = useState(false);
 
     if (!context) {
         throw new Error('DeviceContext is undefined');
     }
 
-
     const addDevice = () => {
         navigate('/home/addDevice');
+        setIsToggled(true);
     };
+
+    useEffect(() => {
+        if (window.location.pathname !== '/home/addDevice') {
+            setIsToggled(false);
+        }
+    }, [window.location.pathname]);
 
     const { devices } = context;
 
@@ -91,7 +98,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                 <p>Id: <span>{device.deviceId}</span></p>
                             </div>
                         ))}
-                    <div className="addDevice" onClick={addDevice}>
+                    <div className="addDevice" onClick={addDevice} >
                         <PhPlus/>
                     </div>
                 </div>

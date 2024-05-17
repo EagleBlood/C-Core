@@ -130,10 +130,13 @@ const typography = css`
     justify-content: space-around;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     position: absolute;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    min-height: 20%; /* Minimum height */
+    max-height: 80%; /* Maximum height */
+    overflow: auto; /* Add scroll if content is too large */
     z-index: 100;
     border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+    gap: ${({theme}) => theme.values.size.items.largeGap}px;
     
     /* Centering styles */
     top: 50%;
