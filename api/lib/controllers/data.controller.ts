@@ -2,6 +2,7 @@ import { checkIdParam } from '../middlewares/deviceIdParam.middleware';
 import Controller from '../interfaces/controller.interface';
 import { Request, Response, NextFunction, Router } from 'express';
 import DataService from '../modules/services/data.service';
+import Joi from 'joi';
 
 interface DataStore {
     [key: string]: number[];
@@ -86,9 +87,22 @@ class DataController implements Controller {
         }
     };
      
-     private addData = async (request: Request, response: Response, next: NextFunction) => {
+    private addData = async (request: Request, response: Response, next: NextFunction) => {
         const { air } = request.body;
         const { id } = request.params;
+
+        const schema = Joi.object({
+            air: Joi.array()
+                .items(
+                    Joi.object({
+                        id: Joi.number().integer().positive().required(),
+                        value: Joi.number().positive().required()
+                    })
+                )
+                .unique((a, b) => a.id === b.id),
+            deviceId: Joi.number().integer().positive().valid(parseInt(id, 10)).required()
+         });
+         
      
         const data = {
             temperature: air[0].value,
@@ -105,8 +119,7 @@ class DataController implements Controller {
             console.error(`Validation Error: ${error}`);
             response.status(400).json({ error: 'Invalid input data.' });
         }
-     };
-     
+    };
 }
  
 export default DataController;
