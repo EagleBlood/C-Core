@@ -1,7 +1,9 @@
 import { User } from "../../../interfaces/UserContext";
 
 export interface ManageUserProps {
-    editUserData: (userName: string, userEmail: string, userPassword: String, userRole: string) => void;
+    user: User;
+    editUserData: (userId: number, userName: string, userEmail: string, userPassword: string, userRole: string) => void;
     deleteUser: (userId: number) => void;
-    users: User[];
+    onUpdate: (user: User) => void;
+    onCancel: () => void;
 }

@@ -15,6 +15,7 @@ import Dashboard from './components/dashboard/Dashboard.tsx'
 import Users from './components/users/Users.tsx'
 import AddDevice from './components/popups/addDevice/AddDevice.tsx'
 import { Device } from './interfaces/DeviceContext.tsx'
+import ManageUser from './components/popups/manageUser/ManageUser.tsx'
 
 function Main() {
   const [, setDevices] = useState<Device[]>([]);

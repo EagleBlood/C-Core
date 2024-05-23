@@ -45,6 +45,7 @@ const typography = css`
   button {
     font-size: ${size.text.medium}px;
     background-color: transparent;
+    border: 1px solid ${({theme}) => theme.colors.bg.bgSecondary};
     border: none;
     color: ${({ theme }) => theme.colors.text.textPrimary};
     padding: 0;
@@ -70,7 +71,7 @@ const typography = css`
   input {
     background-color: transparent;
     border: transparent;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
     font-weight: bold;
     font-size: ${({theme}) => theme.values.size.text.medium}px;
     font-family: 'consolas';
@@ -79,7 +80,7 @@ const typography = css`
   }
 
   .inputField {
-    border: 1px solid ${({theme}) => theme.colors.bg.bgPrimary};
+    border: 1px solid ${({theme}) => theme.colors.bg.bgSecondary};
     border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
     padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
     display: flex;
@@ -103,12 +104,12 @@ const typography = css`
 
   a {
     text-decoration: none;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
   }
 
   a:visited{
     text-decoration: none;
-    color: ${({theme}) => theme.colors.text.textSecondary};
+    color: ${({theme}) => theme.colors.text.textPrimary};
   }
 
   .row {
@@ -129,9 +130,13 @@ const typography = css`
     justify-content: space-around;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     position: absolute;
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    min-height: 20%; /* Minimum height */
+    max-height: 80%; /* Maximum height */
+    overflow: auto; /* Add scroll if content is too large */
     z-index: 100;
+    border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+    gap: ${({theme}) => theme.values.size.items.largeGap}px;
     
     /* Centering styles */
     top: 50%;

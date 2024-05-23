@@ -45,20 +45,19 @@ export const Wrapper = styled.main`
     justify-content: center;
     align-items: center;
     position: absolute;
-    background: ${({theme}) => theme.colors.bg.bgThird};
+  
     border-radius: ${({theme}) => theme.values.size.items.radiusLarge}px;
     padding: ${({theme}) => theme.values.size.items.boxPadding}px;
     overflow: hidden;
     transition: background ${({theme}) => theme.values.time.slow}s ease-in-out, opacity ${({theme}) => theme.values.time.slow}s ease-in-out;
     color: ${({theme}) => theme.colors.text.textPrimary};
     min-height: 300px;
+
+    transition: transform ${({theme}) => theme.values.time.fast}s ease-in-out;
   }
 
   .infoBox:hover {
-    background: ${({theme}) => theme.colors.bg.bgSecondary};
-    color: ${({theme}) => theme.colors.text.textSecondary};
-    opacity: 1 !important;
-    z-index: 1;
+    transform: scale(1.05);
   }
 
   .obj: {

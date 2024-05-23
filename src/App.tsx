@@ -15,6 +15,20 @@ const App: React.FC<AppProps> = ({ toggleTheme }) => {
     x Adjust animation switch between routes screens
     x Adjust the addDevice popup elements
     -* Adjust Account route animations (Login.tsx) to be slower and smother
+
+    // 10.05.2024
+    - Add to load devices from api into dashboard
+    - Add ability to add new devices from dashboard
+    - Add ability to remove devices from dashboard
+    x Add cancel button from adding new device popup
+    - Add live data to main 4 controls in dashboard
+    - Add live data to all devices in dashboard
+    - Add user accounts into api
+    - Add auth from api users to app
+    -* Add ability to change user password
+    -* Add user permissions weights
+
+    - Redo device details after one is chosen from device list
   */
 
   return (

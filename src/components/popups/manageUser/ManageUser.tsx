@@ -1,84 +1,146 @@
 import { FunctionComponent, useState } from "react";
 import { ManageUserProps } from "./manageUser.props";
 import { Wrapper } from './manageUser.style';
-import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect } from "react";
 
-const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [role, setRole] = useState('');
-  const navigate = useNavigate();
+const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, onUpdate, onCancel, deleteUser }) => {
+  const [userId, setUserId] = useState(0);
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [isVisible, setIsVisible] = useState(true); // Add this state
+
+  // Add this useEffect
+  useEffect(() => {
+    setUserId(user.id);
+    setUsername(user.username);
+    setPassword(user.password);
+    setEmail(user.email);
+    setRole(user.role);
+  }, [user]);
+
+  
+  const handleCancel = () => {
+    setIsVisible(false);
+    setTimeout(onCancel, 400); // Delay onCancel to allow animation to finish
+  };
 
   const handleEditUserData = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     if (editUserData) {
-      editUserData(username, password, email, role);
+      editUserData(userId, username, password, email, role);
     }
-    navigate('/home');
+  }
+  
+  const handleUpdate = () => {
+    const updatedUser = { ...user, username, password, email, role };
+    setIsVisible(false); // Make the popup start disappearing
+    setTimeout(() => onUpdate(updatedUser), 400); // Delay onUpdate to allow animation to finish
+  };
+
+  const handleDelete = () => {
+    setIsVisible(false);
+    setTimeout(() => deleteUser(userId), 400);
   }
 
   return (
     <Wrapper>
-      <motion.div 
-        className="popupContainer"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0, scale: 0.5 }}
-        transition={{
-          duration: 0.8,
-          ease: [0, 0.71, 0.2, 1.01],
-          scale: {
-            type: "spring",
-            damping: 5,
-            stiffness: 100,
-            restDelta: 0.001,
-            from: 0.5,
-            to: 1,
-          },
-        }}
-      >
-        <h1>Edit User</h1>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div 
+            className="backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
+          />
+        )}
+      </AnimatePresence>
+      
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div 
+            className="popupContainer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: 0.8,
+              ease: [0, 0.71, 0.2, 1.01],
+              scale: {
+                type: "spring",
+                damping: 5,
+                stiffness: 100,
+                restDelta: 0.001,
+                from: 0.5,
+                to: 1,
+              },
+            }}
+          >
+            <h1>Edit User</h1>
 
-        <form id="editUserForm" className="formContainer" onSubmit={handleEditUserData}>
-          <div className="inputItemContainer">
-            <p>Username</p>
-            <div className="inputField">
-              <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-            </div>
-          </div>
+            <form id="editUserForm" className="formContainer" onSubmit={handleEditUserData}>
+              <div className="inputItemContainer">
+                <p>Username</p>
+                <div className="inputField">
+                  <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                </div>
+              </div>
 
-          <div className="inputItemContainer">
-            <p>Email</p>
-            <div className="inputField">
-              <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-            </div>
-          </div>
+              <div className="inputItemContainer">
+                <p>Email</p>
+                <div className="inputField">
+                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+              </div>
 
-          <div className="inputItemContainer">
-            <p>Password</p>
-            <div className="inputField">
-              <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-            </div>
-          </div>
+              <div className="inputItemContainer">
+                <p>Password</p>
+                <div className="inputField">
+                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                </div>
+              </div>
 
-          <div className="inputItemContainer">
-            <p>Role</p>
-            <div className="inputField">
-              <select value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="">Select a role</option>
-                <option value="role1">Role 1</option>
-                <option value="role2">Role 2</option>
-                <option value="role3">Role 3</option>
-                {/* Add more options as needed */}
-              </select>
-            </div>
-          </div>
-        </form>
+              <div className="inputItemContainer">
+                <p>Role</p>
+                <div className="col">
+                  <div className="row">
+                    <input 
+                      type="radio" 
+                      id="admin" 
+                      name="role" 
+                      value="true" 
+                      //checked={isAdmin} 
+                      //onChange={() => setIsAdmin(true)}
+                    />
+                    <label htmlFor="admin">Admin</label>
+                  </div>
+                  <div className="row">
+                    <input 
+                      type="radio" 
+                      id="user" 
+                      name="role" 
+                      value="false" 
+                      //checked={!isAdmin} 
+                      //onChange={() => setIsAdmin(false)}
+                    />
+                    <label htmlFor="user">User</label>
+                  </div>
+                </div>
+              </div>
+            </form>
+            
+            <div className="row">
+                <button type="submit" form="editUserForm" onClick={handleUpdate}>Confirm</button>
+                <button type="button" onClick={handleDelete}>Delete</button>
+                <button type="button" onClick={handleCancel}>Cancel</button>
+              </div>
 
-        <button type="submit" form="editUserForm">Confirm</button>
-      </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </Wrapper>
   );
 };

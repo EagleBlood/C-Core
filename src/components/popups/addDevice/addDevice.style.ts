@@ -23,8 +23,8 @@ export const Wrapper = styled.main`
     button {
         display: flex;
         justify-content: center;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
-        color: ${({theme}) => theme.colors.text.textSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
+        color: ${({theme}) => theme.colors.text.textPrimary};
         border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
         cursor: pointer;
@@ -36,5 +36,20 @@ export const Wrapper = styled.main`
         color: ${({theme}) => theme.colors.text.textPrimary};
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
     }
+
+    .row {
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+    }
+
+    .backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+        z-index: 1;
+      }
 
 `;
