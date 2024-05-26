@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Device } from "../../interfaces/DeviceContext";
 import { Chart } from "react-chartjs-2";
 import DeviceDataChart from "../charts/dashboardChart/deviceData";
+import DeviceLiveDataChart from "../charts/dashboardChart/deviceLiveDataChart";
 
 // Define the type for a device
 
@@ -24,10 +25,17 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
     const [devices, setDevices] = useState<Device[]>([]);
     const [deviceData, setDeviceData] = useState<Device[]>([]);
+    const [websocket, setWebsocket] = useState<WebSocket | null>(null);
 
-    /*if (!context) {
-        throw new Error('DeviceContext is undefined');
-    }*/
+    useEffect(() => {
+        const ws = new WebSocket('ws://localhost:3100/');
+        ws.onopen = () => {
+          setWebsocket(ws);
+        };
+        return () => {
+          ws.close();
+        };
+      }, []);
 
     const addDevice = () => {
         navigate('/home/addDevice');
@@ -58,6 +66,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         }
     }, [selectedDevice, devices]); // Add devices as a dependency
 
+    
     return (
         <Wrapper>
             <div className="scrollContainer">
@@ -121,7 +130,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                 <div className="selectedDeviceInfo">
                                     <br/>
 
-                                    <div className="selectedLatestData">
+                                    {/*<div className="selectedLatestData">
                                         <div className="col">
                                             <p>Temperature: {device.temperature}</p>
                                             <p>Pressure: {device.pressure}</p>
@@ -129,22 +138,27 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                             <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
                                         </div>
 
-                                        <DashboardChart/>
+                                        <DeviceLiveDataChart websocketUrl="ws://localhost:3100/" />
                                     </div>
 
                                     <div className="horizantalLine"></div>
+                                    */}
+                                    {websocket ? <DeviceLiveDataChart websocket={websocket} /> : 'Connecting...'}
 
                                     <h2>Reacent Data</h2>
 
                                     <div className="selectedRecentData">
-                                        {deviceData.slice(0, 8).map((device, index) => (
-                                            <div className="col" key={index}>
-                                            <p>Temperature: {device.temperature}</p>
-                                            <p>Pressure: {device.pressure}</p>
-                                            <p>Humidity: {device.humidity}</p>
-                                            <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
-                                            </div>
-                                        ))}
+                                        {[...deviceData]
+                                            .sort((a, b) => new Date(b.readingDate || 0).getTime() - new Date(a.readingDate || 0).getTime())
+                                            .slice(0, 8)
+                                            .map((device, index) => (
+                                                <div className="col" key={index}>
+                                                    <p>Temperature: {device.temperature}</p>
+                                                    <p>Pressure: {device.pressure}</p>
+                                                    <p>Humidity: {device.humidity}</p>
+                                                    <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
+                                                </div>
+                                            ))}
                                     </div>
 
                                     <DeviceDataChart deviceData={deviceData} />

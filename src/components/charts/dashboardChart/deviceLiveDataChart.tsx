@@ -4,32 +4,24 @@ import { Line } from 'react-chartjs-2';
 import { Device } from '../../../interfaces/DeviceContext';
 
 interface DeviceDataChartProps {
-  initialDeviceData: Device[];
-  fetchDeviceData: () => Promise<Device[]>; // Function to fetch new device data
+  websocket: WebSocket;
 }
 
-const DeviceLiveDataChart: React.FC<DeviceDataChartProps> = ({ initialDeviceData, fetchDeviceData }) => {
-  const [deviceData, setDeviceData] = useState(initialDeviceData);
+const DeviceLiveDataChart: React.FC<DeviceDataChartProps> = ({ websocket }) => {
+  const [deviceData, setDeviceData] = useState<Device[]>([]);
 
   useEffect(() => {
-    // Fetch data once when the component mounts
-    const fetchData = async () => {
-      const newDeviceData = await fetchDeviceData();
+    websocket.onmessage = (event) => {
+      console.log('Received data:', event.data); // Log received data
+      const newDeviceData: Device = JSON.parse(event.data);
       setDeviceData(prevDeviceData => {
-        const updatedDeviceData = [...prevDeviceData, ...newDeviceData].slice(-60);
-        return updatedDeviceData;
+          const updatedDeviceData = [...prevDeviceData, newDeviceData].slice(-60);
+          return updatedDeviceData;
       });
     };
   
-    fetchData();
-  
-    // Clear the data after a minute
-    const timeoutId = setTimeout(() => {
-      setDeviceData([]);
-    }, 60000); // 60 seconds
-  
-    return () => clearTimeout(timeoutId); // Clean up on unmount
-  }, [fetchDeviceData]);
+    return () => { websocket.onmessage = null; }; // Clean up on unmount
+  }, [websocket]); // Added websocket to the dependency array
 
   const data = {
     labels: deviceData.map(device => new Date(device.readingDate || '').toLocaleString()),

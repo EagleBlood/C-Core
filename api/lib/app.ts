@@ -3,19 +3,32 @@ import cors from 'cors';
 import { config } from './config';
 import Controller from "./interfaces/controller.interface";
 import bodyParser from 'body-parser';
-import morgan from 'morgan';
+import WebSocket from 'ws';
 import mongoose from 'mongoose';
 import { logRequests } from './middlewares/deviceIdParam.middleware';
 
 class App {
     public app: express.Application;
+    private wss!: WebSocket.Server;
 
-   constructor(controllers: Controller[]) {
+    constructor(controllers: Controller[]) {
        this.app = express();
        this.initializeMiddlewares();
        this.initializeControllers(controllers);
        this.connectToDatabase();
-   }
+       this.initializeWebSocketServer();
+    }
+
+    private initializeWebSocketServer(): void {
+        this.wss = new WebSocket.Server({ noServer: true });
+        this.wss.on('connection', (ws: WebSocket) => {
+            ws.on('message', (message: string) => {
+                console.log('received: %s', message);
+                const data = JSON.parse(message);
+                ws.send(JSON.stringify(data));
+            });
+        });
+    }
 
     private initializeMiddlewares(): void {
         this.app.use(cors());
@@ -60,11 +73,16 @@ class App {
         });
     }
 
-
-   public listen(): void {
-       this.app.listen(config.port, () => {
-           console.log(`App listening on the port ${config.port}`);
-       });
-   }
+    public listen(): void {
+        const server = this.app.listen(config.port, () => {
+            console.log(`App listening on the port ${config.port}`);
+        });
+    
+        server.on('upgrade', (request, socket, head) => {
+            this.wss.handleUpgrade(request, socket, head, (ws) => {
+                this.wss.emit('connection', ws, request);
+            });
+        });
+    }
 }
 export default App;
