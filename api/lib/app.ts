@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { config } from './config';
 import Controller from "./interfaces/controller.interface";
 import bodyParser from 'body-parser';
@@ -17,6 +18,7 @@ class App {
    }
 
     private initializeMiddlewares(): void {
+        this.app.use(cors());
         this.app.use(bodyParser.json());
         //this.app.use(morgan('dev'));
         this.app.use(logRequests);

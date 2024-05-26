@@ -2,8 +2,8 @@ import Controller from '../interfaces/controller.interface';
 import {Request, Response, NextFunction, Router} from 'express';
 import UserService from "../modules/services/user.service";
 import TokenService from "../modules/services/token.service";
-import PasswordService from 'modules/services/password.servie';
-import { auth } from 'middlewares/auth.middleware';
+import PasswordService from '../modules/services/password.servie';
+import { auth } from '../middlewares/auth.middleware';
 
 class UserController implements Controller {
    public path = '/api/user';

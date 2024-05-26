@@ -10,17 +10,24 @@ import { Wrapper } from './dashboard.style';
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
-import { Device, DeviceContext } from "../../interfaces/DeviceContext";
+import { Device } from "../../interfaces/DeviceContext";
+import { Chart } from "react-chartjs-2";
+import DeviceDataChart from "../charts/dashboardChart/deviceData";
+
+// Define the type for a device
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const navigate = useNavigate();
-    const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
-    const context = useContext(DeviceContext);
+    //const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
+    //const context = useContext(DeviceContext);
     const [isToggled, setIsToggled] = useState(false);
+    const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
+    const [devices, setDevices] = useState<Device[]>([]);
+    const [deviceData, setDeviceData] = useState<Device[]>([]);
 
-    if (!context) {
+    /*if (!context) {
         throw new Error('DeviceContext is undefined');
-    }
+    }*/
 
     const addDevice = () => {
         navigate('/home/addDevice');
@@ -33,7 +40,23 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
         }
     }, [window.location.pathname]);
 
-    const { devices } = context;
+    useEffect(() => {
+        fetch('http://localhost:3100/api/data/all')
+          .then(response => response.json())
+          .then(data => setDevices(data));
+    }, []);
+
+    useEffect(() => {
+        // Ensure a device is selected before fetching
+        if (selectedDevice !== null) {
+          const deviceId = devices[selectedDevice].deviceId; // Use the actual device ID
+      
+          fetch(`http://localhost:3100/api/data/${deviceId}`)
+            .then(response => response.json())
+            .then(data => setDeviceData(data))
+            .catch(error => console.error('Error:', error));
+        }
+    }, [selectedDevice, devices]); // Add devices as a dependency
 
     return (
         <Wrapper>
@@ -88,15 +111,48 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                         .map((device: Device, index: number) => ({ device, index }))
                         .sort((a, b) => (a.index === selectedDevice ? -1 : b.index === selectedDevice ? 1 : 0))
                         .map(({ device, index }) => (
-                            <div 
-                                key={index} 
-                                className={`device ${selectedDevice === index ? 'selected' : ''}`}
-                                onClick={() => setSelectedDevice(index)}
-                            >
-                                <h1>{device.deviceName}</h1>
-                                <p>Type: {device.deviceType}</p>
-                                <p>Id: <span>{device.deviceId}</span></p>
-                            </div>
+                        <div 
+                            key={index} 
+                            className={`device ${selectedDevice === index ? 'selected' : ''}`}
+                            onClick={() => setSelectedDevice(index)}
+                        >
+                            <h1>Device {device.deviceId}</h1>
+                            {selectedDevice === index && 
+                                <div className="selectedDeviceInfo">
+                                    <br/>
+
+                                    <div className="selectedLatestData">
+                                        <div className="col">
+                                            <p>Temperature: {device.temperature}</p>
+                                            <p>Pressure: {device.pressure}</p>
+                                            <p>Humidity: {device.humidity}</p>
+                                            <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
+                                        </div>
+
+                                        <DashboardChart/>
+                                    </div>
+
+                                    <div className="horizantalLine"></div>
+
+                                    <h2>Reacent Data</h2>
+
+                                    <div className="selectedRecentData">
+                                        {deviceData.slice(0, 8).map((device, index) => (
+                                            <div className="col" key={index}>
+                                            <p>Temperature: {device.temperature}</p>
+                                            <p>Pressure: {device.pressure}</p>
+                                            <p>Humidity: {device.humidity}</p>
+                                            <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <DeviceDataChart deviceData={deviceData} />
+
+                                    
+                                </div>
+                            }
+                        </div>
                         ))}
                     <div className="addDevice" onClick={addDevice} >
                         <PhPlus/>

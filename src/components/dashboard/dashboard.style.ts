@@ -7,7 +7,7 @@ export const Wrapper = styled.main`
     .scrollContainer {
         display: flex;
         flex-direction: column;
-        gap: ${({theme}) => theme.values.size.items.mediumGap}px;
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
         width: 100%;
         max-height: 100vh;
         overflow-y: auto;
@@ -51,6 +51,13 @@ export const Wrapper = styled.main`
     .verticleLine {
         height: 100%;
         width: 4px;
+        background-color: ${({theme}) => theme.colors.bg.bgStroke};
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
+    }
+    
+    .horizantalLine {
+        width: 100%;
+        height: 1px;
         background-color: ${({theme}) => theme.colors.bg.bgStroke};
         transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
@@ -112,7 +119,7 @@ export const Wrapper = styled.main`
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         aspect-ratio: auto;
         grid-column: 1 / -1;
-        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
+        background-color: ${({theme}) => theme.colors.bg.bgPrimary};
         transition: none;
         color: ${({theme}) => theme.colors.text.textPrimary};
     }
@@ -127,5 +134,30 @@ export const Wrapper = styled.main`
         border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+    }
+
+    .selectedDeviceInfo {
+        display: flex;
+        flex-direction: column;
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+        text-align: left;
+        width: 100%;
+    }
+
+    .col {
+        min-width: 250px;
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    }
+
+    .selectedLatestData {
+        display: flex;
+        flex-direction: row;
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+    }
+
+    .selectedRecentData {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: ${({theme}) => theme.values.size.items.mediumGap}px;
     }
 `;

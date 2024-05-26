@@ -6,7 +6,7 @@ import Header from "../../components/header/Header";
 import Menu from "../../components/menu/Menu";
 import { Outlet, useLocation, useMatch } from "react-router-dom";
 import AddDevice from "../../components/popups/addDevice/AddDevice";
-import { Device, DeviceContext } from "../../interfaces/DeviceContext";
+import { Device } from "../../interfaces/DeviceContext";
 import { motion } from "framer-motion";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
@@ -22,7 +22,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
   
   const [devices, setDevices] = useState<Device[]>([]);
   const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
-    setDevices(prevDevices => [...prevDevices, { deviceName, deviceType, deviceId }]);
+    
   };
   
   return (
@@ -38,8 +38,6 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
         <div className="homeContainer">
           <div className="homeElementContainer">
             <Menu/>
-
-            <DeviceContext.Provider value={{ devices, setDevices }}>
               <motion.div
                 className="outletContainer"
                 key={key}
@@ -50,7 +48,6 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
               >
                 <Outlet />
               </motion.div>
-            </DeviceContext.Provider>
           </div>
 
           {showPopup && 

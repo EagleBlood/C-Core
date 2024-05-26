@@ -31,7 +31,7 @@ class DataController implements Controller {
         // Device specific data
         this.router.get(`${this.path}/:id`, checkIdParam, this.getAllDeviceData);
         this.router.get(`${this.path}/:id/:index`, checkIdParam, this.getIndexData);
-        this.router.get(`${this.path}/:id/from/:to`, checkIdParam, this.getRangeData);
+        this.router.get(`${this.path}/:id/:from/:to`, checkIdParam, this.getRangeData);
 
         // Device add data
         this.router.post(`${this.path}/add/:id`, checkIdParam, this.addData);
@@ -68,12 +68,12 @@ class DataController implements Controller {
 
     private getRangeData = async (request: Request, response: Response, next: NextFunction) => {
         const { id, from, to } = request.params;
-        const deviceData = dataStore[id];
-        if (!deviceData) {
+        const deviceData = await this.dataService.query(id);
+        if (!deviceData || deviceData.length === 0) {
             response.status(404).send('No data found for this device');
             return;
         }
-        const rangeData = deviceData.slice(parseInt(from), parseInt(to) + 1);
+        const rangeData = deviceData.slice(parseInt(from), parseInt(to));
         response.status(200).json(rangeData);
     };
 
