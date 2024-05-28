@@ -26,6 +26,9 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const [devices, setDevices] = useState<Device[]>([]);
     const [deviceData, setDeviceData] = useState<Device[]>([]);
     const [websocket, setWebsocket] = useState<WebSocket | null>(null);
+    const [userCount, setUserCount] = useState(0);
+    const [activeDevices, setActiveDevices] = useState(0);
+    const [inactiveDevices, setInactiveDevices] = useState(0);
 
     useEffect(() => {
         const ws = new WebSocket('ws://localhost:3100/');
@@ -51,20 +54,35 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     useEffect(() => {
         fetch('http://localhost:3100/api/data/all')
           .then(response => response.json())
-          .then(data => setDevices(data));
+          .then(data => {
+            setDevices(data);
+            setDeviceData(data);
+          });
     }, []);
 
     useEffect(() => {
-        // Ensure a device is selected before fetching
-        if (selectedDevice !== null) {
-          const deviceId = devices[selectedDevice].deviceId; // Use the actual device ID
-      
-          fetch(`http://localhost:3100/api/data/${deviceId}`)
-            .then(response => response.json())
-            .then(data => setDeviceData(data))
-            .catch(error => console.error('Error:', error));
-        }
-    }, [selectedDevice, devices]); // Add devices as a dependency
+        fetch('http://localhost:3100/api/user/all')
+          .then(response => response.json())
+          .then(data => setUserCount(data.length));
+      }, []);
+
+      useEffect(() => {
+        const twoWeeksAgo = Date.now() - 2 * 7 * 24 * 60 * 60 * 1000; // 2 weeks in milliseconds
+        let activeCount = 0;
+        let inactiveCount = 0;
+    
+        deviceData.forEach(device => {
+            const readingDate = new Date(device.readingDate || '').getTime();
+            if (readingDate > twoWeeksAgo) {
+                activeCount++;
+            } else {
+                inactiveCount++;
+            }
+        });
+    
+        setActiveDevices(activeCount);
+        setInactiveDevices(inactiveCount);
+    }, [deviceData]);
 
     
     return (
@@ -77,7 +95,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                             <p>Number of devices</p>
                         </div>
                         
-                        <h1>5</h1>
+                        <h1>{devices.length}</h1>
                     </div>
 
                     <div className="verticleLine"></div>
@@ -87,7 +105,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                             <PhUserBoldSec/>
                             <p>Total Users</p>
                         </div>
-                        <h1>5</h1>
+                        <h1>{userCount}</h1>
                     </div>
 
                     <div className="verticleLine"></div>
@@ -97,7 +115,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                             <PhPlugsConnected/>
                             <p>Devices Active</p>
                         </div>
-                        <h1>5</h1>
+                        <h1>{activeDevices}</h1>
                     </div>
 
                     <div className="verticleLine"></div>
@@ -107,7 +125,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                             <PhPlugs/>
                             <p>Devices Inactive</p>
                         </div>
-                        <h1>5</h1>
+                        <h1>{inactiveDevices}</h1>
                     </div>
                 </div>
 
