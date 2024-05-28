@@ -15,7 +15,7 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
   // Add this useEffect
   useEffect(() => {
     setUserId(user.id);
-    setUsername(user.username);
+    setUsername(user.name);
     setPassword(user.password);
     setEmail(user.email);
     setRole(user.role);
@@ -107,26 +107,26 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                 <p>Role</p>
                 <div className="col">
                   <div className="row">
-                    <input 
-                      type="radio" 
-                      id="admin" 
-                      name="role" 
-                      value="true" 
-                      //checked={isAdmin} 
-                      //onChange={() => setIsAdmin(true)}
-                    />
-                    <label htmlFor="admin">Admin</label>
+                  <input 
+                    type="radio" 
+                    id="admin" 
+                    name="role" 
+                    value="true" 
+                    checked={user.role === "admin"} 
+                    onChange={() => setRole("admin")}
+                  />
+                  <label htmlFor="admin">Admin</label>
                   </div>
                   <div className="row">
-                    <input 
-                      type="radio" 
-                      id="user" 
-                      name="role" 
-                      value="false" 
-                      //checked={!isAdmin} 
-                      //onChange={() => setIsAdmin(false)}
-                    />
-                    <label htmlFor="user">User</label>
+                  <input 
+                    type="radio" 
+                    id="user" 
+                    name="role" 
+                    value="false" 
+                    checked={user.role === "user"} 
+                    onChange={() => setRole("user")}
+                  />
+                  <label htmlFor="user">User</label>
                   </div>
                 </div>
               </div>

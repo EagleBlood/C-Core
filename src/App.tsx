@@ -2,9 +2,19 @@ import Home from "./routes/home/Home";
 import './App.css';
 import { AppProps } from "./App.props";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const App: React.FC<AppProps> = ({ toggleTheme }) => {
 
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/acc/login');
+    }
+  }, []);
+  
   /*TODO
     x Fix the home vertial scrool as it is now bugged cuz of motion.div (probably missing block.size = border-box)
     x Fix chart rerender on theme change

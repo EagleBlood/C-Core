@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { config } from '../config'; // adjust the path according to your project structure
+import { config } from '../config';
 import { IUser } from "../modules/models/user.model";
 
 export const admin = (request: Request, response: Response, next: NextFunction) => {
@@ -28,4 +28,5 @@ export const admin = (request: Request, response: Response, next: NextFunction) 
         return response.status(401).send('Access denied. No token provided.');
     }
  };
+ 
  

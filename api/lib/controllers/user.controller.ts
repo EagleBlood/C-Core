@@ -20,7 +20,8 @@ class UserController implements Controller {
        this.router.post(`${this.path}/create`, this.createNewOrUpdate);
        this.router.post(`${this.path}/auth`, this.authenticate);
        this.router.delete(`${this.path}/logout/:userId`, auth, this.removeHashSession);
-   }
+       this.router.get(`${this.path}/all`, this.getAllUsers);
+    }
 
     private authenticate = async (request: Request, response: Response, next: NextFunction) => {
         const {login, password} = request.body;
@@ -71,6 +72,18 @@ class UserController implements Controller {
             response.status(401).json({error: 'Unauthorized'});
         }
     };
+
+    private getAllUsers = async (request: Request, response: Response, next: NextFunction) => {
+        try {
+          const users = await this.userService.getAll();
+          response.status(200).json(users);
+        } catch (error) {
+          console.error(`Error fetching users: ${error}`);
+          response.status(500).json({error: 'Internal server error'});
+        }
+      };
+
+      
 
 }
 

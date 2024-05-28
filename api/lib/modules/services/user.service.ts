@@ -28,6 +28,16 @@ class UserService {
        throw new Error('Wystąpił błąd podczas pobierania danych');
    }
 }
+
+    public getAll = async (): Promise<IUser[]> => {
+        try {
+        const users = await UserModel.find();
+        return users;
+        } catch (error) {
+        console.error(`Error fetching users: ${error}`);
+        throw error;
+        }
+    };
 }
 
 export default UserService;
