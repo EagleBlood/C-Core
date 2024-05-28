@@ -149,6 +149,10 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.miniGap}px;
     }
 
+    .row {
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    }
+
     .selectedLatestData {
         display: flex;
         flex-direction: row;

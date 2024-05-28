@@ -72,7 +72,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
             <div className="scrollContainer">
                 <div className="deviceInfoContainer">
                     <div className="deviceInfo">
-                        <div className="row" style={{gap: '10px'}}>
+                        <div className="row">
                             <IcSensor/>
                             <p>Number of devices</p>
                         </div>
@@ -83,7 +83,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                     <div className="verticleLine"></div>
 
                     <div className="deviceInfo">
-                        <div className="row" style={{gap: '10px'}}>
+                        <div className="row">
                             <PhUserBoldSec/>
                             <p>Total Users</p>
                         </div>
@@ -93,7 +93,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                     <div className="verticleLine"></div>
 
                     <div className="deviceInfoSpecial">
-                        <div className="row" style={{gap: '10px'}}>
+                        <div className="row">
                             <PhPlugsConnected/>
                             <p>Devices Active</p>
                         </div>
@@ -103,7 +103,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                     <div className="verticleLine"></div>
 
                     <div className="deviceInfo">
-                        <div className="row" style={{gap: '10px'}}>
+                        <div className="row">
                             <PhPlugs/>
                             <p>Devices Inactive</p>
                         </div>
