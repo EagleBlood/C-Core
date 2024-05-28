@@ -4,12 +4,8 @@ import { HeaderProps } from "./header.props.ts";
 import { Wrapper } from './header.style.ts';
 import { Logo } from '../../assets/Logo.tsx';
 import { ThemeIcon } from "../../assets/ThemeIcon.tsx";
-import { Link, useNavigate } from "react-router-dom";
-
-interface JwtPayload {
-  userId: string;
-  name: string;
-}
+import { useNavigate } from "react-router-dom";
+import { JwtPayload } from "../../interfaces/JwtPayloadContext.tsx";
 
 const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
   const [userID, setUserID] = useState<string | null>(null);
@@ -18,7 +14,6 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log('useEffect token', token);
     if (token) {
       const decoded = jwtDecode<JwtPayload>(token);
       console.log('decoded', decoded);

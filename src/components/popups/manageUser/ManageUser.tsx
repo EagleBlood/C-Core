@@ -3,6 +3,8 @@ import { ManageUserProps } from "./manageUser.props";
 import { Wrapper } from './manageUser.style';
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
+import { jwtDecode } from "jwt-decode";
+import { JwtPayload } from "../../../interfaces/JwtPayloadContext";
 
 const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, onUpdate, onCancel, deleteUser }) => {
   const [userId, setUserId] = useState(0);
@@ -10,11 +12,17 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
-  const [isVisible, setIsVisible] = useState(true); // Add this state
+  const [isVisible, setIsVisible] = useState(true);
+  const token = localStorage.getItem('token');
 
-  // Add this useEffect
+  let decoded: JwtPayload | null = null;
+  if (token) {
+    decoded = jwtDecode(token);
+    //console.log('decoded', userId, user._id, decoded);
+  }
+
   useEffect(() => {
-    setUserId(user.id);
+    setUserId(user._id);
     setUsername(user.name);
     setPassword(user.password);
     setEmail(user.email);
@@ -103,40 +111,53 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                 </div>
               </div>
 
-              <div className="inputItemContainer">
-                <p>Role</p>
-                <div className="col">
-                  <div className="row">
-                  <input 
-                    type="radio" 
-                    id="admin" 
-                    name="role" 
-                    value="true" 
-                    checked={user.role === "admin"} 
-                    onChange={() => setRole("admin")}
-                  />
-                  <label htmlFor="admin">Admin</label>
-                  </div>
-                  <div className="row">
-                  <input 
-                    type="radio" 
-                    id="user" 
-                    name="role" 
-                    value="false" 
-                    checked={user.role === "user"} 
-                    onChange={() => setRole("user")}
-                  />
-                  <label htmlFor="user">User</label>
+              <div className="row">
+                
+                <div className="inputItemContainer">
+                  <p>Role</p>
+                  <div className="col">
+                    <div className="row">
+                      <input 
+                        type="radio" 
+                        id="admin" 
+                        name="role" 
+                        value="true" 
+                        checked={user.role === "admin"} 
+                        onChange={() => setRole("admin")}
+                      />
+                      <label htmlFor="admin">Admin</label>
+                    </div>
+                    <div className="row">
+                      <input 
+                        type="radio" 
+                        id="user" 
+                        name="role" 
+                        value="false" 
+                        checked={user.role === "user"} 
+                        onChange={() => setRole("user")}
+                      />
+                      <label htmlFor="user">User</label>
+                    </div>
                   </div>
                 </div>
+
+                {userId.toString() === decoded?.userId && (
+                  <div className="inputItemContainer">
+                    <p>Token Expiration  Date</p>
+                    <h2>{decoded && decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
+                  </div>
+                )}
+
               </div>
+
+
             </form>
             
             <div className="row">
-                <button type="submit" form="editUserForm" onClick={handleUpdate}>Confirm</button>
-                <button type="button" onClick={handleDelete}>Delete</button>
-                <button type="button" onClick={handleCancel}>Cancel</button>
-              </div>
+              <button type="submit" form="editUserForm" onClick={handleUpdate}>Confirm</button>
+              <button type="button" onClick={handleDelete}>Delete</button>
+              <button type="button" onClick={handleCancel}>Cancel</button>
+            </div>
 
           </motion.div>
         )}

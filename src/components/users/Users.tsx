@@ -18,6 +18,8 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
 
   const handleUserClick = (user: User) => {
     setSelectedUser(user);
+    //console.log(user);
+    //console.log(user._id);
   };
 
   const handleUserUpdate = (user: User) => {
@@ -43,7 +45,7 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
       <div className="scrollContainer">
         <div className="userContainer">
           {users.map(user => (
-            <div className="userBox" onClick={() => handleUserClick(user)}>
+            <div key={user._id} className="userBox" onClick={() => handleUserClick(user)}>
               <PhAvatar/>
               <div className="col">
                 <h1>{user.name}</h1>

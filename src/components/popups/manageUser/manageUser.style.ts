@@ -18,6 +18,7 @@ export const Wrapper = styled.main`
 
     .inputItemContainer{
         color: ${({theme}) => theme.colors.text.textPrimary};
+        width: 100%;
     }
 
     button {
