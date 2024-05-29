@@ -120,7 +120,7 @@ export const Wrapper = styled.main`
         aspect-ratio: auto;
         grid-column: 1 / -1;
         background-color: ${({theme}) => theme.colors.bg.bgPrimary};
-        transition: none;
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
         color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
