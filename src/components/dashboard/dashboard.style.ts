@@ -119,7 +119,7 @@ export const Wrapper = styled.main`
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         aspect-ratio: auto;
         grid-column: 1 / -1;
-        background-color: ${({theme}) => theme.colors.bg.bgPrimary};
+        background-color: transparent;
         transition: background-color ${({theme}) => theme.values.time.slow}s;
         color: ${({theme}) => theme.colors.text.textPrimary};
     }

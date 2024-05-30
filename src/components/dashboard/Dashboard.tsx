@@ -7,11 +7,10 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent, useContext, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { Device } from "../../interfaces/DeviceContext";
-import { Chart } from "react-chartjs-2";
 import DeviceDataChart from "../charts/dashboardChart/deviceData";
 import DeviceLiveDataChart from "../charts/dashboardChart/deviceLiveDataChart";
 
@@ -19,26 +18,15 @@ import DeviceLiveDataChart from "../charts/dashboardChart/deviceLiveDataChart";
 
 const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const navigate = useNavigate();
-    //const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
-    //const context = useContext(DeviceContext);
     const [isToggled, setIsToggled] = useState(false);
     const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
     const [devices, setDevices] = useState<Device[]>([]);
     const [deviceData, setDeviceData] = useState<Device[]>([]);
-    const [websocket, setWebsocket] = useState<WebSocket | null>(null);
     const [userCount, setUserCount] = useState(0);
-    const [activeDevices, setActiveDevices] = useState(0);
-    const [inactiveDevices, setInactiveDevices] = useState(0);
-
-    useEffect(() => {
-        const ws = new WebSocket('ws://localhost:3100/');
-        ws.onopen = () => {
-          setWebsocket(ws);
-        };
-        return () => {
-          ws.close();
-        };
-      }, []);
+    const [activeDevicesPerDay, setActiveDevicesPerDay] = useState<Record<string, number>>({});
+    const [inactiveDevicesPerDay, setInactiveDevicesPerDay] = useState<Record<string, number>>({});
+    const today = new Date().toISOString().split('T')[0];
+    const activeDevicesToday = activeDevicesPerDay[today] || 0;
 
     const addDevice = () => {
         navigate('/home/addDevice');
@@ -56,34 +44,73 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
           .then(response => response.json())
           .then(data => {
             setDevices(data);
-            setDeviceData(data);
           });
     }, []);
-
+    
     useEffect(() => {
-        fetch('http://localhost:3100/api/user/all')
+        if (selectedDevice !== null) {
+            fetch(`http://localhost:3100/api/data/${selectedDevice}`)
+                .then(response => response.json())
+                .then(data => {
+                    setDeviceData(data);
+                });
+            console.log(selectedDevice);
+        }
+    }, [selectedDevice]);
+    
+    useEffect(() => {
+        const localUserCount = localStorage.getItem('userCount');
+        if (localUserCount) {
+            setUserCount(JSON.parse(localUserCount));
+        } else {
+            fetch('http://localhost:3100/api/user/all')
+                .then(response => response.json())
+                .then(data => {
+                    setUserCount(data.length);
+                    localStorage.setItem('userCount', JSON.stringify(data.length));
+                });
+        }
+    }, []);
+    
+    useEffect(() => {
+        fetch('http://localhost:3100/api/data/all')
           .then(response => response.json())
-          .then(data => setUserCount(data.length));
+          .then((data: any[]) => {
+            const twoWeeksAgo = Date.now() - 2 * 7 * 24 * 60 * 60 * 1000; // 2 weeks in milliseconds
+      
+            // Create a map where the key is the deviceId and the value is the latest readingDate for that device
+            const deviceLatestReadingDateMap = data.reduce((acc: Record<string, any>, curr: any) => {
+              if (!curr.readingDate) {
+                return acc;
+              }
+      
+              const currentReadingDate = new Date(curr.readingDate).getTime();
+              if (!acc[curr.deviceId] || currentReadingDate > acc[curr.deviceId]) {
+                acc[curr.deviceId] = currentReadingDate;
+              }
+      
+              return acc;
+            }, {});
+      
+            // Create a map to store the count of active devices per day
+            const activeDevicesPerDay: Record<string, number> = {};
+      
+            // Iterate over the map and check if the latest readingDate is later than two weeks ago
+            Object.keys(deviceLatestReadingDateMap).forEach((deviceId: string) => {
+              const readingDate = deviceLatestReadingDateMap[deviceId];
+              if (readingDate > twoWeeksAgo) {
+                const date = new Date(readingDate).toISOString().split('T')[0]; // Get the date part of the timestamp
+                if (!activeDevicesPerDay[date]) {
+                  activeDevicesPerDay[date] = 0;
+                }
+                activeDevicesPerDay[date]++;
+              }
+            });
+      
+            setActiveDevicesPerDay(activeDevicesPerDay);
+            console.log(activeDevicesPerDay); // This will log the count of active devices per day
+          });
       }, []);
-
-      useEffect(() => {
-        const twoWeeksAgo = Date.now() - 2 * 7 * 24 * 60 * 60 * 1000; // 2 weeks in milliseconds
-        let activeCount = 0;
-        let inactiveCount = 0;
-    
-        deviceData.forEach(device => {
-            const readingDate = new Date(device.readingDate || '').getTime();
-            if (readingDate > twoWeeksAgo) {
-                activeCount++;
-            } else {
-                inactiveCount++;
-            }
-        });
-    
-        setActiveDevices(activeCount);
-        setInactiveDevices(inactiveCount);
-    }, [deviceData]);
-
     
     return (
         <Wrapper>
@@ -115,55 +142,45 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                             <PhPlugsConnected/>
                             <p>Devices Active</p>
                         </div>
-                        <h1>{activeDevices}</h1>
+                        <h1>{activeDevicesToday}</h1>
                     </div>
 
-                    <div className="verticleLine"></div>
+                    {/*<div className="verticleLine"></div>
 
                     <div className="deviceInfo">
                         <div className="row">
                             <PhPlugs/>
                             <p>Devices Inactive</p>
                         </div>
-                        <h1>{inactiveDevices}</h1>
-                    </div>
+                        <h1>{devices.length}</h1>
+                    </div>*/}
                 </div>
 
                 <div className="chartContainer">
-                    <DashboardChart/>
+                    <DashboardChart
+                        totalDevices={devices.length}
+                        activeDevicesPerDay={activeDevicesPerDay}
+                        inactiveDevices={devices.length}
+                    />
                 </div>
 
                 <div className="deviceListContainer">
-                    {devices
-                        .map((device: Device, index: number) => ({ device, index }))
-                        .sort((a, b) => (a.index === selectedDevice ? -1 : b.index === selectedDevice ? 1 : 0))
-                        .map(({ device, index }) => (
+                {devices
+                    .sort((a, b) => (a.deviceId === selectedDevice ? -1 : b.deviceId === selectedDevice ? 1 : 0))
+                    .map((device: Device) => (
                         <div 
-                            key={index} 
-                            className={`device ${selectedDevice === index ? 'selected' : ''}`}
-                            onClick={() => setSelectedDevice(index)}
+                            key={device.deviceId} 
+                            className={`device ${selectedDevice === device.deviceId ? 'selected' : ''}`}
+                            onClick={() => setSelectedDevice(device.deviceId)}
                         >
                             <h1>Device {device.deviceId}</h1>
-                            {selectedDevice === index && 
+                            {selectedDevice === device.deviceId && 
                                 <div className="selectedDeviceInfo">
                                     <br/>
 
-                                    {/*<div className="selectedLatestData">
-                                        <div className="col">
-                                            <p>Temperature: {device.temperature}</p>
-                                            <p>Pressure: {device.pressure}</p>
-                                            <p>Humidity: {device.humidity}</p>
-                                            <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
-                                        </div>
+                                    {/*<DeviceLiveDataChart websocket={websocket} deviceId={selectedDevice} />*/}
 
-                                        <DeviceLiveDataChart websocketUrl="ws://localhost:3100/" />
-                                    </div>
-
-                                    <div className="horizantalLine"></div>
-                                    */}
-                                    {websocket ? <DeviceLiveDataChart websocket={websocket} /> : 'Connecting...'}
-
-                                    <h2>Reacent Data</h2>
+                                    <h2>Recent Data</h2>
 
                                     <div className="selectedRecentData">
                                         {[...deviceData]
@@ -180,12 +197,11 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                     </div>
 
                                     <DeviceDataChart deviceData={deviceData} />
-
-                                    
                                 </div>
                             }
                         </div>
-                        ))}
+                    ))}
+
                     <div className="addDevice" onClick={addDevice} >
                         <PhPlus/>
                     </div>

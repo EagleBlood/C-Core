@@ -16,6 +16,7 @@ const colors = {
     chart: {
         chartY0: '#DD707070',
         chartY1: '#1A1A1A70',
+        grids: '#4E4E4E40',
     },
     text: {
         textPrimary: '#1A1A1A',

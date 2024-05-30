@@ -5,23 +5,26 @@ import { Device } from '../../../interfaces/DeviceContext';
 
 interface DeviceDataChartProps {
   websocket: WebSocket;
+  deviceId: number;
 }
 
-const DeviceLiveDataChart: React.FC<DeviceDataChartProps> = ({ websocket }) => {
+const DeviceLiveDataChart: React.FC<DeviceDataChartProps> = ({ websocket, deviceId }) => {
   const [deviceData, setDeviceData] = useState<Device[]>([]);
 
   useEffect(() => {
     websocket.onmessage = (event) => {
-      console.log('Received data:', event.data); // Log received data
       const newDeviceData: Device = JSON.parse(event.data);
-      setDeviceData(prevDeviceData => {
+      // Only update the state if the data is for the selected device
+      if (newDeviceData.deviceId === deviceId) {
+        setDeviceData(prevDeviceData => {
           const updatedDeviceData = [...prevDeviceData, newDeviceData].slice(-60);
           return updatedDeviceData;
-      });
+        });
+      }
     };
   
     return () => { websocket.onmessage = null; }; // Clean up on unmount
-  }, [websocket]); // Added websocket to the dependency array
+  }, [websocket, deviceId]); // Add deviceId to the dependency array
 
   const data = {
     labels: deviceData.map(device => new Date(device.readingDate || '').toLocaleString()),

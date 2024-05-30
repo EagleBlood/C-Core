@@ -3,31 +3,32 @@ import cors from 'cors';
 import { config } from './config';
 import Controller from "./interfaces/controller.interface";
 import bodyParser from 'body-parser';
-import WebSocket from 'ws';
+import WebSocketController from './controllers/ws.controller';
 import mongoose from 'mongoose';
 import { logRequests } from './middlewares/deviceIdParam.middleware';
+import { Server } from 'socket.io';
+import * as http from "http";
 
 class App {
     public app: express.Application;
-    private wss!: WebSocket.Server;
+    private io: Server;
+    private httpServer: any;
 
     constructor(controllers: Controller[]) {
-       this.app = express();
+        this.app = express();
+        this.httpServer = http.createServer(this.app);
+        this.io = new Server(this.httpServer, {
+            cors: {
+                origin: 'http://localhost:5173', 
+                methods: ['GET', 'POST'],
+            },
+        });
+
+        
        this.initializeMiddlewares();
        this.initializeControllers(controllers);
        this.connectToDatabase();
-       this.initializeWebSocketServer();
-    }
-
-    private initializeWebSocketServer(): void {
-        this.wss = new WebSocket.Server({ noServer: true });
-        this.wss.on('connection', (ws: WebSocket) => {
-            ws.on('message', (message: string) => {
-                console.log('received: %s', message);
-                const data = JSON.parse(message);
-                ws.send(JSON.stringify(data));
-            });
-        });
+       this.initializeSockets();
     }
 
     private initializeMiddlewares(): void {
@@ -64,7 +65,7 @@ class App {
             await mongoose.connection.close();
             console.log('MongoDB connection closed due to app termination');
             process.exit(0);
-        });
+        }); 
 
         process.on('SIGTERM', async () => {
             await mongoose.connection.close();
@@ -73,15 +74,17 @@ class App {
         });
     }
 
+    private initializeSockets(): void {
+        console.log('Sockets work');
+     
+        const chatController = new WebSocketController(this.io);
+        chatController.initializeRoutes(this.app);
+     }
+     
+
     public listen(): void {
-        const server = this.app.listen(config.port, () => {
+        const server = this.httpServer.listen(config.port, () => {
             console.log(`App listening on the port ${config.port}`);
-        });
-    
-        server.on('upgrade', (request, socket, head) => {
-            this.wss.handleUpgrade(request, socket, head, (ws) => {
-                this.wss.emit('connection', ws, request);
-            });
         });
     }
 }

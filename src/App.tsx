@@ -1,18 +1,42 @@
 import Home from "./routes/home/Home";
 import './App.css';
 import { AppProps } from "./App.props";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import io from 'socket.io-client';
 
 const App: React.FC<AppProps> = ({ toggleTheme }) => {
-
+  const [ socket, setSocket] = useState();
   const navigate = useNavigate();
+
+  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/acc/login');
     }
+  }, []);
+
+  useEffect(() => {
+
+    const socket = io('http://localhost:3100');
+
+    socket.on('connect', () => {
+      console.log(`Connected with ID ${socket.id}`);
+    });
+
+    socket.on('disconnect', () => {
+      console.log(`Disconnected`);
+    });
+
+    socket.on('error', (error) => {
+      console.log('error:', error);
+  });
+
+    //@ts-ignore
+    setSocket(socket);
+    
   }, []);
   
   /*TODO
@@ -28,18 +52,18 @@ const App: React.FC<AppProps> = ({ toggleTheme }) => {
     -* Adjust Account route animations (Login.tsx) to be slower and smother
 
     // 10.05.2024
-    - Add to load devices from api into dashboard
+    x Add to load devices from api into dashboard
     - Add ability to add new devices from dashboard
     - Add ability to remove devices from dashboard
     x Add cancel button from adding new device popup
-    - Add live data to main 4 controls in dashboard
-    - Add live data to all devices in dashboard
-    - Add user accounts into api
-    - Add auth from api users to app
+    x Add live data to main 4 controls in dashboard
+    x Add live data to all devices in dashboard
+    x Add user accounts into api
+    x Add auth from api users to app
     -* Add ability to change user password
     -* Add user permissions weights
 
-    - Redo device details after one is chosen from device list
+    x Redo device details after one is chosen from device list
 
     //26.05.2024
     - Websockets doesn't work for now as it is closing on start, works from client -> server using those commands:
@@ -52,30 +76,6 @@ const App: React.FC<AppProps> = ({ toggleTheme }) => {
 
     ws.send(JSON.stringify(data));
   */
-    useEffect(() => {
-      const ws = new WebSocket('ws://localhost:3100');
-  
-      ws.onopen = () => {
-        console.log('WebSocket is connected');
-      };
-  
-      ws.onmessage = (event) => {
-        console.log('Received data: ' + event.data);
-      };
-  
-      ws.onclose = (event) => {
-        console.log('WebSocket is closed', event.reason);
-      };
-        
-      ws.onerror = (error) => {
-        console.log('WebSocket encountered an error', error);
-      };
-  
-      return () => {
-        ws.close();
-      };
-    }, []);
-  
 
   return (
     <div>

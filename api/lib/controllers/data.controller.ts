@@ -4,23 +4,16 @@ import { Request, Response, NextFunction, Router } from 'express';
 import DataService from '../modules/services/data.service';
 import Joi from 'joi';
 import * as WebSocket from 'ws';
+import { Socket } from 'socket.io';
+import sendViaSocet from './ws.controller';
+import WebSocketController from './ws.controller';
 
-interface DataStore {
-    [key: string]: number[];
-}
-
-let dataStore: DataStore = {
-    "1": [4,5,6,3,5,3,7,5,13,5,6,4,3,6,3,6],
-    "2": [7,8,9,2,5,3,7,5,13,5,6,4,3,6,3,6],
-    // Add more devices as needed
-};
 
 class DataController implements Controller {
-    [x: string]: any;
     public path = '/api/data';
     public router = Router();
     private dataService: DataService;
- 
+   
     constructor() {
         this.initializeRoutes();
         this.dataService = new DataService();
@@ -55,7 +48,7 @@ class DataController implements Controller {
 
     private getIndexData = async (request: Request, response: Response, next: NextFunction) => {
         const { id, index } = request.params;
-        const deviceData = dataStore[id];
+        const deviceData = await this.dataService.query(id);
         if (!deviceData) {
             response.status(404).send('No data found for this device');
             return;
@@ -88,11 +81,11 @@ class DataController implements Controller {
             next(error);
         }
     };
-     
+
     private addData = async (request: Request, response: Response, next: NextFunction) => {
         const { temperature, pressure, humidity } = request.body;
         const { id } = request.params;
-    
+
         const schema = Joi.object({
             temperature: Joi.number().positive().required(),
             pressure: Joi.number().positive().required(),
@@ -110,22 +103,12 @@ class DataController implements Controller {
     
         try {
             await this.dataService.createData(data);
-    
-            // Broadcast the new data to all connected WebSocket clients
-            if (this.wss) {
-                this.wss.clients.forEach((client: WebSocket) => {
-                    if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify(data));
-                    }
-                });
-            }
-    
+        
             response.status(200).json(data);
         } catch (error) {
             console.error(`Validation Error: ${error}`);
-            if (!response.headersSent) {
-                response.status(400).json({ error: 'Invalid input data.' });
-            }
+            console.error(error); // Log the error object
+            response.status(400).json({ error: 'Invalid input data.' });
         }
     };
 }
