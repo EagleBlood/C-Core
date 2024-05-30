@@ -38,6 +38,7 @@ const Login: FunctionComponent<LoginProps> = ({ }) => {
     } else {
       // Handle error
       console.error('Failed to authenticate');
+      alert('Login failed. Please check your login and password.');
     }
   };
   

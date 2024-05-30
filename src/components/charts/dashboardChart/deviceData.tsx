@@ -1,14 +1,20 @@
 // src/components/charts/dashboard/DeviceDataChart.tsx
-import React, { useContext } from 'react';
+import React, { ForwardedRef, ReactNode, forwardRef, useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Device } from '../../../interfaces/DeviceContext';
 import { DefaultTheme, ThemeContext } from 'styled-components';
+import { Chart } from 'chart.js';
+import zoomPlugin from 'chartjs-plugin-zoom';
 
 interface DeviceDataChartProps {
   deviceData: Device[];
 }
 
-const DeviceDataChart: React.FC<DeviceDataChartProps> = ({ deviceData }) => {
+const DeviceDataChart = forwardRef((props: DeviceDataChartProps, ref: ForwardedRef<any>): ReactNode => {
+  const { deviceData } = props;
+
+  Chart.register(zoomPlugin);
+
   const themeContext = useContext<DefaultTheme | undefined>(ThemeContext);
   
   const data = {
@@ -50,6 +56,23 @@ const DeviceDataChart: React.FC<DeviceDataChartProps> = ({ deviceData }) => {
     },
     stacked: false,
 
+    plugins: {
+      zoom: {
+        pan: {
+          enabled: true,
+          mode: 'xy' as 'xy' | 'x' | 'y',
+        },
+        zoom: {
+          enabled: true,
+          mode: 'xy' as 'xy' | 'x' | 'y',
+          gestures: {
+            pinch: 'xy',
+            wheel: 'xy'
+          }
+        }
+      }
+    },
+
     scales: {
       x: {
         grid: {
@@ -89,6 +112,6 @@ const DeviceDataChart: React.FC<DeviceDataChartProps> = ({ deviceData }) => {
   };
 
   return <Line data={data} options={options}/>;
-};
+});
 
 export default DeviceDataChart;

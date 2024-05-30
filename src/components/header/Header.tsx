@@ -25,10 +25,9 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
   const handleLogout = async () => {
     console.log('Clicked');
     const token = localStorage.getItem('token');
-    console.log('token ', token);
+    //console.log('token ', token);
     if (token && userID) {
       try {
-        console.log('Try');
         const response = await fetch(`http://localhost:3100/api/user/logout/${userID}`, {
           method: 'DELETE',
           headers: {
@@ -40,8 +39,13 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
           localStorage.removeItem('token');
           navigate('/acc/login');
         } else {
-          const data = await response.json();
-          console.error('Failed to logout', data);
+          if (response.headers.get('Content-Type')?.includes('application/json')) {
+            const data = await response.json();
+            console.error('Failed to logout', data);
+          } else {
+            const text = await response.text();
+            console.error('Failed to logout', text);
+          }
         }
       } catch (error) {
         console.error('Error during logout', error);

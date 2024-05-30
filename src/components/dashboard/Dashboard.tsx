@@ -7,7 +7,7 @@ import { PhUserBoldSec } from "../../assets/PhUserBoldSec";
 import DashboardChart from "../charts/dashboardChart/chart";
 import { DashboardProps } from "./dashboard.props";
 import { Wrapper } from './dashboard.style';
-import { FunctionComponent, useEffect, useState } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import 'chart.js/auto';
 import { useNavigate } from "react-router-dom";
 import { Device } from "../../interfaces/DeviceContext";
@@ -27,6 +27,8 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     const [inactiveDevicesPerDay, setInactiveDevicesPerDay] = useState<Record<string, number>>({});
     const today = new Date().toISOString().split('T')[0];
     const activeDevicesToday = activeDevicesPerDay[today] || 0;
+    const [isChartActive, setIsChartActive] = useState(false);
+    const chartRef = useRef<{ chartInstance: { canvas: HTMLCanvasElement } } | null>(null);
 
     const addDevice = () => {
         navigate('/home/addDevice');
@@ -110,6 +112,22 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
             setActiveDevicesPerDay(activeDevicesPerDay);
             console.log(activeDevicesPerDay); // This will log the count of active devices per day
           });
+      }, []);
+
+      useEffect(() => {
+        if (chartRef.current) {
+          const chartCanvas = chartRef.current.chartInstance.canvas;
+      
+          chartCanvas.addEventListener('mousedown', () => setIsChartActive(true));
+          chartCanvas.addEventListener('mouseup', () => setIsChartActive(false));
+          chartCanvas.addEventListener('mouseleave', () => setIsChartActive(false));
+      
+          return () => {
+            chartCanvas.removeEventListener('mousedown', () => setIsChartActive(true));
+            chartCanvas.removeEventListener('mouseup', () => setIsChartActive(false));
+            chartCanvas.removeEventListener('mouseleave', () => setIsChartActive(false));
+          };
+        }
       }, []);
     
     return (
@@ -196,7 +214,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                             ))}
                                     </div>
 
-                                    <DeviceDataChart deviceData={deviceData} />
+                                    <DeviceDataChart deviceData={deviceData} ref={chartRef}/>
                                 </div>
                             }
                         </div>
