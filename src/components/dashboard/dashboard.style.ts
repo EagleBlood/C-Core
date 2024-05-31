@@ -119,8 +119,8 @@ export const Wrapper = styled.main`
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         aspect-ratio: auto;
         grid-column: 1 / -1;
-        background-color: transparent;
-        transition: background-color ${({theme}) => theme.values.time.slow}s;
+        background-color: transparent !important;
+        transition: none !important;
         color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
@@ -128,12 +128,18 @@ export const Wrapper = styled.main`
         display: flex;
         flex: 1;
         flex-direction: column;
-        gap: ${({theme}) => theme.values.size.items.mediumGap}px;
         min-height: 300px;
         max-height: 400px;
         border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+    }
+
+    .chartElement {
+
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px ${({theme}) => theme.values.size.items.itemPaddingLarge}px;
+        min-height: 600px;
+        max-height: 800px;
     }
 
     .selectedDeviceInfo {
@@ -142,6 +148,7 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.largeGap}px;
         text-align: left;
         width: 100%;
+        
     }
 
     .col {
@@ -153,15 +160,11 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.miniGap}px;
     }
 
-    .selectedLatestData {
-        display: flex;
-        flex-direction: row;
-        gap: ${({theme}) => theme.values.size.items.largeGap}px;
-    }
-
     .selectedRecentData {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-        gap: ${({theme}) => theme.values.size.items.mediumGap}px;
+        gap: ${({theme}) => theme.values.size.items.mediumGap}px; 
     }
+
+
 `;

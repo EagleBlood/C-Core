@@ -46,6 +46,7 @@ const DeviceDataChart = forwardRef((props: DeviceDataChartProps, ref: ForwardedR
   };
 
   const options = {
+    maintainAspectRatio: false,
     animation: {
       onComplete: () => {},
       onProgress: () => {},
@@ -58,28 +59,28 @@ const DeviceDataChart = forwardRef((props: DeviceDataChartProps, ref: ForwardedR
 
     plugins: {
       zoom: {
-          pan: {
-              enabled: true,
-              mode: 'xy' as 'xy' | 'x' | 'y',
+        pan: {
+          enabled: true,
+          mode: 'xy' as 'xy' | 'xy', // Allow panning in x direction only
+        },
+        zoom: {
+          wheel: {
+            enabled: true,
           },
-          zoom: {
-              wheel: {
-                  enabled: true,
-              },
-              drag: {
-                  enabled: false, // Disable drag to zoom
-              },
-              pinch: {
-                  enabled: true,
-              },
-              mode: 'xy' as 'xy' | 'x' | 'y',
-              gestures: {
-                  pinch: 'xy',
-                  wheel: 'xy'
-              }
+          drag: {
+            enabled: false, // Disable drag to zoom
+          },
+          pinch: {
+            enabled: true,
+          },
+          mode: 'x' as 'x', // Allow zooming in x direction only
+          gestures: {
+            pinch: 'xy', // Allow pinch to zoom in both x and y directions
+            wheel: 'x' // Allow wheel to zoom in x direction only
           }
+        }
       }
-  },
+    },
 
     scales: {
       x: {

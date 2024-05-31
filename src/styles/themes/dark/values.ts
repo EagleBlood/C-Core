@@ -25,6 +25,7 @@ const values = {
 
         itemPaddingSmall: 10,
         itemPaddingNormal: 20,
+        itemPaddingLarge: 40,
 
         buttonPadding: [10, 15],
       }

@@ -207,7 +207,9 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                             ))}
                                     </div>
 
-                                    <DeviceDataChart deviceData={deviceData} ref={chartRef}/>
+                                    <div className="chartElement">
+                                        <DeviceDataChart deviceData={deviceData} ref={chartRef}/>
+                                    </div>
                                 </div>
                             }
                         </div>
