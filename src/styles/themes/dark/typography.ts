@@ -144,6 +144,16 @@ const typography = css`
     transform: translate(-50%, -50%);
   }
 
+  ul {
+    margin: 0;
+  }
+
+  li {
+    cursor: pointer;
+    font-size: ${size.text.medium}px;
+    padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
+    transition: color ${({theme}) => theme.values.time.slow}s;
+  }
   
 `;
 export default typography;

@@ -1,4 +1,4 @@
-import { FunctionComponent, memo, useState } from "react";
+import { FunctionComponent, memo } from "react";
 
 import { HomeProps } from "./home.props";
 import { Wrapper } from './home.style';
@@ -6,7 +6,6 @@ import Header from "../../components/header/Header";
 import Menu from "../../components/menu/Menu";
 import { Outlet, useLocation, useMatch } from "react-router-dom";
 import AddDevice from "../../components/popups/addDevice/AddDevice";
-import { Device } from "../../interfaces/DeviceContext";
 import { motion } from "framer-motion";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
@@ -19,11 +18,6 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
   if (location.pathname === '/home/addDevice') {
     key = '/home';
   }
-  
-  const [devices, setDevices] = useState<Device[]>([]);
-  const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
-    
-  };
   
   return (
     <Wrapper>
@@ -51,7 +45,7 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
           </div>
 
           {showPopup && 
-              <AddDevice addDeviceToDashboard = {addDeviceToDashboard}/>
+              <AddDevice/>
           }
       
         </div>

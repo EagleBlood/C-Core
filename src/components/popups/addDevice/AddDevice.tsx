@@ -4,7 +4,7 @@ import { Wrapper } from './addDevice.style';
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) => {
+const AddDevice: FunctionComponent<AddDeviceProps> = ({  }) => {
   const [deviceName, setDeviceName] = useState('');
   const [deviceType, setDeviceType] = useState('');
   const [deviceId, setDeviceId] = useState('');
@@ -17,9 +17,7 @@ const AddDevice: FunctionComponent<AddDeviceProps> = ({ addDeviceToDashboard }) 
 
   const handleAddDevice = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-    if (addDeviceToDashboard) {
-      addDeviceToDashboard(deviceName, deviceType, deviceId);
-    }
+
     navigate('/home');
   };
 

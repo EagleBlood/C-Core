@@ -98,10 +98,5 @@ export const Wrapper = styled.main`
         display: flex;
         flex-direction: column;
         gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
-    }
-
-    .selectedListItem {
-        color: ${({theme}) => theme.colors.text.textSpecial};
-      }
 
 `;

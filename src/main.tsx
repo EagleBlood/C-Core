@@ -14,16 +14,9 @@ import {
 import Dashboard from './components/dashboard/Dashboard.tsx'
 import Users from './components/users/Users.tsx'
 import AddDevice from './components/popups/addDevice/AddDevice.tsx'
-import { Device } from './interfaces/DeviceContext.tsx'
-import ManageUser from './components/popups/manageUser/ManageUser.tsx'
+import MenuElement from './components/menuElement/MenuElement.tsx'
 
 function Main() {
-  const [, setDevices] = useState<Device[]>([]);
-
-  const addDeviceToDashboard = (deviceName: string, deviceType: string, deviceId: string) => {
-    setDevices(prevDevices => [...prevDevices, { deviceName, deviceType, deviceId }]);
-  };
-  
   const [theme, setTheme] = useState(() => {
     // Get the current theme from local storage or default to 'dark'
     const storedTheme = localStorage.getItem('theme');
@@ -59,13 +52,26 @@ function Main() {
           children: [
             {
               path: "/home/addDevice",
-              element: <AddDevice addDeviceToDashboard={addDeviceToDashboard}/>,
+              element: <AddDevice/>,
             },
+            
           ],
         },
         {
           path: "/profile",
           element: <Users />,
+        },
+        {
+          path: "/home/garage",
+          element: <MenuElement name="Garage" />,
+        },
+        {
+          path: "/home/bedroom",
+          element: <MenuElement name="Bedroom" />,
+        },
+        {
+          path: "/home/basement",
+          element: <MenuElement name="Basement" />,
         },
       ],
     },

@@ -4,69 +4,56 @@ import { Wrapper } from './menu.style';
 import { PhUserBold } from '../../assets/PhUserBold';
 import { PhHome } from '../../assets/PhHome';
 import { Link, useLocation } from 'react-router-dom';
-import { Tree } from "../tree/Tree";
+import Accordion from "../tree/Accordion";
 
 const Menu: FunctionComponent<MenuProps> = ({}) => {
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState(location.pathname);
-  const [expandedItem, setExpandedItem] = useState<string | null>(null);
+  const [isAccordionExpanded, setIsAccordionExpanded] = useState(false);
+  const [userInteracted, setUserInteracted] = useState(false);
 
   useEffect(() => {
     setSelectedItem(location.pathname);
+    if (location.pathname === '/profile') {
+      setIsAccordionExpanded(false);
+      setUserInteracted(false);
+    } else if (location.pathname === '/home' && !userInteracted) {
+      setIsAccordionExpanded(true);
+    }
   }, [location]);
+
+  const handleAccordionToggle = () => {
+    setIsAccordionExpanded(!isAccordionExpanded);
+    setUserInteracted(true);
+  };
 
   return (
     <Wrapper>
       <div className="menuContainer">
-        <Tree
-          name="Dashboard"
-          defaultOpen
-          icon={<PhHome/>}
-          className={expandedItem === '/home' ? "itemSelected" : "item"}
-          onClick={() => setExpandedItem('/home')}
-          isOpen={expandedItem === '/home'}
+        <Accordion
+          controllerElement={() => (
+            <Link to='/home' className={selectedItem.includes('/home') ? "itemSelected" : "item"}>
+              <PhHome/>
+              <p>Dashboard</p>
+            </Link>
+          )}
+          isExpanded={isAccordionExpanded}
+          setIsExpanded={handleAccordionToggle}
         >
+          <ul>
+            <Link to="/home/garage">
+              <li className={location.pathname === "/home/garage" ? "selectedListItem" : ""}>Garage</li>
+            </Link>
+            <Link to="/home/bedroom">
+              <li className={location.pathname === "/home/bedroom" ? "selectedListItem" : ""}>Bedroom</li>
+            </Link>
+            <Link to="/home/basement">
+              <li className={location.pathname === "/home/basement" ? "selectedListItem" : ""}>Basement</li>
+            </Link>
+          </ul>
+        </Accordion>
 
-<Tree name="main" defaultOpen>
-        <Tree name="hello" />
-        <Tree name="subtree with children">
-          <Tree name="hello" />
-          <Tree name="sub-subtree with children">
-            <Tree name="child 1" style={{ color: '#37ceff' }} />
-            <Tree name="child 2" style={{ color: '#37ceff' }} />
-            <Tree name="child 3" style={{ color: '#37ceff' }} />
-            <Tree name="custom content">
-              <div
-                style={{
-                  position: 'relative',
-                  width: '100%',
-                  height: 200,
-                  padding: 10,
-                }}>
-                <div
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    background: 'black',
-                    borderRadius: 5,
-                  }}
-                />
-              </div>
-            </Tree>
-          </Tree>
-          <Tree name="hello" />
-        </Tree>
-        <Tree name="world" />
-        <Tree name={<span>🙀 something something</span>} />
-      </Tree>
-          
-
-        </Tree>
-
-        <Link to='/profile' className={selectedItem === '/profile' ? "itemSelected" : "item"} onClick={() => {
-          setExpandedItem(null);
-          setSelectedItem('/profile');
-        }}>
+        <Link to='/profile' className={selectedItem === '/profile' ? "itemSelected" : "item"}>
           <PhUserBold/>
           <p>Users</p>
         </Link>
