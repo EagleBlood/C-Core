@@ -58,20 +58,28 @@ const DeviceDataChart = forwardRef((props: DeviceDataChartProps, ref: ForwardedR
 
     plugins: {
       zoom: {
-        pan: {
-          enabled: true,
-          mode: 'xy' as 'xy' | 'x' | 'y',
-        },
-        zoom: {
-          enabled: true,
-          mode: 'xy' as 'xy' | 'x' | 'y',
-          gestures: {
-            pinch: 'xy',
-            wheel: 'xy'
+          pan: {
+              enabled: true,
+              mode: 'xy' as 'xy' | 'x' | 'y',
+          },
+          zoom: {
+              wheel: {
+                  enabled: true,
+              },
+              drag: {
+                  enabled: false, // Disable drag to zoom
+              },
+              pinch: {
+                  enabled: true,
+              },
+              mode: 'xy' as 'xy' | 'x' | 'y',
+              gestures: {
+                  pinch: 'xy',
+                  wheel: 'xy'
+              }
           }
-        }
       }
-    },
+  },
 
     scales: {
       x: {

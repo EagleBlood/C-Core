@@ -42,21 +42,12 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     }, [window.location.pathname]);
 
     useEffect(() => {
-        fetch('http://localhost:3100/api/data/all')
-          .then(response => response.json())
-          .then(data => {
-            setDevices(data);
-          });
-    }, []);
-    
-    useEffect(() => {
         if (selectedDevice !== null) {
             fetch(`http://localhost:3100/api/data/${selectedDevice}`)
                 .then(response => response.json())
                 .then(data => {
                     setDeviceData(data);
                 });
-            console.log(selectedDevice);
         }
     }, [selectedDevice]);
     
@@ -76,43 +67,45 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     
     useEffect(() => {
         fetch('http://localhost:3100/api/data/all')
-          .then(response => response.json())
-          .then((data: any[]) => {
-            const twoWeeksAgo = Date.now() - 2 * 7 * 24 * 60 * 60 * 1000; // 2 weeks in milliseconds
-      
-            // Create a map where the key is the deviceId and the value is the latest readingDate for that device
-            const deviceLatestReadingDateMap = data.reduce((acc: Record<string, any>, curr: any) => {
-              if (!curr.readingDate) {
-                return acc;
-              }
-      
-              const currentReadingDate = new Date(curr.readingDate).getTime();
-              if (!acc[curr.deviceId] || currentReadingDate > acc[curr.deviceId]) {
-                acc[curr.deviceId] = currentReadingDate;
-              }
-      
-              return acc;
-            }, {});
-      
-            // Create a map to store the count of active devices per day
-            const activeDevicesPerDay: Record<string, number> = {};
-      
-            // Iterate over the map and check if the latest readingDate is later than two weeks ago
-            Object.keys(deviceLatestReadingDateMap).forEach((deviceId: string) => {
-              const readingDate = deviceLatestReadingDateMap[deviceId];
-              if (readingDate > twoWeeksAgo) {
-                const date = new Date(readingDate).toISOString().split('T')[0]; // Get the date part of the timestamp
-                if (!activeDevicesPerDay[date]) {
-                  activeDevicesPerDay[date] = 0;
-                }
-                activeDevicesPerDay[date]++;
-              }
+            .then(response => response.json())
+            .then((data: any[]) => {
+                setDevices(data);
+    
+                const twoWeeksAgo = Date.now() - 2 * 7 * 24 * 60 * 60 * 1000; // 2 weeks in milliseconds
+    
+                // Create a map where the key is the deviceId and the value is the latest readingDate for that device
+                const deviceLatestReadingDateMap = data.reduce((acc: Record<string, any>, curr: any) => {
+                    if (!curr.readingDate) {
+                        return acc;
+                    }
+    
+                    const currentReadingDate = new Date(curr.readingDate).getTime();
+                    if (!acc[curr.deviceId] || currentReadingDate > acc[curr.deviceId]) {
+                        acc[curr.deviceId] = currentReadingDate;
+                    }
+    
+                    return acc;
+                }, {});
+    
+                // Create a map to store the count of active devices per day
+                const activeDevicesPerDay: Record<string, number> = {};
+    
+                // Iterate over the map and check if the latest readingDate is later than two weeks ago
+                Object.keys(deviceLatestReadingDateMap).forEach((deviceId: string) => {
+                    const readingDate = deviceLatestReadingDateMap[deviceId];
+                    if (readingDate > twoWeeksAgo) {
+                        const date = new Date(readingDate).toISOString().split('T')[0]; // Get the date part of the timestamp
+                        if (!activeDevicesPerDay[date]) {
+                            activeDevicesPerDay[date] = 0;
+                        }
+                        activeDevicesPerDay[date]++;
+                    }
+                });
+    
+                setActiveDevicesPerDay(activeDevicesPerDay);
+                console.log(activeDevicesPerDay); // This will log the count of active devices per day
             });
-      
-            setActiveDevicesPerDay(activeDevicesPerDay);
-            console.log(activeDevicesPerDay); // This will log the count of active devices per day
-          });
-      }, []);
+    }, []);
 
       useEffect(() => {
         if (chartRef.current) {
