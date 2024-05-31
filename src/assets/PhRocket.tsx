@@ -8,7 +8,7 @@ export const PhRocket = () => {
   
   return (
 
-<svg fill={themeContext?.colors.bg.bgSecondary} version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 512 512"  >
+<svg fill={themeContext?.colors.text.textPrimary} version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 512 512"  >
 
 <g>
 	<path d="M127.083,247.824l50.031-76.906c0,0-74.734-29.688-109.547-3.078C32.755,194.465,0.005,268.184,0.005,268.184

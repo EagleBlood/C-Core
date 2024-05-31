@@ -1,43 +1,60 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PhAvatar } from "../../assets/PhAvatar";
 import { UsersProps } from "./users.props";
 import { Wrapper } from './users.style';
 import { FunctionComponent } from "react";
 import { User } from '../../interfaces/UserContext';
-import ManageUsers from '../popups/manageUser/ManageUser';
+import ManageUser from '../popups/manageUser/ManageUser';
 
 const Users: FunctionComponent<UsersProps> = ({}) => {
+  const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    fetch('http://localhost:3100/api/user/all')
+      .then(response => response.json())
+      .then(data => setUsers(data));
+  }, []);
 
   const handleUserClick = (user: User) => {
     setSelectedUser(user);
-    // Open the ManageUsers popup here
+    //console.log(user);
+    //console.log(user._id);
   };
 
-  // This is a placeholder user. In the future, you will fetch users from your database.
-  const user: User = {
-    id: 1,
-    username: 'User1',
-    email: 'user1@w.pl',
-    password: 'qwerty',
-    role: 'Admin',
+  const handleUserUpdate = (user: User) => {
+    // Update the user data here
+    // Then close the popup
+    setSelectedUser(null);
+  };
+
+  const handlePopupCancel = () => {
+    setSelectedUser(null);
+  };
+
+  const updateUser = (userId: number, userName: string, userEmail: string, userPassword: string, userRole: string) => {
+    // Implement the logic to edit user data here
+  };
+  
+  const removeUser = (userId: number) => {
+    // Implement the logic to delete user here
   };
 
   return (
     <Wrapper>
       <div className="scrollContainer">
         <div className="userContainer">
-
-          <div className="userBox" onClick={() => handleUserClick(user)}>
-            <PhAvatar/>
-            <div className="col">
-              <h1>{user.username}</h1>
-              <p>Role: <span className="specialText">{user.role}</span></p>
+          {users.map(user => (
+            <div key={user._id} className="userBox" onClick={() => handleUserClick(user)}>
+              <PhAvatar/>
+              <div className="col">
+                <h1>{user.name}</h1>
+                <p>Role: <span className="specialText">{user.role}</span></p>
+              </div>
             </div>
-          </div>
+          ))}
 
-          {selectedUser && <ManageUsers user={selectedUser} />}
-            
+          {selectedUser && <ManageUser user={selectedUser} onUpdate={handleUserUpdate} onCancel={handlePopupCancel} editUserData={updateUser} deleteUser={removeUser} />}
         </div>
       </div>
     </Wrapper>

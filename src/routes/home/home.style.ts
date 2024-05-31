@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.main`
     ${({theme}) => theme.typography};
     box-sizing: border-box;
-    background-color: ${({theme}) => theme.colors.bg.bgHelper};
+    background-color: ${({theme}) => theme.colors.bg.bgApp};
     color: ${({theme}) => theme.colors.text.textPrimary};
     transition: background-color ${({theme}) => theme.values.time.slow}s;
 

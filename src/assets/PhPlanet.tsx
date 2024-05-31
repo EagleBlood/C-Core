@@ -7,7 +7,7 @@ export const PhPlanet = () => {
 
   return (
 
-<svg fill={themeContext?.colors.bg.bgSecondary} height="700px" width="700px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<svg fill={themeContext?.colors.text.textPrimary} height="700px" width="700px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
 <g>
 	<g>
 		<path d="M511.583,241.256c-0.353-6.219-0.933-12.393-1.733-18.511c-0.4-3.06-0.855-6.104-1.364-9.135

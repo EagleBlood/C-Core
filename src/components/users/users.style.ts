@@ -36,7 +36,7 @@ export const Wrapper = styled.main`
         align-items: center;
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         aspect-ratio: 2 / 1;
-        background-color: ${({theme}) => theme.colors.bg.bgSecondary};
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         gap: ${({theme}) => theme.values.size.items.mediumGap}px;
         transition: background-color ${({theme}) => theme.values.time.slow}s;
@@ -47,17 +47,22 @@ export const Wrapper = styled.main`
         transition: fill ${({theme}) => theme.values.time.fast}s;
     }
 
+    .userBox:hover h1 {
+        color: ${({theme}) => theme.colors.bg.bgSpecial};
+        transition: color ${({theme}) => theme.values.time.fast}s;
+    }
+
 
     .itemSelected svg path {
         fill: ${({theme}) => theme.colors.bg.bgSpecial};
     }
 
     h1 {
-        color: ${({theme}) => theme.colors.text.textSecondary};
+        color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
     p {
-        color: ${({theme}) => theme.colors.text.textSecondary};
+        color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
     .specialText {

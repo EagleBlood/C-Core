@@ -1,11 +1,13 @@
 const colors = {
     bg: {
-        bgPrimary: '#EAEAEA',
+        bgApp: '#DFDFDF',
+        bgPrimary: '#DFDFDF',
         bgSecondary: '#1A1A1A',
-        bgThird: '#DDDDDD',
+        bgThird: '#BDBDBD',
         bgSpecial: '#DD7070',
         bgHelper: '#FFFFFF',
-        bgPopup: '#EAEAEAf0',
+        bgPopup: '#DFDFDF',
+        bgStroke: '#4E4E4E',
         bgGradient: 'radial-gradient(circle at top right, #FFFFFF -20%, #EAEAEA 60%, #EAEAEA 120%)',
     },
     item: {
@@ -14,10 +16,10 @@ const colors = {
     chart: {
         chartY0: '#DD707070',
         chartY1: '#1A1A1A70',
+        grids: '#4E4E4E40',
     },
     text: {
         textPrimary: '#1A1A1A',
-        textSecondary: '#EAEAEA',
         textSpecial: '#DD7070',
     },
   }
