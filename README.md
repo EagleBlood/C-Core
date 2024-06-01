@@ -108,20 +108,146 @@ Clicking on a user profile opens a window for editing their informations.
 
 # How it works
 
-By starting an app, Node.js server instance on port `::xxxx` will open that will be making http requests to `/api` backend server running on port `::3100`. 
+By starting an app, Node.js server instance on port `::5173` will open that will be making HTTP requests to `/api` backend server running on port `::3100`. 
 
 ## Data
 
-All devices with thier details are stored in MongoDB cluster. Same applies to user profile data. 
+All devices, along with their details, are stored in a MongoDB cluster. This data is managed through the DataService class in `api/lib/modules/services/data.service.ts`, which provides methods for creating, querying, and deleting device data. The `DataController` class in `api/lib/controllers/data.controller.ts` uses these services to handle HTTP requests related to device data.
+
+User profile data is also stored in the MongoDB. The user data can be accessed and manipulated through the `UserService` class in `api/lib/modules/services/user.service.ts`, and the corresponding `UserController` class in `api/lib/controllers/user.controller.ts`
+
+Connection to the cluster is established in the `App` class in `api/lib/app.ts`, specifically in the `connectToDatabase` method. This method handles the connection setup and also connection errors and disconnections.
+
+The data is then used throughout the application, including in the frontend components.
 
 ## User Auth
 
-User authentication is done with the [JWT]() library. Upon app launch, the locally stored token is checked for its presence and expiration date.
+User authentication is handled using [JWT](https://jwt.io/) library Upon app launch, the locally stored token is checked for its presence and expiration date.
+
+The JWT token is created in the `TokenService.create` method in the `token.service.ts` file. This method takes a user object as an argument, creates a payload with the user's information, and then signs it with a secret key to create the JWT token. The token is then saved in the database with the user's ID, the type of token, its value, and the creation date.
+
+The token is sent to the client and stored locally. Each time a request is made to the server, the token is sent in the headers of the request. The auth middleware in the `auth.middleware.ts` file then verifies the token. If the token is valid and not expired, the request is allowed to proceed. If the token is invalid or expired, an error message is sent back to the client.
+
+The JWT payload, defined in the JwtPayload interface in the `JwtPayloadContext.tsx` file, includes the user's `ID`, `name`, and the expiration timestamp of the `token`.
 
 # API endpoints
+List of aviable api requests
 
-...
+### For Device Data
+| Method   | URL                       | Description                                              |
+| -------- | ------------------------- | -------------------------------------------------------- |
+| `GET`    | `/api/data/all`           | Retrieve all data.                                       | 
+| `GET`    | `/api/data/:id`           | Retrieve all data for a specific device.                 | 
+| `GET`    | `/api/data/:id/:index`    | Retrieve data at a specific index for a specific device. | 
+| `GET`    | `/api/data/:id/:from/:to` | Retrieve a range of data for a specific device.          | 
+| `POST`   | `/api/data/add/:id`       | Add data for a specific device.                          | 
+| `DELETE` | `/api/data/delete/:id`    | Delete all data from a specific device.                  |
+
+- `POST` `/api/data/add/:id` - is used to add data for a specific device. It expects a request body containing `temperature`, `pressure`, and `humidity` fields. The `id` in the URL is the device ID.
+  
+  Request body:
+  ```json
+  {
+    "temperature": 25.5,
+    "pressure": 1013,
+    "humidity": 50
+  }
+  ```
+
+### For User Data
+| Method   | URL                        | Description                                 |
+| -------- | -------------------------- | ------------------------------------------- |
+| `GET`    | `/api/user/all`            | Get all the users                           |
+| `POST`   | `/api/user/create`         | Create a new user.                          |
+| `POST`   | `/api/user/auth`           | Authenticate a user and return a JWT token. |
+| `DELETE` | `/api/user/logout/:userId` | ogout a user and remove their session.      |
+
+- `POST` `/api/user/create` - is used to create a new user or update an existing one. It expects a request body containing user data fields such as `username`, `email`, and `password`.
+
+  Request body:
+  ```json
+  {
+    "username": "new_user",
+    "email": "new_user@example.com",
+    "password": "new_password"
+  }
+  ```
+  
+  Example of a successful response:
+  ```json
+  {
+    "username": "new_user",
+    "email": "new_user@example.com",
+    "_id": "user_id"
+  }
+  ```
+  
+  Example of a error response:
+  ```json
+  {
+    "error": "Bad request",
+    "value": "User could not be created or updated"
+  }
+  ```
+
+- `POST` `/api/user/auth` - is used to create a new user or update an existing one. It expects a request body containing user data fields such as `username`, `email`, and `password`.
+
+  Request body:
+  ```json
+  {
+    "login": "user@example.com",
+    "password": "user_password"
+  }
+  ```
+  
+  Example of a successful response:
+  ```json
+  {
+    "token": "jwt_token"
+  }
+  ```
+
+  Example of a error response:
+  ```json
+  {
+    "error": "Unauthorized"
+  }
+  ```
 
 # Dependencies
+### Frontend Application
+List of liblaries:
+```json
+{
+    "@react-spring/parallax": "^9.7.3",
+    "@react-spring/web": "^9.7.3",
+    "chartjs-plugin-zoom": "^2.0.1",
+    "framer-motion": "^11.1.5",
+    "jwt-decode": "^4.0.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3",
+    "socket.io-client": "^4.7.5",
+    "styled-components": "^6.1.8"
+  }
+```
 
-...
+### Backend Server:
+List of liblaries:
+```json
+{
+    "bcrypt": "^5.1.1",
+    "body-parser": "1.20.1",
+    "cors": "^2.8.5",
+    "ejs": "3.1.8",
+    "express": "4.18.2",
+    "graphql": "16.6.0",
+    "graphql-request": "5.0.0",
+    "joi": "17.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "8.2.1",
+    "morgan": "1.10.0",
+    "socket.io": "^4.7.5"
+  }
+```
