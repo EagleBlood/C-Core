@@ -216,7 +216,7 @@ List of aviable api requests
 
 # Dependencies
 ### Frontend Application
-List of liblaries:
+List of libraries:
 ```json
 {
     "@react-spring/parallax": "^9.7.3",
@@ -234,7 +234,7 @@ List of liblaries:
 ```
 
 ### Backend Server:
-List of liblaries:
+List of libraries:
 ```json
 {
     "bcrypt": "^5.1.1",
