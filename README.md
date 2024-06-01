@@ -64,7 +64,7 @@ Upon launching the app, it will automatically check if you're logged in and if y
   <img src="./img/login.PNG" alt="login">
 </p>
 
-If user don't have an account yet, one can be created.
+If the user doesn't have an account yet, one can be created.
 
 <p align="center">
   <img src="./img/reg.PNG" alt="register">
