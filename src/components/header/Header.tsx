@@ -16,7 +16,6 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
     const token = localStorage.getItem('token');
     if (token) {
       const decoded = jwtDecode<JwtPayload>(token);
-      console.log('decoded', decoded);
       setUserID(decoded.userId);
       setUserName(decoded.name);
     }

@@ -4,17 +4,35 @@ import { AppProps } from "./App.props";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import io from 'socket.io-client';
+import { jwtDecode } from "jwt-decode";
+import { JwtPayload } from "./interfaces/JwtPayloadContext";
 
 const App: React.FC<AppProps> = ({ toggleTheme }) => {
-  const [ socket, setSocket] = useState();
+  const [socket, setSocket] = useState();
   const navigate = useNavigate();
-
-  
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/acc/login');
+    }
+  }, []);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+  
+    if (token) {
+      const decoded = jwtDecode<JwtPayload>(token);
+  
+      if (decoded && typeof decoded === 'object' && 'exp' in decoded) {
+        const currentTime = Math.floor(Date.now() / 1000);
+  
+        if (decoded.exp < currentTime) {
+          // Token is expired
+          localStorage.removeItem('token');
+          navigate('/login');
+        }
+      }
     }
   }, []);
 
