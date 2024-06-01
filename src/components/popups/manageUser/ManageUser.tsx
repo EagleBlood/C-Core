@@ -142,7 +142,7 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                 </div>
 
                 {userId.toString() === decoded?.userId && (
-                  <div className="inputItemContainer">
+                  <div className="inputItemContainerToken">
                     <p>Token Expiration  Date</p>
                     <h2>{decoded && decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
                   </div>

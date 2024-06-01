@@ -16,10 +16,18 @@ export const Wrapper = styled.main`
         border-color: ${({theme}) => theme.colors.bg.bgSecondary};
     }
 
-    .inputItemContainer{
+    .inputItemContainer, .inputItemContainerToken {
         color: ${({theme}) => theme.colors.text.textPrimary};
         width: 100%;
     }
+    
+    .inputItemContainerToken {
+        text-align: right;
+        display: flex; 
+        flex-direction: column; 
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    }
+
 
     button {
         display: flex;
