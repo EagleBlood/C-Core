@@ -160,7 +160,7 @@ List of aviable api requests
 | `GET`    | `/api/user/all`            | Get all the users                           |
 | `POST`   | `/api/user/create`         | Create a new user.                          |
 | `POST`   | `/api/user/auth`           | Authenticate a user and return a JWT token. |
-| `DELETE` | `/api/user/logout/:userId` | ogout a user and remove their session.      |
+| `DELETE` | `/api/user/logout/:userId` | Logout a user and remove their session.      |
 
 - `POST` `/api/user/create` - is used to create a new user or update an existing one. It expects a request body containing user data fields such as `username`, `email`, and `password`.
 
