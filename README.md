@@ -53,7 +53,7 @@ npm run dev
 npm run watch
 ```
 
-## Step 3: Fill DataBase informations
+## Step 3: Fill configuration info
 
 In the `api/lib/config.ts` file, you need to provide your existing database information.
 ```ts
