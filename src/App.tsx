@@ -37,24 +37,33 @@ const App: React.FC<AppProps> = ({ toggleTheme }) => {
   }, []);
 
   useEffect(() => {
-
-    const socket = io('http://localhost:3100');
-
+    let socket;
+  
+    try {
+      socket = io('http://localhost:3100');
+    } catch (error) {
+      alert('Server connection failed');
+      return;
+    }
+  
     socket.on('connect', () => {
       console.log(`Connected with ID ${socket.id}`);
     });
-
+  
     socket.on('disconnect', () => {
       console.log(`Disconnected`);
     });
-
+  
+    socket.on('connect_error', () => {
+      alert('Server connection failed');
+    });
+  
     socket.on('error', (error) => {
       console.log('error:', error);
-  });
-
+    });
+  
     //@ts-ignore
     setSocket(socket);
-    
   }, []);
   
   /*TODO
