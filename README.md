@@ -83,13 +83,13 @@ If the user doesn't have an account yet, one can be created.
   <img src="./img/reg.PNG" alt="register">
 </p>
 
-A successful login grants full access to the dashboard functionality. Here, you can view, manage, and control all your connected devices in one place. Bookmarks for eazy device managment can be picked in the apps menu. To personalize your experience, you can change the app theme by clicking the icon next to the `Logout` button.
+A successful login grants full access to the dashboard functionality. Here, you can view, manage, and control all your connected devices in one place. Bookmarks for easy device managment can be picked in the apps menu. To personalize your experience, you can change the app theme by clicking the icon next to the `Logout` button.
 
 <p align="center">
   <img src="./img/dashboard1.PNG" alt="dashboard">
 </p>
 
-Clicking on listed devices will expand detailed information about picked divice. The chart displays historical data for the selected device. Thanks to the xxx plugin, you can freely move and zoom the chart for in-depth data analysis.
+Clicking on listed devices will expand detailed information about picked device. The chart displays historical data for the selected device. Thanks to the xxx plugin, you can freely move and zoom the chart for in-depth data analysis.
 
 <p align="center">
   <img src="./img/dashboard2.PNG" alt="dashboardDetails">
