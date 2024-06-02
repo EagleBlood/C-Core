@@ -19,11 +19,25 @@ export const Wrapper = styled.main`
     user-select: none;
   }
 
+  @keyframes pulse {
+    0%,
+    100% {
+      font-size: 5em;
+    }
+    50% {
+      font-size: 5.5em;
+    }
+  }
+
   .logoText {
     color: ${({ theme }) => theme.colors.text.textPrimary};
     position: relative;
     font-size: 5em;
-    transition: font-size ${({ theme }) => theme.values.time.fast}s ease-in-out;
+    animation: pulse 3.5s infinite ease-in-out;
+  }
+
+  .logoText:hover {
+    animation-play-state: paused;
   }
 
   .logoText:hover {
