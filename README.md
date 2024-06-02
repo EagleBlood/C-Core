@@ -53,6 +53,19 @@ npm run dev
 npm run watch
 ```
 
+## Step 3: Fill DataBase informations
+
+In the `api/lib/config.ts` file, you need to provide your existing database information.
+```ts
+export const config = {
+    // other config...
+    databaseUrl: process.env.MONGODB_URI || 'your_database_url',
+    JwtSecret: "your_jwt_secret"
+};
+```
+
+Replace `your_database_url` and `your_jwt_secret` with your actual MongoDB URI and JWT secret.
+
 # Functionality
 
 Upon launching the app, it will automatically check if you're logged in and if your access token is valid. If neither of these conditions is met, you will be redirected to the login screen.
