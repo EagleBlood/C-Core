@@ -1,5 +1,5 @@
 // src/components/charts/dashboard/DeviceDataChart.tsx
-import React, { ForwardedRef, ReactNode, forwardRef, useContext } from 'react';
+import { ForwardedRef, ReactNode, forwardRef, useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Device } from '../../../interfaces/DeviceContext';
 import { DefaultTheme, ThemeContext } from 'styled-components';

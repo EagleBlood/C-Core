@@ -6,7 +6,6 @@ import { PhPlanet } from '../../assets/PhPlanet.tsx'
 import { PhGalaxy } from "../../assets/PhGalaxy.tsx";
 import { PhAsteroid } from "../../assets/PhAsteroid.tsx";
 import { PhRocket } from "../../assets/PhRocket.tsx";
-import { PhHome } from "../../assets/PhHome.tsx";
 import { PhHomeFill } from "../../assets/PhHomeFill.tsx";
 
 const Intro: FunctionComponent<IntroProps> = ({ numberOfStars }) => {

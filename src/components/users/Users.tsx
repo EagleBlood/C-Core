@@ -23,8 +23,6 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
   };
 
   const handleUserUpdate = (user: User) => {
-    // Update the user data here
-    // Then close the popup
     setSelectedUser(null);
   };
 
@@ -33,11 +31,11 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
   };
 
   const updateUser = (userId: number, userName: string, userEmail: string, userPassword: string, userRole: string) => {
-    // Implement the logic to edit user data here
+    
   };
   
   const removeUser = (userId: number) => {
-    // Implement the logic to delete user here
+    
   };
 
   return (
