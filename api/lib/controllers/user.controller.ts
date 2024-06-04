@@ -21,6 +21,7 @@ class UserController implements Controller {
        this.router.post(`${this.path}/auth`, this.authenticate);
        this.router.delete(`${this.path}/logout/:userId`, auth, this.removeHashSession);
        this.router.get(`${this.path}/all`, this.getAllUsers);
+       this.router.delete(`${this.path}/delete/:userId`, this.removeUser);
     }
 
     private authenticate = async (request: Request, response: Response, next: NextFunction) => {
@@ -82,6 +83,18 @@ class UserController implements Controller {
           response.status(500).json({error: 'Internal server error'});
         }
       };
+
+    private removeUser = async (request: Request, response: Response, next: NextFunction) => {
+        const {userId} = request.params;
+    
+        try {
+            const result = await this.userService.remove(userId);
+            response.status(200).send(result);
+        } catch (error) {
+            console.error(`Validation Error: ${error}`);
+            response.status(401).json({error: 'Unauthorized'});
+        }
+    }
 
       
 

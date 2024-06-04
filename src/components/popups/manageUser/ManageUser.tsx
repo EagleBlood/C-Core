@@ -6,13 +6,15 @@ import { useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import { JwtPayload } from "../../../interfaces/JwtPayloadContext";
 
-const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, onUpdate, onCancel, deleteUser }) => {
+const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean }> = ({ user, onCancel, editUserData, deleteUser, onUserDataChange, shouldShowPopup }) => {
   const [userId, setUserId] = useState(0);
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [role, setRole] = useState(user.role);
+  const [active, setActive] = useState(user.active);
+  const [isAdmin, setIsAdmin] = useState(true);
+
+  const [isVisible, setIsVisible] = useState(shouldShowPopup);
   const token = localStorage.getItem('token');
 
   let decoded: JwtPayload | null = null;
@@ -22,35 +24,55 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
   }
 
   useEffect(() => {
+    setIsVisible(shouldShowPopup);
+  }, [shouldShowPopup]);
+
+  const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newRole = event.target.value;
+    setRole(newRole);
+    setIsAdmin(newRole === 'admin');
+  };
+  
+  const handleActiveStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setActive(event.target.value === 'true');
+  };
+
+  useEffect(() => {
     setUserId(user._id);
     setUsername(user.name);
-    setPassword(user.password);
     setEmail(user.email);
     setRole(user.role);
+    setActive(user.active);
+    setIsAdmin(user.isAdmin);
   }, [user]);
 
   
   const handleCancel = () => {
     setIsVisible(false);
-    setTimeout(onCancel, 400); // Delay onCancel to allow animation to finish
+    setTimeout(onCancel, 400);
   };
 
-  const handleEditUserData = (event: { preventDefault: () => void; }) => {
-    event.preventDefault();
+  const handleEditUserData = (event: React.FormEvent) => {
+    setIsVisible(false);
+    event.preventDefault(); // Prevent the form from submitting normally
+    setTimeout(() => {
     if (editUserData) {
-      editUserData(userId, username, password, email, role);
+      editUserData(userId, username, email, role, active, isAdmin);
+      const updatedUser = { _id: userId, name: username, email: email, role: role, active: active, isAdmin: isAdmin };
+      onUserDataChange(updatedUser); // Ensure onUserDataChange is defined and passed as a prop
+      console.log(isVisible);
     }
+  }, 400);
   }
-  
-  const handleUpdate = () => {
-    const updatedUser = { ...user, username, password, email, role };
-    setIsVisible(false); // Make the popup start disappearing
-    setTimeout(() => onUpdate(updatedUser), 400); // Delay onUpdate to allow animation to finish
-  };
 
   const handleDelete = () => {
     setIsVisible(false);
-    setTimeout(() => deleteUser(userId), 400);
+    setTimeout(() => {
+      deleteUser(userId);
+      if (decoded?.userId === userId.toString()) {
+        localStorage.removeItem('token'); // Remove the token from local storage
+      }
+    }, 400);
   }
 
   return (
@@ -104,12 +126,12 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                 </div>
               </div>
 
-              <div className="inputItemContainer">
+              {/*<div className="inputItemContainer">
                 <p>Password</p>
                 <div className="inputField">
                   <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
-              </div>
+          </div>*/}
 
               <div className="row">
                 
@@ -121,9 +143,9 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                         type="radio" 
                         id="admin" 
                         name="role" 
-                        value="true" 
-                        checked={user.role === "admin"} 
-                        onChange={() => setRole("admin")}
+                        value="admin" 
+                        onChange={handleRoleChange}
+                        checked={role === 'admin'}
                       />
                       <label htmlFor="admin">Admin</label>
                     </div>
@@ -132,11 +154,39 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
                         type="radio" 
                         id="user" 
                         name="role" 
-                        value="false" 
-                        checked={user.role === "user"} 
-                        onChange={() => setRole("user")}
+                        value="user" 
+                        onChange={handleRoleChange}
+                        checked={role === 'user'}
                       />
                       <label htmlFor="user">User</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="inputItemContainer">
+                  <p>Account availibity</p>
+                  <div className="col">
+                    <div className="row">
+                      <input 
+                        type="radio" 
+                        id="active" 
+                        name="activeStatus" 
+                        value="true"
+                        onChange={handleActiveStatusChange}
+                        checked={active === true}
+                      />
+                      <label htmlFor="active">Active</label>
+                    </div>
+                    <div className="row">
+                      <input 
+                        type="radio" 
+                        id="inactive" 
+                        name="activeStatus" 
+                        value="false" 
+                        onChange={handleActiveStatusChange}
+                        checked={active === false}
+                      />
+                      <label htmlFor="inactive">Inactive</label>
                     </div>
                   </div>
                 </div>
@@ -154,7 +204,7 @@ const ManageUser: FunctionComponent<ManageUserProps> = ({ editUserData, user, on
             </form>
             
             <div className="row">
-              <button type="submit" form="editUserForm" onClick={handleUpdate}>Confirm</button>
+              <button type="submit" form="editUserForm">Confirm</button>
               <button type="button" onClick={handleDelete}>Delete</button>
               <button type="button" onClick={handleCancel}>Cancel</button>
             </div>

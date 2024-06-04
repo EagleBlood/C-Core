@@ -12,8 +12,8 @@ class UserService {
                return await UserModel.findByIdAndUpdate(user._id, { $set: user }, { new: true });
            }
        } catch (error) {
-           console.error('Wystąpił błąd podczas tworzenia danych:', error);
-           throw new Error('Wystąpił błąd podczas tworzenia danych');
+           console.error('Error during data creation', error);
+           throw new Error('Error during data creation');
        }
    }
 
@@ -24,8 +24,8 @@ class UserService {
            return result;
        }
    } catch (error) {
-       console.error('Wystąpił błąd podczas pobierania danych:', error);
-       throw new Error('Wystąpił błąd podczas pobierania danych');
+       console.error('Error during data download', error);
+       throw new Error('Error during data download');
    }
 }
 
@@ -38,6 +38,15 @@ class UserService {
         throw error;
         }
     };
+
+    public async remove(userId: string) {
+        try {
+            return await UserModel.findByIdAndDelete(userId);
+        } catch (error) {
+            console.error('Error during data removal', error);
+            throw new Error('Error during data removal');
+        }
+    }
 }
 
 export default UserService;

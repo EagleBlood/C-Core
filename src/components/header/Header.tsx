@@ -18,6 +18,7 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
       const decoded = jwtDecode<JwtPayload>(token);
       setUserID(decoded.userId);
       setUserName(decoded.name);
+      console.log('decoded', decoded.userId);
     }
   }, []);
 

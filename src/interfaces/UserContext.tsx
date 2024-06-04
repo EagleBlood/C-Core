@@ -2,10 +2,11 @@ import { createContext } from "react";
 
 export type User = {
     _id: number;
-    name: string;
     email: string;
-    password: string;
+    name: string;
     role: string;
+    isAdmin: boolean;
+    active: boolean;
 };
   
 export interface UserContextProps {
