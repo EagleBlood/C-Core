@@ -24,6 +24,15 @@ export const Wrapper = styled.main`
         padding: ${({theme}) => theme.values.size.items.appPadding}px;
         box-sizing: border-box;
         min-width: 300px;
+        
+        overflow-y: auto;
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for Firefox */
+        scrollbar-width: none;
     }
 
     .render {
