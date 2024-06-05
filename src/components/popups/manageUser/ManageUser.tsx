@@ -3,8 +3,7 @@ import { ManageUserProps } from "./manageUser.props";
 import { Wrapper } from './manageUser.style';
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
-import { JwtPayload } from "../../../interfaces/JwtPayloadContext";
+import { useJwtPayload } from "../../../interfaces/JwtPayloadContext";
 
 const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean }> = ({ user, onCancel, editUserData, deleteUser, onUserDataChange, shouldShowPopup }) => {
   const [userId, setUserId] = useState(0);
@@ -15,13 +14,15 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
   const [isAdmin, setIsAdmin] = useState(true);
 
   const [isVisible, setIsVisible] = useState(shouldShowPopup);
-  const token = localStorage.getItem('token');
+  const jwtPayloadContext = useJwtPayload();
 
-  let decoded: JwtPayload | null = null;
-  if (token) {
-    decoded = jwtDecode(token);
-    //console.log('decoded', userId, user._id, decoded);
+  if (jwtPayloadContext && jwtPayloadContext.decoded) {
+    const userId = jwtPayloadContext.decoded.userId;
+    const exp = jwtPayloadContext.decoded.exp;
+    
+    // use userId and exp here
   }
+
 
   useEffect(() => {
     setIsVisible(shouldShowPopup);
@@ -69,11 +70,15 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
     setIsVisible(false);
     setTimeout(() => {
       deleteUser(userId);
-      if (decoded?.userId === userId.toString()) {
+      if (userId) {
         localStorage.removeItem('token'); // Remove the token from local storage
       }
     }, 400);
   }
+
+  const handleRefreshToken = async () => {
+
+  };
 
   return (
     <Wrapper>
@@ -191,10 +196,15 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
                   </div>
                 </div>
 
-                {userId.toString() === decoded?.userId && (
+                {userId.toString() === jwtPayloadContext?.decoded?.userId && (
                   <div className="inputItemContainerToken">
-                    <p>Token Expiration  Date</p>
-                    <h2>{decoded && decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
+                    <div className="row">
+                      <div className="col">
+                        <p>Token Expiration  Date</p>
+                        <h2>{jwtPayloadContext?.decoded?.exp ? new Date(jwtPayloadContext.decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
+                      </div>
+                      <button type="button" onClick={handleRefreshToken}>Refresh Token</button>
+                    </div>
                   </div>
                 )}
 

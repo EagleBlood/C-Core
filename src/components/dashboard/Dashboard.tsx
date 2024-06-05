@@ -52,17 +52,12 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
     }, [selectedDevice]);
     
     useEffect(() => {
-        const localUserCount = localStorage.getItem('userCount');
-        if (localUserCount) {
-            setUserCount(JSON.parse(localUserCount));
-        } else {
-            fetch('http://localhost:3100/api/user/all')
-                .then(response => response.json())
-                .then(data => {
-                    setUserCount(data.length);
-                    localStorage.setItem('userCount', JSON.stringify(data.length));
-                });
-        }
+        fetch('http://localhost:3100/api/user/all')
+            .then(response => response.json())
+            .then(data => {
+                setUserCount(data.length);
+                localStorage.setItem('userCount', JSON.stringify(data.length));
+            });
     }, []);
     
     useEffect(() => {
