@@ -6,6 +6,15 @@
 
 React application made with TypeScript utilizing [Vite](https://vitejs.dev) build tool. A web app designed for home needs, featuring a user-friendly dashboard that allows device data monitoring and user managment. Powered by a custom Node.js server.
 
+#### Quick overview:
+- JWT Auth
+- User Creation
+- User Managment
+- Device Managment
+- Charts
+- Themes Setting
+- Custom API
+
 # Getting Started
 
 > [!NOTE]
@@ -110,10 +119,10 @@ The `Users` menu provides a comprehensive view of all user accounts within the d
   <img src="./img/Users.PNG" alt="usersScreen">
 </p>
 
-Clicking on a user profile opens a window for editing their informations.
+Clicking on a user profile opens a window for editing their informations. User details can be modified or account can be deleted pernamently by Admin.
 
 > [!WARNING]
->  Functionality for editing and removing profiles isn't implemented yet.
+>  Functionality for editing is currently bugged as modifing data can lead to auth problems as password can be missing.
 
 <p align="center">
   <img src="./img/popup1.PNG" alt="userPopup">
