@@ -98,7 +98,7 @@ A successful login grants full access to the dashboard functionality. Here, you 
   <img src="./img/dashboard1.PNG" alt="dashboard">
 </p>
 
-Clicking on listed devices will expand detailed information about picked device. The chart displays historical data for the selected device. Thanks to the xxx plugin, you can freely move and zoom the chart for in-depth data analysis.
+Clicking on listed devices will expand detailed information about picked device. The chart displays historical data for the selected device. Thanks to the [chartjs-plugin-zoom](https://www.chartjs.org/chartjs-plugin-zoom/latest/) plugin, you can freely move and zoom the chart for in-depth data analysis.
 
 <p align="center">
   <img src="./img/dashboard2.PNG" alt="dashboardDetails">
