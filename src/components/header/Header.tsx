@@ -11,6 +11,7 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
   const [userID, setUserID] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
   const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,7 +21,15 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
       setUserName(decoded.name);
       console.log('decoded', decoded.userId);
     }
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
+
 
   const handleLogout = async () => {
     console.log('Clicked');
@@ -58,6 +67,9 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
       <div className="bar">
         <Logo/>
         <h1 className="username">{userName}</h1>
+        <h2>{currentTime.toLocaleTimeString()}</h2>
+        <h2>{currentTime.toLocaleDateString()}</h2>
+        
         <button onClick={toggleTheme}><ThemeIcon /></button>
         <button onClick={handleLogout}><h2>Logout</h2></button>
       </div>
