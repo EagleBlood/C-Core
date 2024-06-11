@@ -75,6 +75,10 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
     }, 400);
   }
 
+  const handleRefreshToken = async () => {
+
+  };
+
   return (
     <Wrapper>
       <AnimatePresence>
@@ -193,8 +197,16 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
 
                 {userId.toString() === decoded?.userId && (
                   <div className="inputItemContainerToken">
-                    <p>Token Expiration  Date</p>
+                    <div className="row">
+                      <div className="col">
+                      <p>Token Expiration  Date</p>
                     <h2>{decoded && decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
+                      </div>
+                      <button type="button" onClick={handleRefreshToken}>Refresh Token</button>
+                    </div>
+
+                    
+                   
                   </div>
                 )}
 

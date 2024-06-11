@@ -39,7 +39,6 @@ export default class DataService {
         const latestData: (typeof DataModel | { deviceId: number } | {})[] = [];
         await Promise.all(
             Array.from({ length: 17 }, async (_, i) => {
-                console.log(`Checking device id: ${i}`); // Log the device id
                 try {
                     const latestEntry = await DataModel.find({ deviceId: i  }, { __v: 0, _id: 0 }).limit(1).sort({$natural:-1});
                     if (latestEntry && latestEntry.length > 0) {
