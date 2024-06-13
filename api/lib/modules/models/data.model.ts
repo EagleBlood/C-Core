@@ -4,6 +4,7 @@ export interface IData {
     humidity: number;
     deviceId: number;
     readingDate?: Date;
+    location: string;
  }
  
  export type Query<T> = {

@@ -30,10 +30,31 @@ class DataController implements Controller {
 
         // Device add data
         this.router.post(`${this.path}/add/:id`, checkIdParam, this.addData);
+        this.router.post(`${this.path}/updateLocation/:id`, this.updateDeviceLocationHandler);
 
         // Device delete data
         this.router.delete(`${this.path}/delete/:id`, checkIdParam, this.deleteAllDataFromDevice);
     }
+
+    private updateDeviceLocationHandler = async (request: Request, response: Response, next: NextFunction) => {
+        const { id } = request.params;
+        // Change from newLocation to location
+        const { location: newLocation } = request.body;
+    
+        // Debugging: Log the received newLocation
+        console.log(`Updating location for device ${id} to:`, newLocation);
+    
+        if (newLocation === undefined) {
+            return response.status(400).json({ error: 'newLocation must be provided.' });
+        }
+    
+        try {
+            await this.dataService.updateDeviceLocation(parseInt(id), newLocation);
+            response.status(200).json({ message: `Location updated for device ${id} to ${newLocation}` });
+        } catch (error) {
+            next(error); // Pass errors to the error handling middleware
+        }
+    };
     
     private getAllDeviceData = async (request: Request, response: Response, next: NextFunction) => {
         const { id } = request.params;
@@ -98,7 +119,8 @@ class DataController implements Controller {
             pressure,
             humidity,
             deviceId: Number(id),
-            readingDate : new Date()
+            readingDate : new Date(),
+            location: 'unknown'
         }
     
         try {

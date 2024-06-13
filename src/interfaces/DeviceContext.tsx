@@ -4,4 +4,5 @@ export interface Device {
     pressure?: number;
     humidity?: number;
     readingDate?: string;
+    location?: string;
 };

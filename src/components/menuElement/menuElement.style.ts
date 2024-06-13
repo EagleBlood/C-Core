@@ -2,101 +2,169 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.main`
     display: flex;
-    box-sizing: border-box;
-    padding-bottom: ${({theme}) => theme.values.size.items.appPadding}px;
+    overflow: hidden;
 
-
-    // Tree.tsx styles
-
-    .row {
-
-        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
-        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
-        text-align: right;
-    }
-
-    .listContainer {
-        width: 100%;
-    }
-
-    //
-
-
-    .menuContainer {
+    .scrollContainer {
         display: flex;
         flex-direction: column;
-        box-sizing: border-box;
-        min-width: 250px;
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+        width: 100%;
+        max-height: 100vh;
+        overflow-y: auto;
+        padding-bottom: ${({theme}) => theme.values.size.items.appPadding}px;
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for Firefox */
+        scrollbar-width: none;
+    }
+
+    .deviceInfoContainer {
+        display: flex;
+        flex-direction: row;
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        
+    }
+
+    .deviceInfo,
+    .deviceInfoSpecial {
+        display: flex;
+        flex-direction: column;
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deviceInfoSpecial,
+    .deviceInfoSpecial svg path {
+        color: ${({theme}) => theme.colors.text.textSpecial};
+        fill: ${({theme}) => theme.colors.text.textSpecial};
+    }
+
+    .verticleLine {
+        height: 100%;
+        width: 4px;
+        background-color: ${({theme}) => theme.colors.bg.bgStroke};
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
+    }
+    
+    .horizantalLine {
+        width: 100%;
+        height: 1px;
+        background-color: ${({theme}) => theme.colors.bg.bgStroke};
+        transition: background-color ${({theme}) => theme.values.time.slow}s;
+    }
+
+    .deviceListContainer {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: ${({theme}) => theme.values.size.items.mediumGap}px;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
         border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
         padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
-        color: ${({theme}) => theme.colors.text.textPrimary};
-        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
-        align-items: center;
-        transition: background-color ${({theme}) => theme.values.time.slow}s;
-        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
     }
-
-    .item {
+    
+    .addDevice, 
+    .device {
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
         display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
+        justify-content: center;
         align-items: center;
-        cursor: pointer;
-        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
-        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
-        width: 100%;
-        box-sizing: border-box;
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        aspect-ratio: 1 / 1;
         transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
-
-    .item:hover {
+    
+    .addDevice {
         background-color: ${({theme}) => theme.colors.bg.bgThird};
-        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
         color: ${({theme}) => theme.colors.text.textPrimary};
-        transition: background-color ${({theme}) => theme.values.time.slow}s;
     }
 
-    .item:hover svg path {
-        fill: ${({theme}) => theme.colors.text.textPrimary};
-    }
-
-    .itemSelected {
-        justify-content: flex-start;
-        padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
+    .addDevice:hover {
         background-color: ${({theme}) => theme.colors.bg.bgSpecial};
-        border-radius: ${({theme}) => theme.values.size.items.radiusSmall}px;
-        display: flex;
-        flex-direction: row;
-        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
-        align-items: center;
-        cursor: pointer;
-        width: 100%;
-        box-sizing: border-box;
-    }
+        transition: background-color ${({theme}) => theme.values.time.fast}s;
 
-    .itemSelected p{
+    }
+    
+    .device {
+        display: flex;
+        flex-direction: column;
+        // flex-wrap: wrap;  // To blocks be all the same, gona wrap the text inside
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+        background-color: ${({theme}) => theme.colors.bg.bgThird};
         color: ${({theme}) => theme.colors.text.textPrimary};
     }
 
-    .itemSelected svg path {
-        fill: ${({theme}) => theme.colors.text.textPrimary};
+    .device h1,
+    .device h2,
+    .device p {
+    transition: color ${({theme}) => theme.values.time.fast}s;
     }
 
-    .appName {
-        flex-grow: 1;
+    .device:hover {
+        background-color: ${({theme}) => theme.colors.bg.bgSpecial};
+        color: ${({theme}) => theme.colors.text.textPrimary};
+        transition: background-color ${({theme}) => theme.values.time.fast}s;
+    }
+
+    .device.selected {
+        text-align: center;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+        aspect-ratio: auto;
+        grid-column: 1 / -1;
+        background-color: transparent !important;
+        transition: none !important;
+        color: ${({theme}) => theme.colors.text.textPrimary};
+    }
+
+    .chartContainer {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 300px;
+        max-height: 400px;
+        border: 1px solid ${({theme}) => theme.colors.bg.bgStroke};
+        border-radius: ${({theme}) => theme.values.size.items.radiusNormal}px;
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px;
+    }
+
+    .chartElement {
+
+        padding: ${({theme}) => theme.values.size.items.itemPaddingNormal}px ${({theme}) => theme.values.size.items.itemPaddingLarge}px;
+        min-height: 600px;
+        max-height: 800px;
+    }
+
+    .selectedDeviceInfo {
         display: flex;
         flex-direction: column;
-        justify-content: flex-end;
+        gap: ${({theme}) => theme.values.size.items.largeGap}px;
+        text-align: left;
+        width: 100%;
+        
     }
 
-    .verName {
-        font-size: ${({theme}) => theme.values.size.text.small}px;
+    .col {
+        min-width: 250px;
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
     }
 
-    ul {
-        display: flex;
-        flex-direction: column;
-        gap: ${({theme}) => theme.values.size.items.itemPaddingSmall}px;
+    .row {
+        gap: ${({theme}) => theme.values.size.items.miniGap}px;
+    }
+
+    .selectedRecentData {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: ${({theme}) => theme.values.size.items.mediumGap}px; 
+    }
+
 
 `;

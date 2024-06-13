@@ -35,24 +35,37 @@ export default class DataService {
         }
     }
 
-    public async getAllNewest(): Promise<(typeof DataModel | { deviceId: number } | {})[]> {
-        const latestData: (typeof DataModel | { deviceId: number } | {})[] = [];
+    public async getAllNewest(): Promise<(typeof DataModel | { deviceId: number, location?: string } | {})[]> {
+        const latestData: (typeof DataModel | { deviceId: number, location: string } | {})[] = [];
         await Promise.all(
             Array.from({ length: 17 }, async (_, i) => {
                 try {
-                    const latestEntry = await DataModel.find({ deviceId: i  }, { __v: 0, _id: 0 }).limit(1).sort({$natural:-1});
-                    if (latestEntry && latestEntry.length > 0) {
-                        latestData.push(latestEntry[0]);
+                    // Fetch the latest entry for the device, including the location
+                    const latestEntry = await DataModel.findOne({ deviceId: i }, { __v: 0, _id: 0 }).sort({ $natural: -1 });
+                    if (latestEntry) {
+                        // Use the latest entry directly, assuming it includes the most recent location update
+                        latestData.push({ ...latestEntry.toObject(), deviceId: i });
                     } else {
-                        latestData.push({deviceId: i});
+                        // If there's no entry, still include the device with a null location
+                        latestData.push({ deviceId: i, location: null });
                     }
                 } catch (error: any) {
-                    console.error(`Błąd podczas pobierania danych dla urządzenia ${i + 1}: ${error.message}`);
-                    latestData.push({});
+                    console.error(`Error while fetching data for device ${i + 1}: ${error.message}`);
+                    latestData.push({ deviceId: i, location: null }); // Error case, include deviceId and null location
                 }
             })
         );
         return latestData;
+    }
+
+    public async updateDeviceLocation(deviceId: number, newLocation: string): Promise<void> {
+        try {
+            await DataModel.updateMany({ deviceId }, { $set: { location: newLocation } });
+            console.log(`Location updated for all devices with ID ${deviceId} to ${newLocation}`);
+        } catch (error) {
+            console.error(`Error updating location for devices with ID ${deviceId}: ${error}`);
+            throw error; // Rethrow or handle as needed
+        }
     }
 
     public async deleteData(deviceID: string) {
