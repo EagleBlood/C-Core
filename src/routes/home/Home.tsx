@@ -7,10 +7,11 @@ import Menu from "../../components/menu/Menu";
 import { Outlet, useLocation, useMatch } from "react-router-dom";
 import AddDevice from "../../components/popups/addDevice/AddDevice";
 import { motion } from "framer-motion";
+import ManageUser from "../../components/popups/manageUser/ManageUser";
 
 const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => { 
-  const match = useMatch("/home/addDevice");
-  const showPopup = !!match;
+  const matchAddDevice = useMatch("/home/addDevice");
+  const showAddDevicePopup = !!matchAddDevice;
   const location = useLocation();
   let key = location.pathname;
 
@@ -18,6 +19,15 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
   if (location.pathname === '/home/addDevice') {
     key = '/home';
   }
+
+  // To not play animation on manage users popup route
+  // Fixed the regular expression check for pathname
+  if (/^\/profile\/([a-zA-Z0-9]+)$/.test(location.pathname)) {
+    key = '/profile';
+  }
+
+  // Determine if the ManageUser component should be shown
+  const showManageUserPopup = /^\/profile\/([a-zA-Z0-9]+)$/.test(location.pathname);
   
   return (
     <Wrapper>
@@ -44,8 +54,12 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
               </motion.div>
           </div>
 
-          {showPopup && 
+          {showAddDevicePopup && 
               <AddDevice/>
+          }
+
+          {showManageUserPopup && 
+              <ManageUser/>
           }
       
         </div>

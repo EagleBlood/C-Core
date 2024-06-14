@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.main`
+
     .formContainer {
         display: flex;
         flex-direction: column;
@@ -27,7 +28,6 @@ export const Wrapper = styled.main`
         flex-direction: column; 
         gap: ${({theme}) => theme.values.size.items.miniGap}px;
     }
-
 
     button {
         display: flex;
@@ -61,7 +61,6 @@ export const Wrapper = styled.main`
     .col {
         gap: ${({theme}) => theme.values.size.items.smallGap}px;
         justify-content: left;
-
     }
 
     .radiocontent {
@@ -82,24 +81,24 @@ export const Wrapper = styled.main`
         height: 1em;
         border: 0.1em solid ${({theme}) => theme.colors.bg.bgSecondary};
         border-radius: 50%;
-      }
-      
-      input[type='radio']:before {
+    }
+    
+    input[type='radio']:before {
         display: block;
         border-radius: 50%;
         width: 100%;
         height: 100%;
-      }
-      
-      input[type='radio']:checked {
+    }
+    
+    input[type='radio']:checked {
         border-color: ${({theme}) => theme.colors.bg.bgSpecial};
-      }
-      
-      input[type='radio']:checked:before {
+    }
+    
+    input[type='radio']:checked:before {
         background: ${({theme}) => theme.colors.bg.bgSpecial};
-      }
+    }
 
-      .backdrop {
+    .backdrop {
         position: fixed;
         top: 0;
         left: 0;
@@ -108,9 +107,5 @@ export const Wrapper = styled.main`
         background: rgba(0, 0, 0, 0.5);
         backdrop-filter: blur(5px);
         z-index: 1;
-      }
-
-
-    
-
+    }
 `;

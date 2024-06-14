@@ -15,6 +15,7 @@ import Dashboard from './components/dashboard/Dashboard.tsx'
 import Users from './components/users/Users.tsx'
 import AddDevice from './components/popups/addDevice/AddDevice.tsx'
 import MenuElement from './components/menuElement/MenuElement.tsx'
+import ManageUser from './components/popups/manageUser/ManageUser.tsx'
 
 function Main() {
   const [theme, setTheme] = useState(() => {
@@ -54,12 +55,17 @@ function Main() {
               path: "/home/addDevice",
               element: <AddDevice/>,
             },
-            
           ],
         },
         {
           path: "/profile",
           element: <Users />,
+          children: [
+            {
+              path: "/profile/:userId",
+              element: <ManageUser />,
+            },
+          ],
         },
         {
           path: "/home/garage",

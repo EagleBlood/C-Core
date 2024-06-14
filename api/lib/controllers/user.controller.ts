@@ -21,6 +21,7 @@ class UserController implements Controller {
        this.router.post(`${this.path}/auth`, this.authenticate);
        this.router.delete(`${this.path}/logout/:userId`, auth, this.removeHashSession);
        this.router.get(`${this.path}/all`, this.getAllUsers);
+       this.router.get(`${this.path}/:userId`, this.getUserById);
        this.router.delete(`${this.path}/delete/:userId`, this.removeUser);
     }
 
@@ -83,6 +84,24 @@ class UserController implements Controller {
           response.status(500).json({error: 'Internal server error'});
         }
       };
+
+      private getUserById = async (request: Request, response: Response, next: NextFunction) => {
+        const { userId } = request.params;
+    
+        try {
+            const user = await this.userService.getUserById(userId);
+            if (!user) {
+                response.status(404).json({ error: 'User not found' });
+            } else {
+                response.status(200).json(user);
+            }
+        } catch (error) {
+            console.error(`Error fetching user by ID: ${error}`);
+            response.status(500).json({ error: 'Internal server error' });
+        }
+    };
+
+
 
     private removeUser = async (request: Request, response: Response, next: NextFunction) => {
         const {userId} = request.params;

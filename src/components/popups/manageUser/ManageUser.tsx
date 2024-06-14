@@ -1,100 +1,139 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { ManageUserProps } from "./manageUser.props";
 import { Wrapper } from './manageUser.style';
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { motion } from "framer-motion";
+import { jwtDecode } from "jwt-decode"; // Corrected import statement
 import { JwtPayload } from "../../../interfaces/JwtPayloadContext";
 
-const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean }> = ({ user, onCancel, editUserData, deleteUser, onUserDataChange, shouldShowPopup }) => {
-  const [userId, setUserId] = useState(0);
+const ManageUser: FunctionComponent<ManageUserProps> = () => {
+  const { userId } = useParams<{ userId: string }>();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [role, setRole] = useState(user.role);
-  const [active, setActive] = useState(user.active);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("");
+  const [active, setActive] = useState<boolean | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [decodedToken, setDecodedToken] = useState<JwtPayload | null>(null); // Added state for decoded token
 
-  const [isVisible, setIsVisible] = useState(shouldShowPopup);
-  const token = localStorage.getItem('token');
-
-  let decoded: JwtPayload | null = null;
-  if (token) {
-    decoded = jwtDecode(token);
-    //console.log('decoded', userId, user._id, decoded);
-  }
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setIsVisible(shouldShowPopup);
-  }, [shouldShowPopup]);
-
-  const handleRoleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newRole = event.target.value;
-    setRole(newRole);
-    setIsAdmin(newRole === 'admin');
-  };
-  
-  const handleActiveStatusChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setActive(event.target.value === 'true');
-  };
-
-  useEffect(() => {
-    setUserId(user._id);
-    setUsername(user.name);
-    setEmail(user.email);
-    setRole(user.role);
-    setActive(user.active);
-    setIsAdmin(user.isAdmin);
-  }, [user]);
-
-  
-  const handleCancel = () => {
-    setIsVisible(false);
-    setTimeout(onCancel, 400);
-  };
-
-  const handleEditUserData = (event: React.FormEvent) => {
-    setIsVisible(false);
-    event.preventDefault(); // Prevent the form from submitting normally
-    setTimeout(() => {
-    if (editUserData) {
-      editUserData(userId, username, email, role, active, isAdmin);
-      const updatedUser = { _id: userId, name: username, email: email, role: role, active: active, isAdmin: isAdmin };
-      onUserDataChange(updatedUser); // Ensure onUserDataChange is defined and passed as a prop
-      console.log(isVisible);
+    if (userId) {
+      fetch(`http://localhost:3100/api/user/${userId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text(); // First, get the response as text
+        })
+        .then(text => {
+          if (!text) {
+            throw new Error('Response body is empty');
+          }
+          console.log('Response body:', text); // Log the raw response body for debugging
+          return JSON.parse(text); // Manually parse the text as JSON
+        })
+        .then(data => {
+          setUsername(data.name);
+          setEmail(data.email);
+          setRole(data.role);
+          setActive(data.active);
+          // Set other user details as needed
+        })
+        .catch(error => {
+          console.error('There was a problem with your fetch operation:', error);
+        });
     }
-  }, 400);
-  }
+  }, [userId]);
 
-  const handleDelete = () => {
-    setIsVisible(false);
-    setTimeout(() => {
-      deleteUser(userId);
-      if (decoded?.userId === userId.toString()) {
-        localStorage.removeItem('token'); // Remove the token from local storage
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decoded: JwtPayload = jwtDecode<JwtPayload>(token); // Use try-catch to safely decode
+        setCurrentUserId(decoded.userId); // Assuming the token has a userId field
+        setDecodedToken(decoded); // Update the state with the decoded token
+        console.log('decoded', decoded);
+      } catch (error) {
+        console.error("Error decoding token:", error);
+        // Handle the error (e.g., navigate to a login page, show an error message)
       }
-    }, 400);
-  }
+    }
+  }, []);
+  
+  // Handlers for form inputs and buttons
+  const handleEditUserData = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const formValues: Record<string, FormDataEntryValue> = {};
+    for (let [key, value] of formData.entries()) {
+      formValues[key] = value;
+    }
+  
+    // Assuming `currentUserId` holds the _id of the user being edited
+    if (currentUserId) {
+      console.log('Updating user with ID:', currentUserId);
+      formValues['_id'] = currentUserId;
+      console.log('Updated values:', formValues);
+    }
+  
+    fetch('http://localhost:3100/api/user/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formValues),
+    })
+    .then(response => response.json())
+    .then(data => console.log('Success:', data))
+    .catch((error) => console.error('Error:', error));
+  
+    console.log(formValues);
+    navigate('/profile');
+  };
 
-  const handleRefreshToken = async () => {
+  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRole(e.target.value);
+  };
 
+  const handleActiveStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setActive(e.target.value === 'true');
+  };
+
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`http://localhost:3100/api/user/delete/${userId}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        // Refresh the user list or redirect as needed
+        navigate('/profile');
+      } else {
+        // Handle server errors or unsuccessful deletion
+        const error = await response.json();
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error('Failed to delete user:', error);
+    }
+  };
+
+  const handleCancel = () => {
+    navigate('/profile');
   };
 
   return (
     <Wrapper>
-      <AnimatePresence>
-        {isVisible && (
-          <motion.div 
-            className="backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
-          />
-        )}
-      </AnimatePresence>
-      
-      <AnimatePresence>
-        {isVisible && (
+        <motion.div 
+          className="backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0, 0.71, 0.2, 1.01] }}
+        />
+
           <motion.div 
             className="popupContainer"
             initial={{ opacity: 0 }}
@@ -119,23 +158,23 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
               <div className="inputItemContainer">
                 <p>Username</p>
                 <div className="inputField">
-                  <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
+                  <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} name="name"/>
                 </div>
               </div>
 
               <div className="inputItemContainer">
                 <p>Email</p>
                 <div className="inputField">
-                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                  <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} name="email"/>
                 </div>
               </div>
 
-              {/*<div className="inputItemContainer">
+              <div className="inputItemContainer">
                 <p>Password</p>
                 <div className="inputField">
-                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} name="password"/>
                 </div>
-          </div>*/}
+              </div>
 
               <div className="row">
                 
@@ -168,7 +207,7 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
                 </div>
 
                 <div className="inputItemContainer">
-                  <p>Account availibity</p>
+                  <p>Account availability</p>
                   <div className="col">
                     <div className="row">
                       <input 
@@ -195,24 +234,14 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
                   </div>
                 </div>
 
-                {userId.toString() === decoded?.userId && (
-                  <div className="inputItemContainerToken">
-                    <div className="row">
-                      <div className="col">
-                      <p>Token Expiration  Date</p>
-                    <h2>{decoded && decoded.exp ? new Date(decoded.exp * 1000).toLocaleString() : 'N/A'}</h2>
-                      </div>
-                      <button type="button" onClick={handleRefreshToken}>Refresh Token</button>
-                    </div>
-
-                    
-                   
+                {userId.toString() === decodedToken?.userId && (
+                  <div className="inputItemContainer">
+                    <p>Token Expiration Date</p>
+                    <h2>{decodedToken && decodedToken.exp ? new Date(decodedToken.exp * 1000).toLocaleString() : 'N/A'}</h2>
                   </div>
                 )}
 
               </div>
-
-
             </form>
             
             <div className="row">
@@ -222,8 +251,7 @@ const ManageUser: FunctionComponent<ManageUserProps & { shouldShowPopup: boolean
             </div>
 
           </motion.div>
-        )}
-      </AnimatePresence>
+
     </Wrapper>
   );
 };

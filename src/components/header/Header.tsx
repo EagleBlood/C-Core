@@ -19,7 +19,8 @@ const Header: FunctionComponent<HeaderProps> = ({ toggleTheme }) => {
       const decoded = jwtDecode<JwtPayload>(token);
       setUserID(decoded.userId);
       setUserName(decoded.name);
-      console.log('decoded', decoded.userId);
+      console.log('decoded', decoded);
+      console.log(token);
     }
     const timer = setInterval(() => {
       setCurrentTime(new Date());

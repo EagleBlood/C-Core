@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { PhAvatar } from "../../assets/PhAvatar";
 import { UsersProps } from "./users.props";
 import { Wrapper } from './users.style';
 import { FunctionComponent } from "react";
 import { User } from '../../interfaces/UserContext';
-import ManageUser from '../popups/manageUser/ManageUser';
+
+interface DecodedToken extends JwtPayload {
+  userId: string;
+}
 
 const Users: FunctionComponent<UsersProps> = ({}) => {
   const [users, setUsers] = useState<User[]>([]);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [shouldShowPopup, setShouldShowPopup] = useState(false);
+  const navigate = useNavigate();
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: DecodedToken | null = jwtDecode<DecodedToken>(token);
+      setCurrentUserId(decoded?.userId ?? null);
+      console.log('decoded', decoded);
+    }
+  }, []);
 
   useEffect(() => {
     fetch('http://localhost:3100/api/user/all')
@@ -17,60 +31,18 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
       .then(data => setUsers(data));
   }, []);
 
+
   const handleUserClick = (user: User) => {
-    setSelectedUser(user);
-    setShouldShowPopup(true);
-    console.log(shouldShowPopup);
-  };
-
-  const handlePopupCancel = () => {
-    setSelectedUser(null);
-  };
-
-  const handleUserDataChange = (updatedUser: User) => {
-    setUsers(users.map(user => user._id === updatedUser._id ? updatedUser : user));
-    setSelectedUser(null);
-  }
-
-  const updateUser = (userId: number, userName: string, userEmail: string, userRole: string, isActive: boolean, isAdmin: boolean) => {
-    fetch(`http://localhost:3100/api/user/create`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            _id: userId,
-            name: userName,
-            email: userEmail,
-            role: userRole,
-            active: isActive,
-            isAdmin: isAdmin,
-        }),
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Handle the response data here
-        console.log(data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-  };
-
-  const removeUser = (userId: number) => {
-    fetch(`http://localhost:3100/api/user/delete/${userId}`, {
-        method: 'DELETE',
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Handle the response data here
-        console.log(data);
-        setUsers(users.filter(user => user._id !== userId)); // Update the users state
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-    });
-    setSelectedUser(null);
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: DecodedToken | null = jwtDecode<DecodedToken>(token);
+      if (decoded && decoded.userId === user._id) {
+        console.log('This is the currently logged-in user');
+      } else {
+        console.log('This is a different user');
+      }
+    }
+    navigate(`/profile/${user._id}`);
   };
 
   return (
@@ -78,7 +50,7 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
       <div className="scrollContainer">
         <div className="userContainer">
           {users.map(user => (
-            <div key={user._id} className="userBox" onClick={() => handleUserClick(user)}>
+            <div key={user._id.toString()} className={`userBox ${currentUserId === user._id.toString() ? 'itemSelected' : ''}`} onClick={() => handleUserClick(user)}>
               <PhAvatar/>
               <div className="col">
                 <h1>{user.name}</h1>
@@ -86,12 +58,10 @@ const Users: FunctionComponent<UsersProps> = ({}) => {
               </div>
             </div>
           ))}
-  
-          {selectedUser && <ManageUser shouldShowPopup={shouldShowPopup} user={selectedUser} onUserDataChange={handleUserDataChange} onCancel={handlePopupCancel} editUserData={updateUser} deleteUser={removeUser} />}
         </div>
       </div>
     </Wrapper>
   );
-}
+};
 
 export default Users;
