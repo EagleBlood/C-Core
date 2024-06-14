@@ -198,6 +198,7 @@ const Dashboard: FunctionComponent<DashboardProps> = ({}) => {
                                                     <p>Pressure: {device.pressure}</p>
                                                     <p>Humidity: {device.humidity}</p>
                                                     <p>Reading Date: {device.readingDate ? new Date(device.readingDate).toLocaleDateString() : 'N/A'}</p>
+                                                    <p>Reading Time: {device.readingDate ? new Date(device.readingDate).toLocaleTimeString() : 'N/A'}</p>
                                                 </div>
                                             ))}
                                     </div>

@@ -63,15 +63,15 @@ function Main() {
         },
         {
           path: "/home/garage",
-          element: <MenuElement/>,
+          element: <MenuElement name="Garage"/>,
         },
         {
           path: "/home/bedroom",
-          element: <MenuElement/>,
+          element: <MenuElement name="Bedroom"/>,
         },
         {
           path: "/home/basement",
-          element: <MenuElement/>,
+          element: <MenuElement name="Basement"/>,
         },
       ],
     },

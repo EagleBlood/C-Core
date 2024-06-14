@@ -154,6 +154,12 @@ const typography = css`
     padding: ${({theme}) => `${theme.values.size.items.buttonPadding[0]}px ${theme.values.size.items.buttonPadding[1]}px`};
     transition: color ${({theme}) => theme.values.time.slow}s;
   }
+
+  .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
   
 `;
 export default typography;

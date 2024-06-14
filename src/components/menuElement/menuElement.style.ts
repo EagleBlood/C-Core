@@ -166,5 +166,7 @@ export const Wrapper = styled.main`
         gap: ${({theme}) => theme.values.size.items.mediumGap}px; 
     }
 
+    
+
 
 `;
