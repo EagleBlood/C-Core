@@ -12,17 +12,20 @@ class PasswordService {
    }
 
    public async authorize(userId: string, password: string) {
-       try {
-           const result = await PasswordModel.findOne({ userId: userId, password: password });
-           if (result) {
-               return true;
-           }
-       } catch (error) {
-           console.error('Wystąpił błąd podczas tworzenia danych:', error);
-           throw new Error('Wystąpił błąd podczas tworzenia danych');
-       }
-
-   }
+    try {
+        const user = await PasswordModel.findOne({ userId: userId });
+        if (user) {
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (passwordMatch) {
+                return true;
+            }
+        }
+    } catch (error) {
+        console.error('Error during authorization:', error);
+        throw new Error('Error during authorization');
+    }
+    return false;
+}
 
    async hashPassword(password: string): Promise<string> {
        const saltRounds = 10;

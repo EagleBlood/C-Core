@@ -15,13 +15,10 @@ const Home: FunctionComponent<HomeProps> = ({ toggleTheme }) => {
   const location = useLocation();
   let key = location.pathname;
 
-  // To not play animation on add device popup route
   if (location.pathname === '/home/addDevice') {
     key = '/home';
   }
 
-  // To not play animation on manage users popup route
-  // Fixed the regular expression check for pathname
   if (/^\/profile\/([a-zA-Z0-9]+)$/.test(location.pathname)) {
     key = '/profile';
   }

@@ -13,8 +13,14 @@ const Menu: FunctionComponent<MenuProps> = ({}) => {
   const [userInteracted, setUserInteracted] = useState(false);
 
   useEffect(() => {
+    // Check if the current path starts with '/profile'
+    const isProfilePath = /^\/profile/.test(location.pathname);
+  
     setSelectedItem(location.pathname);
-    if (location.pathname === '/profile') {
+  
+    if (isProfilePath) {
+      // If the current path is related to the profile, set selectedItem to '/profile'
+      setSelectedItem('/profile');
       setIsAccordionExpanded(false);
       setUserInteracted(false);
     } else if (location.pathname === '/home' && !userInteracted) {

@@ -10,7 +10,6 @@ const ManageUser: FunctionComponent<ManageUserProps> = () => {
   const { userId } = useParams<{ userId: string }>();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [active, setActive] = useState<boolean | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
@@ -62,36 +61,57 @@ const ManageUser: FunctionComponent<ManageUserProps> = () => {
     }
   }, []);
   
-  // Handlers for form inputs and buttons
-  const handleEditUserData = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const formValues: Record<string, FormDataEntryValue> = {};
-    for (let [key, value] of formData.entries()) {
-      formValues[key] = value;
+// Handlers for form inputs and buttons
+const handleEditUserData = (event: React.FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  const formValues: Record<string, FormDataEntryValue> = {};
+  for (let [key, value] of formData.entries()) {
+    formValues[key] = value;
+  }
+
+  // Use `userId` from URL parameters instead of `currentUserId`
+  if (userId) {
+    console.log('Updating user with ID:', userId);
+    formValues['_id'] = userId; // Ensure the backend uses this _id for identifying the user to update
+    console.log('Updated values:', formValues);
+  }
+
+  fetch('http://localhost:3100/api/user/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formValues),
+  })
+  .then(response => {
+    if (!response.ok) {
+      return response.json().then(errorBody => {
+        if (response.status === 409) {
+          // Handle duplicate key error specifically
+          alert(errorBody.message); // Use the message from the backend
+        } else {
+          console.error('Error Body:', errorBody);
+          alert('An error occurred. Please try again.');
+        }
+        throw errorBody;
+      });
     }
-  
-    // Assuming `currentUserId` holds the _id of the user being edited
-    if (currentUserId) {
-      console.log('Updating user with ID:', currentUserId);
-      formValues['_id'] = currentUserId;
-      console.log('Updated values:', formValues);
-    }
-  
-    fetch('http://localhost:3100/api/user/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formValues),
-    })
-    .then(response => response.json())
-    .then(data => console.log('Success:', data))
-    .catch((error) => console.error('Error:', error));
-  
-    console.log(formValues);
-    navigate('/profile');
-  };
+    return response.json();
+  })
+  .then(data => {
+    // Handle success
+    console.log('User created:', data);
+  })
+  .catch(error => {
+    // Handle errors not caught by response.ok check
+    console.error('Request failed:', error);
+  });
+
+  console.log(formValues);
+  // Consider using a more SPA-friendly way of navigation
+  window.location.href = '/profile';
+};
 
   const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRole(e.target.value);
@@ -109,10 +129,7 @@ const ManageUser: FunctionComponent<ManageUserProps> = () => {
   
       if (response.ok) {
         // Refresh the user list or redirect as needed
-        navigate('/profile');
-      } else {
-        // Handle server errors or unsuccessful deletion
-        const error = await response.json();
+        window.location.href = '/profile';
       }
     } catch (error) {
       // Handle network errors
@@ -166,13 +183,6 @@ const ManageUser: FunctionComponent<ManageUserProps> = () => {
                 <p>Email</p>
                 <div className="inputField">
                   <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} name="email"/>
-                </div>
-              </div>
-
-              <div className="inputItemContainer">
-                <p>Password</p>
-                <div className="inputField">
-                  <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} name="password"/>
                 </div>
               </div>
 
@@ -234,7 +244,7 @@ const ManageUser: FunctionComponent<ManageUserProps> = () => {
                   </div>
                 </div>
 
-                {userId.toString() === decodedToken?.userId && (
+                {userId?.toString() === decodedToken?.userId && (
                   <div className="inputItemContainer">
                     <p>Token Expiration Date</p>
                     <h2>{decodedToken && decodedToken.exp ? new Date(decodedToken.exp * 1000).toLocaleString() : 'N/A'}</h2>
